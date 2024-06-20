@@ -1,0 +1,24 @@
+:host {
+  @apply px-4 py-2.5 border-b border-solid border-secondary w-full flex justify-between;
+}
+
+.input {
+  @apply h-10;
+  &::placeholder {
+    @apply text-secondary font-medium text-base;
+  }
+}
+
+.btn {
+  @apply h-10 min-h-10;
+
+  &:hover {
+    @apply text-neutral;
+  }
+}
+
+.btn-svg-toggle {
+  &:hover svg path {
+    @apply fill-neutral;
+  }
+}
