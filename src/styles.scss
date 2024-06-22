@@ -60,3 +60,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.ng-scrollbar-sticky {
+  @apply mr-1;
+}
+
+.ng-scrollbar-track {
+  background-color: rgba(29, 53, 87, 0.25) !important;
+}
