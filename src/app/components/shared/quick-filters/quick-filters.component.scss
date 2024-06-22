@@ -22,3 +22,34 @@
     @apply fill-neutral;
   }
 }
+
+
+mat-datepicker-toggle::ng-deep {
+  & button {
+    @apply text-secondary;
+  }
+}
+
+::ng-deep {
+  mat-datepicker-content {
+    @apply bg-secondary #{!important};
+    & span, td {
+      @apply text-neutral #{!important};
+    }
+
+    & .mat-calendar-body-selected {
+      @apply bg-primary #{!important};
+    }
+
+    & .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+      @apply border-primary #{!important};
+    }
+
+    & button {
+      @apply text-neutral #{!important};
+      & svg {
+        @apply fill-neutral #{!important};
+      }
+    }
+  }
+}
