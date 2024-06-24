@@ -4,6 +4,7 @@ import {MatDatepickerModule,} from "@angular/material/datepicker";
 import {FormControl, FormGroup} from "@angular/forms";
 import {DateAdapter, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MatInput, MatSuffix} from "@angular/material/input";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-quick-filters',
@@ -12,7 +13,8 @@ import {MatInput, MatSuffix} from "@angular/material/input";
     NgOptimizedImage,
     MatDatepickerModule,
     MatInput,
-    MatSuffix
+    MatSuffix,
+    RouterLink
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}

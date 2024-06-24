@@ -1,0 +1,25 @@
+:host {
+  @apply h-full w-full p-4;
+}
+
+.input {
+  &::placeholder {
+    @apply text-secondary font-semibold text-2xl opacity-50;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.textarea {
+  &::placeholder {
+    @apply text-secondary font-semibold text-base opacity-50;
+  }
+}
