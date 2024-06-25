@@ -16,24 +16,46 @@
   <p class="text-primary text-base font-semibold mb-2.5">Opis projektu:</p>
   <textarea class="textarea textarea-secondary w-full h-36 resize-none" placeholder="Description..."></textarea>
 </div>
-
 <div class="px-2.5 flex flex-col">
   <p class="text-primary text-base font-semibold mb-2.5">Potrzebne role oraz liczba uczestników:</p>
-  <div class="border border-solid border-secondary px-6 py-4 rounded-lg w-2/5">
-    <!--    TODO make an another component from this part -->
-    <div class="flex items-center gap-2.5">
-      <p class="text-primary font-medium text-xl">Grafik</p>
-      <svg width="14" height="2" viewBox="0 0 14 2" class="fill-primary" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 2H0V0H14V2Z"/>
-      </svg>
-      <div
-          class="text-primary border border-solid border-primary rounded-lg w-8 h-10 text-xl flex justify-center items-center">
-        1
-      </div>
-      <svg width="14" height="14" viewBox="0 0 14 14" class="fill-primary" xmlns="http://www.w3.org/2000/svg">
+  <div class="flex flex-col gap-4 border border-solid border-secondary px-6 py-4 rounded-lg w-2/5">
+    <app-new-position [positionName]="'Grafik'"/>
+    <div class="flex">
+      <input type="text" placeholder="Dodaj pozycje"
+             class="input input-bordered input-secondary px-3 text-secondary font-semibold text-xl mr-2.5 h-10"/>
+      <button class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" class="fill-neutral" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col gap-2.5 mt-auto font-semibold text-xl text-primary px-2.5">
+  <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+    <p>Osoba odpowiedzialna za kierownictwo projektem:</p>
+    <input type="text" placeholder="Kierownik projektu"
+           class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-2/5"/>
+  </div>
+  <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+    <p>Terminy oddania projektu bądź jego kamieni milowych:</p>
+    <div class="flex text-primary relative w-44">
+      <input matInput [matDatepicker]="startPicker" placeholder="dd/mm/yyyy"
+             class="input input-bordered input-secondary text-secondary h-10 datepicker w-full">
+      <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-0 text-secondary" matIconSuffix
+                             [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </div>
+  </div>
+  <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 ">
+    <p class="text-base">Sponsorzy projektu:</p>
+    <div class="border border-dashed border-primary w-24 h-24 relative">
+      <svg width="14" height="14" viewBox="0 0 14 14"
+           class="fill-primary absolute m-auto top-0 bottom-0 right-0 left-0 cursor-pointer"
+           xmlns="http://www.w3.org/2000/svg">
         <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z"/>
       </svg>
-
     </div>
   </div>
 </div>
