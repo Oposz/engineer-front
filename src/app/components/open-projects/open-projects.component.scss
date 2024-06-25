@@ -2,10 +2,15 @@
   @apply w-full h-full flex flex-col
 }
 
-.ng-scrollbar-sticky {
-  @apply mr-1;
+::ng-deep {
+  .ng-scrollbar-sticky {
+    @apply mr-1;
+  }
+
+  .ng-scrollbar-track {
+    @apply rounded-lg #{!important};
+    background-color: rgba(29, 53, 87, 0.25) !important;
+  }
 }
 
-.ng-scrollbar-track {
-  background-color: rgba(29, 53, 87, 0.25) !important;
-}
+

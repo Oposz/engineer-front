@@ -11,6 +11,10 @@ export const routes: Routes = [
       .then(m => m.YourTeamsComponent)
   },
   {
+    path: 'team-details', loadComponent: () => import('./components/team-details/team-details.component')
+      .then(m => m.TeamDetailsComponent)
+  },
+  {
     path: 'open-projects', loadComponent: () => import('./components/open-projects/open-projects.component')
       .then(m => m.OpenProjectsComponent)
   },

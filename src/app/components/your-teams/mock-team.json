@@ -1,0 +1,334 @@
+{
+  "teams": [
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-12-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    },
+    {
+      "name": "Team name",
+      "description": "Lorem ipsum",
+      "university": "Lorem ipsum",
+      "manager": "Lorem ipsum",
+      "enrolled": 3,
+      "role": "Grafik",
+      "max_slots": 4,
+      "end_date": "2024-06-22T22:59:59.000Z"
+    }
+  ]
+}

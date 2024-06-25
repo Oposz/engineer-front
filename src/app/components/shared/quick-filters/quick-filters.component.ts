@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {MatDatepickerModule,} from "@angular/material/datepicker";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -23,6 +23,13 @@ import {RouterLink} from "@angular/router";
   styleUrl: './quick-filters.component.scss'
 })
 export class QuickFiltersComponent implements OnInit {
+
+  @Input()
+  addButton = true;
+
+  @Input()
+  dateRange = true;
+
 
   readonly range = new FormGroup({
     start: new FormControl<Date | null>({value: null, disabled: true}),

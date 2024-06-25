@@ -1,23 +1,23 @@
 import {Component, Input} from '@angular/core';
-import {Project} from "../../../shared/constants/project";
 import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {getDate, getRemainingDays} from "../../../utils/date";
+import {Team} from "../../../shared/constants/team";
 
 @Component({
-  selector: 'app-project-card',
+  selector: 'app-team-card',
   standalone: true,
   imports: [
     NgOptimizedImage,
     RouterLink
   ],
-  templateUrl: './project-card.component.html',
-  styleUrl: './project-card.component.scss'
+  templateUrl: './team-card.component.html',
+  styleUrl: './team-card.component.scss'
 })
-export class ProjectCardComponent {
+export class TeamCardComponent {
 
   @Input({required: true})
-  project!: Project
+  team!: Team;
 
   protected readonly getDate = getDate;
   protected readonly getRemainingDays = getRemainingDays;
