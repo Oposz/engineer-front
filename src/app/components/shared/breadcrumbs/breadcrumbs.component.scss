@@ -1,0 +1,5 @@
+.breadcrumbs {
+  & li::before {
+    @apply text-secondary opacity-100 ml-1 mr-1.5;
+  }
+}

@@ -28,6 +28,8 @@ module.exports = {
 		 "warning": "#00ff00",
 
 		 "error": "#E63946",
+
+		 "primary-content": "#ffffff"
 		},
 	 },
 	],

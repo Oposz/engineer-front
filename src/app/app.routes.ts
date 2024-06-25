@@ -19,6 +19,10 @@ export const routes: Routes = [
       .then(m => m.AddNewProjectComponent),
   },
   {
+    path: 'project-details', loadComponent: () => import('./components/project-details/project-details.component')
+      .then(m => m.ProjectDetailsComponent),
+  },
+  {
     path: 'universities', loadComponent: () => import('./components/universities/universities.component')
       .then(m => m.UniversitiesComponent)
   },

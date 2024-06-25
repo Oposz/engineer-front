@@ -5,7 +5,8 @@
          alt="project photo"
          width="36"
          height="36">
-    <p class="text-primary font-semibold text-2xl">{{ project.name }}</p>
+    <p class="text-primary font-semibold text-2xl cursor-pointer"
+       [routerLink]="'/project-details'">{{ project.name }}</p>
   </div>
   <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
 </div>

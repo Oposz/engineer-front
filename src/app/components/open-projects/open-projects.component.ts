@@ -5,6 +5,7 @@ import * as mockData from './mock-projects.json'
 import {ProjectCardComponent} from "./project-card/project-card.component";
 import {Project} from "../../shared/constants/project";
 import {NgScrollbar} from "ngx-scrollbar";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-open-projects',
@@ -13,7 +14,8 @@ import {NgScrollbar} from "ngx-scrollbar";
     ViewHeaderComponent,
     QuickFiltersComponent,
     ProjectCardComponent,
-    NgScrollbar
+    NgScrollbar,
+    RouterLink
   ],
   templateUrl: './open-projects.component.html',
   styleUrl: './open-projects.component.scss'
