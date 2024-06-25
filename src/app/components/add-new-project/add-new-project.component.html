@@ -1,16 +1,19 @@
-<div class="flex items-center mb-8">
-  <div class="relative mr-2.5">
-    <img [ngSrc]="'assets/icons/ellipse-avatar.svg'"
-         class="w-12 h-12"
-         alt="project photo"
-         width="48"
-         height="48">
-    <img class="w-6 h-6 absolute top-0 bottom-0 right-0 left-0 m-auto" ngSrc="assets/icons/edit-pencil.svg"
-         alt="edit-icon"
-         height="24" width="24">
+<div class="flex justify-between">
+  <div class="flex items-center mb-8">
+    <div class="relative mr-2.5">
+      <img [ngSrc]="'assets/icons/ellipse-avatar.svg'"
+           class="w-12 h-12"
+           alt="project photo"
+           width="48"
+           height="48">
+      <img class="w-6 h-6 absolute top-0 bottom-0 right-0 left-0 m-auto" ngSrc="assets/icons/edit-pencil.svg"
+           alt="edit-icon"
+           height="24" width="24">
+    </div>
+    <input type="text" placeholder="Project Name..."
+           class="input input-bordered input-secondary px-3 text-secondary font-semibold text-2xl"/>
   </div>
-  <input type="text" placeholder="Project Name..."
-         class="input input-bordered input-secondary px-3 text-secondary font-semibold text-2xl"/>
+  <button class="btn btn-primary">Zapisz</button>
 </div>
 <div class="px-2.5 mb-5 flex flex-col">
   <p class="text-primary text-base font-semibold mb-2.5">Opis projektu:</p>
@@ -23,7 +26,7 @@
     <div class="flex">
       <input type="text" placeholder="Dodaj pozycje"
              class="input input-bordered input-secondary px-3 text-secondary font-semibold text-xl mr-2.5 h-10"/>
-      <button class="btn btn-primary">
+      <button class="btn btn-primary add-button">
         <svg width="14" height="14" viewBox="0 0 14 14" class="fill-neutral" xmlns="http://www.w3.org/2000/svg">
           <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z"/>
         </svg>
