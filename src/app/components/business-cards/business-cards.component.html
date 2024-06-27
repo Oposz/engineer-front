@@ -1,1 +1,21 @@
-<p>buiseness-cards works!</p>
+<app-view-header>
+  <ng-container header>
+    Wizytówki
+  </ng-container>
+  <ng-container description>
+    Aktualnie znajdujesz się w miejscu agregowania wszystkich wizytówek ludzi, z którymi pracujesz. Jeśli potrzebujesz
+    jakiejś pomocy czy porady, a nie wiesz jak do kogoś dotrzeć to miejsce dla Ciebie.
+  </ng-container>
+</app-view-header>
+<app-quick-filters [addButton]="false" [dateRange]="false"/>
+
+<ng-scrollbar orientation="vertical" visibility="native"
+              [trackClass]="'my-4'"
+              [thumbClass]="'!rounded-lg !bg-primary'">
+  <div class="p-4 grid grid-cols-1 gap-4">
+    @for (card of data; track card.id) {
+      <app-business-card [cardData]="card"/>
+    }
+  </div>
+</ng-scrollbar>
+
