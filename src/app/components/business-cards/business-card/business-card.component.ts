@@ -1,10 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {BusinessCard} from "../../../shared/constants/businessCard";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-business-card',
   standalone: true,
-  imports: [],
+  imports: [
+    NgOptimizedImage
+  ],
   templateUrl: './business-card.component.html',
   styleUrl: './business-card.component.scss'
 })
