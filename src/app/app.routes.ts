@@ -31,6 +31,10 @@ export const routes: Routes = [
       .then(m => m.UniversitiesComponent)
   },
   {
+    path: 'universities/:id', loadComponent: () => import('./components/university-view/university-view.component')
+      .then(m => m.UniversityViewComponent)
+  },
+  {
     path: 'calendar', loadComponent: () => import('./components/calendar/calendar.component')
       .then(m => m.CalendarComponent)
   },

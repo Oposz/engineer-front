@@ -1,1 +1,19 @@
-<p>universities works!</p>
+<app-view-header>
+  <ng-container header>
+    Uczelnie
+  </ng-container>
+  <ng-container description>
+    Aktualnie znajdujesz się na widoku wszystkich uczelni, które podjęły się współpracy z naszą aplikacją i aktywnie
+    uczestniczą w miedzyuczelnianych projektach.
+  </ng-container>
+</app-view-header>
+<app-quick-filters [addButton]="false" [dateRange]="false"/>
+<ng-scrollbar orientation="vertical" visibility="native"
+              [trackClass]="'my-4'"
+              [thumbClass]="'!rounded-lg !bg-primary'">
+  <div class="p-4 grid grid-cols-1 gap-4">
+    @for (uni of data; track uni.id) {
+      <app-university-card [university]="uni"/>
+    }
+  </div>
+</ng-scrollbar>

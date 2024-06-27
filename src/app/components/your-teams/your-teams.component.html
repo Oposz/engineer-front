@@ -12,7 +12,7 @@
 <ng-scrollbar orientation="vertical" visibility="native"
               [trackClass]="'my-4'"
               [thumbClass]="'!rounded-lg !bg-primary'">
-  <div class="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4 modified-height">
+  <div class="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
     @for (project of data; track project.name) {
       <app-team-card [team]="project"/>
     }
