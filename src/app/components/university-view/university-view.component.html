@@ -1,1 +1,26 @@
-<p>univeristy-view works!</p>
+<div class="relative">
+  <app-view-header>
+    <ng-container header>
+      Universytet
+    </ng-container>
+    <ng-container description>
+      Poniżej widoczne są wszystkie projekty, w których masz możliwość wziąć udział.
+    </ng-container>
+  </app-view-header>
+  <div class="breadcrumbs text-xs text-secondary absolute -bottom-2.5 left-4">
+    <ul>
+      <li><span [routerLink]="'/universities'" class="cursor-pointer">Uczelnie</span></li>
+      <li>Uczelnia</li>
+    </ul>
+  </div>
+</div>
+<app-quick-filters [addButton]="false"/>
+<ng-scrollbar orientation="vertical" visibility="native"
+              [trackClass]="'my-4'"
+              [thumbClass]="'!rounded-lg !bg-primary'">
+  <div class="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+    @for (project of data; track project.name) {
+      <app-project-card [project]="project"/>
+    }
+  </div>
+</ng-scrollbar>
