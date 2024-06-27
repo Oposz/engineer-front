@@ -1,1 +1,127 @@
-<p>team-details works!</p>
+<div class="p-4 flex justify-between mb-4">
+  <div class="flex gap-2.5 items-center w-full">
+    <img [ngSrc]="'assets/icons/ellipse-avatar.svg'"
+         class="w-12 h-12"
+         alt="project photo"
+         width="48"
+         height="48">
+    <div class="relative w-full">
+      <h1 class="text-primary font-semibold text-2xl">Team name</h1>
+      <div class="breadcrumbs text-xs text-secondary absolute -bottom-5">
+        <ul>
+          <li><span [routerLink]="'/your-teams'" class="cursor-pointer">Twoje projekty</span></li>
+          <li>zespół</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-accent text-neutral">Opuść projekt</button>
+</div>
+
+<div class="px-4 pb-4 flex flex-col justify-between h-full">
+  <div>
+    <div
+        class="p-2.5 border border-solid border-primary rounded-lg w-full text-primary font-medium mb-2.5">
+      <h2 class="text-2xl">Nazwa projektu: <span class="text-xl">Projekt</span></h2>
+    </div>
+    <div
+        class="p-2.5 border border-solid border-primary rounded-lg w-full text-primary font-medium mb-2.5 max-h-72 flex">
+      <ng-scrollbar orientation="vertical" visibility="native"
+                    [thumbClass]="'!rounded-lg !bg-primary'">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit minima quod voluptas. Aperiam consequuntur culpa
+        enim excepturi inventore nihil quasi tenetur ullam? Alias amet deleniti eaque eius excepturi explicabo id,
+        inventore
+        nostrum nulla quas qui quo sint velit. Consequuntur corporis ea earum incidunt laudantium magni nam nobis
+        obcaecati
+        quis rerum. Aut, cupiditate, deleniti dolore dolores dolorum et eveniet illum impedit iure iusto mollitia
+        nostrum
+        odio optio perspiciatis placeat praesentium rem, sequi tempore vero voluptas! Ab adipisci aliquid animi
+        asperiores
+        aspernatur at cum debitis delectus deleniti dignissimos dolores doloribus, eligendi enim eos error eum excepturi
+        facere id illum in labore magnam maiores minus nam natus neque nulla officia officiis optio possimus quia
+        reprehenderit tempore totam vel velit voluptas voluptate. Aliquam aliquid architecto autem corporis deleniti
+        dolorem
+        dolores est eum impedit ipsa nisi ratione repellat reprehenderit sed tempore temporibus, totam. Adipisci
+        consequatur
+        impedit iusto placeat vel. A ab adipisci blanditiis consequatur ducimus, eum facere facilis fugiat id itaque
+        laborum
+        nobis perspiciatis placeat porro possimus provident qui quisquam repellendus similique sit tempora unde vitae,
+        voluptatem. Aut enim ipsam officia omnis quod sint vero. Assumenda debitis dignissimos error esse natus officiis
+        quidem totam vitae voluptate voluptatibus? Animi dolorem doloribus eius fuga fugiat, hic inventore ipsa labore
+        libero natus nisi nobis nulla perferendis praesentium, provident quasi ratione recusandae rerum similique
+        voluptates?
+      </ng-scrollbar>
+
+    </div>
+    <div class="w-full flex justify-between text-primary">
+      <div class="border border-solid border-primary rounded-lg w-full mr-2.5">
+        <div class="flex-col flex font-medium">
+          <div class="flex justify-between border-b border-solid border-primary p-2.5">
+            <h2 class="text-2xl">Członkowie zespołu</h2>
+            <div class="flex text-primary items-center text-2xl select-none">
+              {{ 3 }}/{{ 6 }}
+              <img class="w-8 h-8 ml-0.5" ngSrc="assets/icons/people.svg" height="24"
+                   width="24"
+                   alt="icon">
+            </div>
+          </div>
+          <div class="p-2.5 text-primary text-xl font-medium">
+            <ul class="list-disc pl-5">
+              <li>Janusz kowalski</li>
+              <li>Janusz Kowalski</li>
+              <li>Janusz Kowalski</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-solid border-primary rounded-lg w-full">
+        <div class="flex-col flex font-medium">
+          <h2 class="text-2xl w-full p-2.5 border-b border-solid border-primary">Potrzebni specjaliści:</h2>
+          <div class="p-2.5 text-primary text-xl font-medium">
+            <ul class="list-disc pl-5">
+              <li>
+                <div class="flex gap-2.5">
+                  <p>Programista Backend</p>
+                  <img ngSrc="assets/icons/check-mark.svg" height="14" width="18" alt="check">
+                </div>
+              </li>
+              <li>
+                <div class="flex gap-2.5">
+                  <p>Programista Frontend</p>
+                  <img ngSrc="assets/icons/check-mark.svg" height="14" width="18" alt="check">
+                </div>
+              </li>
+              <li>
+                <div class="flex gap-2.5">
+                  <p>Product Owner</p>
+                  <img ngSrc="assets/icons/check-mark.svg" height="14" width="18" alt="check">
+                </div>
+              </li>
+              <li>
+                <div class="flex gap-2.5">
+                  <p>Grafik</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="flex flex-col gap-2.5 mt-auto font-semibold text-xl text-primary px-2.5">
+    <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+      <p>Osoba odpowiedzialna za kierownictwo projektem:</p>
+      <p class="font-medium text-xl">Janusz Kowalski</p>
+    </div>
+    <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+      <p>Terminy oddania projektu bądź jego kamieni milowych:</p>
+      <div class="flex text-primary font-medium">22/12/2024</div>
+    </div>
+    <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 ">
+      <p class="text-base">Zaplanowane spotkania:</p>
+    </div>
+  </div>
+</div>
