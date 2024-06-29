@@ -1,0 +1,59 @@
+:host {
+  @apply flex flex-col w-full;
+}
+
+.breadcrumbs {
+  & li::before {
+    @apply text-secondary opacity-100 ml-1 mr-1.5;
+  }
+}
+
+::ng-deep {
+  .ng-scrollbar-sticky {
+    @apply mr-1;
+  }
+
+  .ng-scrollbar-track {
+    @apply rounded-lg #{!important};
+    background-color: rgba(29, 53, 87, 0.25) !important;
+  }
+}
+
+.chat-end {
+  & .chat-bubble {
+    @apply bg-primary text-neutral rounded-2xl;
+    box-shadow: 1px -1px 5px 0px rgba(0, 0, 0, 0.25), -3px 4px 5px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  & .chat-bubble::before {
+    @apply hidden
+  }
+}
+
+.chat-start {
+  & .chat-bubble {
+    @apply rounded-2xl;
+    box-shadow: -1px -1px 5px 0px rgba(0, 0, 0, 0.25), 3px 4px 5px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  & .chat-bubble::before {
+    @apply hidden
+  }
+}
+
+.conversation-container {
+  height: calc(100% - (85px + 81px));
+}
+
+.input {
+  @apply text-primary;
+  background-color: rgba(168, 218, 220, 0.5);
+
+  &:focus {
+    @apply border-none outline-0;
+  }
+
+  &::placeholder {
+    @apply text-secondary;
+  }
+}

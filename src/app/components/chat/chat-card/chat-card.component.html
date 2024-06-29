@@ -5,7 +5,7 @@
          alt="project photo"
          width="36"
          height="36">
-    <p class="text-primary font-semibold text-2xl">{{ chat.name }}</p>
+    <p class="text-primary font-semibold text-2xl cursor-pointer" [routerLink]="'/chats/'+chat.id">{{ chat.name }}</p>
   </div>
 </div>
 <div class="text-secondary text-sm h-full flex">

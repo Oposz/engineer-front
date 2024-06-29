@@ -3,51 +3,61 @@
     {
       "name": "Chat",
       "lastMsg": "Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message Lorem ipsum last message",
+      "id": "1",
+      "messages": []
+    },
+    {
+      "name": "Chat",
+      "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Chat",
       "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Chat",
       "lastMsg": "Lorem ipsum last message",
-      "id": "1"
-    },
-    {
-      "name": "Chat",
-      "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Group Chat",
       "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Chat",
       "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Chat",
       "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Chat",
       "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Chat",
       "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     },
     {
       "name": "Group Chat",
       "lastMsg": "Lorem ipsum last message",
+      "messages": [],
       "id": "1"
     }
   ]

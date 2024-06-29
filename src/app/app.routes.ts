@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'your-teams'
+    redirectTo: 'teams'
   },
   {
     path: 'teams', loadComponent: () => import('./components/your-teams/your-teams.component')
@@ -44,7 +44,11 @@ export const routes: Routes = [
       .then(m => m.BusinessCardsComponent)
   },
   {
-    path: 'chat', loadComponent: () => import('./components/chat/chat.component')
+    path: 'chats', loadComponent: () => import('./components/chat/chat.component')
       .then(m => m.ChatComponent)
   },
+  {
+    path: 'chats/:id', loadComponent: () => import('./components/chat/conversation-view/conversation-view.component')
+      .then(m => m.ConversationViewComponent)
+  }
 ];
