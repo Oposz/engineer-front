@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "inzynier-front:build:production"
+              "buildTarget": "engineer-front:build:production"
             },
             "development": {
-              "buildTarget": "inzynier-front:build:development"
+              "buildTarget": "engineer-front:build:development"
             }
           },
           "defaultConfiguration": "development"

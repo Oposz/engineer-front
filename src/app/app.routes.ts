@@ -7,23 +7,24 @@ export const routes: Routes = [
     redirectTo: 'your-teams'
   },
   {
-    path: 'your-teams', loadComponent: () => import('./components/your-teams/your-teams.component')
+    path: 'teams', loadComponent: () => import('./components/your-teams/your-teams.component')
       .then(m => m.YourTeamsComponent)
   },
   {
-    path: 'team-details/:id', loadComponent: () => import('./components/team-details/team-details.component')
+    path: 'teams/:id', loadComponent: () => import('./components/team-details/team-details.component')
       .then(m => m.TeamDetailsComponent)
   },
   {
-    path: 'open-projects', loadComponent: () => import('./components/open-projects/open-projects.component')
+    path: 'projects', loadComponent: () => import('./components/open-projects/open-projects.component')
       .then(m => m.OpenProjectsComponent)
   },
   {
-    path: 'new-project', loadComponent: () => import('./components/add-new-project/add-new-project.component')
+    path: 'projects/new-project',
+    loadComponent: () => import('./components/add-new-project/add-new-project.component')
       .then(m => m.AddNewProjectComponent),
   },
   {
-    path: 'project-details/:id', loadComponent: () => import('./components/project-details/project-details.component')
+    path: 'projects/:id', loadComponent: () => import('./components/project-details/project-details.component')
       .then(m => m.ProjectDetailsComponent),
   },
   {

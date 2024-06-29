@@ -1,1 +1,23 @@
-<p>chat works!</p>
+<app-view-header>
+  <ng-container header>
+    Wiadomości
+  </ng-container>
+</app-view-header>
+<app-quick-filters [addButton]="false" [dateRange]="false" [favouritesButton]="false" [newConversationButton]="true"/>
+
+@if (data) {
+  <ng-scrollbar orientation="vertical" visibility="native"
+                [trackClass]="'my-4'"
+                [thumbClass]="'!rounded-lg !bg-primary'">
+    <div class="p-4 grid md:grid-cols-2 gap-4">
+      @for (chat of data; track chat.id) {
+        <app-chat-card [chat]="chat"/>
+      }
+    </div>
+  </ng-scrollbar>
+} @else {
+  <div class="flex justify-center items-center h-full">
+    <h2 class="font-semibold text-primary text-2xl">Brak rozpoczętych konwersacji...</h2>
+  </div>
+}
+

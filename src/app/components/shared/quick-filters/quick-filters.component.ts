@@ -30,6 +30,12 @@ export class QuickFiltersComponent implements OnInit {
   @Input()
   dateRange = true;
 
+  @Input()
+  favouritesButton = true;
+
+  @Input()
+  newConversationButton = false;
+
 
   readonly range = new FormGroup({
     start: new FormControl<Date | null>({value: null, disabled: true}),

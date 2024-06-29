@@ -5,29 +5,29 @@
          alt="project photo"
          width="36"
          height="36">
-    <p class="text-primary font-semibold text-2xl cursor-pointer">{{ cardData.name }}</p>
+    <p class="text-primary font-semibold text-2xl">{{ cardData.name }}</p>
   </div>
   <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
 </div>
 <div class="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-5 h-full mb-2 gap-2">
   <div class="flex flex-col">
-    <p class="text-secondary text-sm">Stanowisko:</p>
+    <p class="text-secondary text-sm select-none">Stanowisko:</p>
     <p class="text-primary font-light text-xs truncate">{{ cardData.role }}</p>
   </div>
   <div class="flex flex-col">
-    <p class="text-secondary text-sm">Uczelnia:</p>
+    <p class="text-secondary text-sm select-none">Uczelnia:</p>
     <p class="text-primary font-light text-xs truncate">{{ cardData.university }}</p>
   </div>
   <div class="flex flex-col">
-    <p class="text-secondary text-sm">Katedra:</p>
+    <p class="text-secondary text-sm select-none">Katedra:</p>
     <p class="text-primary font-light text-xs truncate">{{ cardData.department }}</p>
   </div>
   <div class="flex flex-col">
-    <p class="text-secondary text-sm">Email:</p>
+    <p class="text-secondary text-sm select-none">Email:</p>
     <p class="text-primary font-light text-xs truncate">{{ cardData.email }}</p>
   </div>
   <div class="flex flex-col">
-    <p class="text-secondary text-sm">Numer telefonu:</p>
+    <p class="text-secondary text-sm select-none">Numer telefonu:</p>
     <p class="text-primary font-light text-xs truncate">{{ cardData.phoneNumber }}</p>
   </div>
 </div>

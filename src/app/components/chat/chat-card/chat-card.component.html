@@ -1,0 +1,13 @@
+<div class="flex items-center mb-1">
+  <div class="flex items-center">
+    <img [ngSrc]="chat.photo ? chat.photo:'assets/icons/ellipse-avatar.svg'"
+         class="mr-2.5"
+         alt="project photo"
+         width="36"
+         height="36">
+    <p class="text-primary font-semibold text-2xl">{{ chat.name }}</p>
+  </div>
+</div>
+<div class="text-secondary text-sm h-full flex">
+  <p class="h-full line-clamp-2">{{ chat.lastMsg }}</p>
+</div>

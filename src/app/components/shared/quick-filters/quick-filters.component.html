@@ -13,14 +13,16 @@
     </svg>
   </button>
 
-  <button class="btn btn-outline btn-secondary flex items-center">
-    <span class="text-base">Favourites</span>
-    <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#FFFFFF"
-            d="M12 2.02254L14.0998 8.48493L14.2401 8.9168H14.6942H21.4891L15.9919 12.9108L15.6245 13.1777L15.7648 13.6095L17.8646 20.0719L12.3674 16.078L12 15.811L11.6326 16.078L6.1354 20.0719L8.23516 13.6095L8.37548 13.1777L8.00811 12.9108L2.51087 8.9168H9.30583H9.75992L9.90024 8.48493L12 2.02254Z"
-            stroke="#DFC25B" stroke-width="1.25"/>
-    </svg>
-  </button>
+  @if (favouritesButton) {
+    <button class="btn btn-outline btn-secondary flex items-center">
+      <span class="text-base">Favourites</span>
+      <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#FFFFFF"
+              d="M12 2.02254L14.0998 8.48493L14.2401 8.9168H14.6942H21.4891L15.9919 12.9108L15.6245 13.1777L15.7648 13.6095L17.8646 20.0719L12.3674 16.078L12 15.811L11.6326 16.078L6.1354 20.0719L8.23516 13.6095L8.37548 13.1777L8.00811 12.9108L2.51087 8.9168H9.30583H9.75992L9.90024 8.48493L12 2.02254Z"
+              stroke="#DFC25B" stroke-width="1.25"/>
+      </svg>
+    </button>
+  }
 
   @if (dateRange) {
     <div class="flex items-center gap-1">
@@ -46,9 +48,20 @@
 
 
   @if (addButton) {
-    <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle" [routerLink]="'/new-project'">
+    <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle"
+            [routerLink]="'/projects/new-project'">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" fill="#457B9D"/>
+      </svg>
+    </button>
+  }
+
+  @if (newConversationButton) {
+    <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle">
+      <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M0 17.5V2.5C0 1.95 0.195667 1.47933 0.587 1.088C0.979 0.696 1.45 0.5 2 0.5H14C14.55 0.5 15.021 0.696 15.413 1.088C15.8043 1.47933 16 1.95 16 2.5V7.575C15.8333 7.54167 15.671 7.52067 15.513 7.512C15.3543 7.504 15.1833 7.5 15 7.5C14.8167 7.5 14.646 7.504 14.488 7.512C14.3293 7.52067 14.1667 7.54167 14 7.575V2.5H2V12.675L2.175 12.5H9.075C9.04167 12.6667 9.02067 12.8293 9.012 12.988C9.004 13.146 9 13.3167 9 13.5C9 13.6833 9.004 13.854 9.012 14.012C9.02067 14.1707 9.04167 14.3333 9.075 14.5H3L0 17.5ZM4 6.5V4.5H12V6.5H4ZM4 10.5V8.5H9V10.5H4ZM14 17.5V14.5H11V12.5H14V9.5H16V12.5H19V14.5H16V17.5H14Z"
+            fill="#457B9D"/>
       </svg>
     </button>
   }
