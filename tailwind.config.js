@@ -5,6 +5,10 @@ module.exports = {
  ],
  theme: {
 	extend: {},
+	colors:{
+	 'disabled': '#DEDEDEFF',
+	 'disabled-text': '#BAB2B4FF'
+	}
  },
  daisyui: {
 	themes: [

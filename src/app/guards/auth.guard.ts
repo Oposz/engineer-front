@@ -6,7 +6,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router: Router = inject(Router);
   const localStorage: LocalStorageService = inject(LocalStorageService);
 
-  if (localStorage.getItem('user')) {
+  if (localStorage.getItem('uniteam-token')) {
     return true;
   }
 
