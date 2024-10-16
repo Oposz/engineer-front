@@ -1,4 +1,29 @@
-.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{
-  @apply bg-error text-primary;
+$host-selector: app-snackbar;
 
+#{$host-selector} {
+  @apply flex text-sm font-semibold;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface:has(p.error) {
+  @apply bg-error text-primary;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface:has(p.warning) {
+  @apply bg-warning text-primary;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface:has(p.info) {
+  @apply bg-secondary text-primary;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  @apply text-primary min-w-0;
+}
+
+.mdc-snackbar__label {
+  @apply px-4 py-3.5;
+}
+
+.mat-mdc-snackbar-surface {
+  @apply p-0;
 }

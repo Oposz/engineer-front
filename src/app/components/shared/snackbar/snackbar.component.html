@@ -1,2 +1,6 @@
-
-{{data.message}}
+<p [class]="data.variant">
+  {{data.message}}
+</p>
+@if (data.closeButton){
+  <img class="ml-4 cursor-pointer" (click)="dismissSnackbar()" ngSrc="assets/icons/x-mark.svg" alt="x-mark" height="13" width="13">
+}

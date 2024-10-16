@@ -29,7 +29,7 @@ module.exports = {
 
 		 "success": "#00ff00",
 
-		 "warning": "#00ff00",
+		 "warning": "#dab338",
 
 		 "error": "#E63946",
 

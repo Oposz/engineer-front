@@ -16,8 +16,12 @@ export class SnackbarService {
   snackbarFromComponent(componentName: ComponentType<any>, data: SnackbarData) {
     this.snackbarService.openFromComponent(componentName, {
       data: data,
-      // duration: 5000,
+      duration: 5000,
       horizontalPosition: "right"
     })
+  }
+
+  dismissSnackbar(){
+    this.snackbarService.dismiss()
   }
 }
