@@ -52,13 +52,16 @@
           <input type="text"
                  class="input input-bordered input-secondary w-full mb-4"
                  placeholder="Uczelnia"
-                 aria-label="Number"
+                 formControlName="university"
                  [matAutocomplete]="auto"/>
 
           <mat-autocomplete #auto="matAutocomplete">
-            @for (option of dummy; track option) {
-              <mat-option [value]="option">{{ option }}</mat-option>
-            }
+            <ng-scrollbar orientation="vertical" visibility="native"
+                          [thumbClass]="'!rounded-lg !bg-primary'">
+              @for (university of filteredUniversities; track university.id) {
+                <mat-option [value]="university.name">{{ university.name }}</mat-option>
+              }
+            </ng-scrollbar>
           </mat-autocomplete>
         </label>
 
