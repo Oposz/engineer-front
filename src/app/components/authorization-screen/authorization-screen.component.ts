@@ -90,15 +90,35 @@ export class AuthorizationScreenComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllUniversities()
-    this.observeAutocompleteFilter()
+    this.getAllUniversities();
+    this.observeAutocompleteFilter();
+  }
+
+  getRegisterFormGroup(): RegisterForm {
+    return this.registerFormFormGroup.controls;
   }
 
   submitRegistration() {
     if (!this.passwordsMatching()) {
-      // TODO Live form validation for password confirmations
       return;
     }
+    this.loading = true;
+
+    let {passwordConfirmation, university, ...rest} = this.registerFormFormGroup.value
+    const registrationData = {
+      ...rest,
+      university: this.universities.find((_university) => _university.name === university)?.id
+    }
+
+    this.httpService.post('auth/register', registrationData)
+      .subscribe({
+        next: (loginData: LoginData) => {
+          this.handleSuccessAuth(loginData)
+        },
+        error: (e: HttpErrorResponse) => {
+          this.handleError(e);
+        }
+      })
   }
 
   submitLogin() {
@@ -109,10 +129,7 @@ export class AuthorizationScreenComponent implements OnInit {
     this.httpService.post('auth/login', this.loginFormFormGroup.value)
       .subscribe({
         next: (loginData: LoginData) => {
-          this.localStorage.setItem('uniteam-token', loginData.access_token)
-          this.loading = false;
-          this.changeDetectorRef.detectChanges();
-          this.router.navigate([''])
+          this.handleSuccessAuth(loginData)
         },
         error: (e: HttpErrorResponse) => {
           this.handleError(e);
@@ -132,7 +149,7 @@ export class AuthorizationScreenComponent implements OnInit {
   }
 
   private observeAutocompleteFilter() {
-    this.registerFormFormGroup.controls.university.valueChanges.pipe(
+    this.getRegisterFormGroup().university.valueChanges.pipe(
       startWith(''),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((value) => {
@@ -143,7 +160,19 @@ export class AuthorizationScreenComponent implements OnInit {
   }
 
   private passwordsMatching() {
-    return this.registerFormFormGroup.controls.password.value === this.registerFormFormGroup.controls.passwordConfirmation.value
+    const formGroup = this.getRegisterFormGroup()
+    const passwordsMatched = formGroup.password.value === formGroup.passwordConfirmation.value
+    if (!passwordsMatched) {
+      formGroup.passwordConfirmation.setErrors({'not-matched': true})
+    }
+    return passwordsMatched;
+  }
+
+  private handleSuccessAuth(loginData: LoginData) {
+    this.localStorage.setItem('uniteam-token', loginData.access_token)
+    this.loading = false;
+    this.changeDetectorRef.detectChanges();
+    this.router.navigate([''])
   }
 
   private handleError(e: HttpErrorResponse) {

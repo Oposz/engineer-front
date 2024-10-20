@@ -29,7 +29,8 @@
             <span class="label-text text-primary font-normal text-xs">Potwierdź hasło</span>
           </div>
           <input formControlName="passwordConfirmation" type="password" placeholder="Potwierdź hasło"
-                 class="input input-bordered input-secondary w-full mb-2"/>
+                 class="input input-bordered input-secondary w-full mb-2"
+                 [class.input-error]="getRegisterFormGroup().passwordConfirmation.hasError('not-matched')"/>
         </label>
         <label class="w-full">
           <div class="label">
