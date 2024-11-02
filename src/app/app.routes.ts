@@ -22,6 +22,10 @@ export const routes: Routes = [
           .then(m => m.YourTeamsComponent)
       },
       {
+        path: 'profile', loadComponent: () => import('./components/profile/profile.component')
+          .then(m => m.ProfileComponent)
+      },
+      {
         path: 'teams/:id', loadComponent: () => import('./components/team-details/team-details.component')
           .then(m => m.TeamDetailsComponent)
       },

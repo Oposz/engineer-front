@@ -27,6 +27,12 @@
     Wiadomości
   </app-nav-tab>
 </div>
-<div class="px-4 py-5">
-  {{ userName$ | async }}
+<div class="px-4 py-5 flex justify-between">
+  <p class="truncate mr-4">{{ userName$ | async }}</p>
+  <img role="button" ngSrc="assets/icons/menu.svg" alt="menu" height="5" width="16" [matMenuTriggerFor]="menu">
+  <mat-menu #menu="matMenu"
+            class="dropdown-content menu w-40 p-2 border-solid border-secondary border shadow text-primary">
+    <li [routerLink]="'/profile'"><a>Twój profil</a></li>
+    <li (click)="logout()"><a class="text-error logout">Wyloguj</a></li>
+  </mat-menu>
 </div>

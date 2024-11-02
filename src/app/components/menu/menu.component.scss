@@ -1,3 +1,37 @@
 :host {
-  @apply flex-col h-full bg-primary text-neutral w-72
+  @apply flex-col h-full bg-primary text-neutral w-72 shrink-0
+}
+
+.shadow {
+  box-shadow: 2px 4px 4px 1px rgba(66, 68, 90, 0.38);
+}
+
+:where(.menu li:not(.menu-title, .disabled) > *:not(ul, details, .menu-title)):not(.active, .btn):hover {
+  @apply bg-secondary
+}
+
+:where(.menu li:not(.menu-title, .disabled) > *:not(ul, details, .menu-title)):not(.active, .btn, .logout):hover {
+  @apply text-neutral
+}
+
+.hidden-menu {
+  @apply hidden opacity-0;
+}
+
+.visible-menu {
+  @apply visible opacity-100;
+}
+
+::ng-deep{
+  .mat-mdc-menu-panel {
+    @apply bg-neutral rounded-lg #{!important}
+  }
+
+  .menu {
+    div.mat-mdc-menu-content {
+      li:not(:last-child) {
+        @apply mb-0.5;
+      }
+    }
+  }
 }

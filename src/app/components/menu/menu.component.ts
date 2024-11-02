@@ -1,10 +1,13 @@
 import {Component} from '@angular/core';
 import {AsyncPipe, JsonPipe, NgOptimizedImage} from "@angular/common";
 import {NavTabComponent} from "./nav-tab/nav-tab.component";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {HttpService} from "../../shared/service/http.service";
 import {map, Observable} from "rxjs";
 import {User} from "../../shared/constants/user";
+import {LocalStorageService} from "../../shared/service/local-storage.service";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-menu',
@@ -15,13 +18,16 @@ import {User} from "../../shared/constants/user";
     RouterLink,
     RouterLinkActive,
     AsyncPipe,
-    JsonPipe
+    JsonPipe,
+    MatMenuTrigger,
+    MatButton,
+    MatMenu,
+    MatMenuItem
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-
   userName$: Observable<string> = this.httpService.get('users/me').pipe(
     map((user: User) => {
       return `${user.name} ${user.lastName}`
@@ -29,8 +35,15 @@ export class MenuComponent {
   )
 
   constructor(
-    private readonly httpService: HttpService
+    private readonly httpService: HttpService,
+    private readonly localStorage: LocalStorageService,
+    private readonly router: Router
   ) {
+  }
+
+  logout() {
+    this.localStorage.removeItem('uniteam-token')
+    this.router.navigate(['/auth']);
   }
 
 }
