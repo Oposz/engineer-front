@@ -45,7 +45,6 @@ export class ChangeEmailModalComponent {
 
   changeEmail() {
     this.loading = true;
-    console.log(this.newEmailFormGroup)
     if (this.newEmailFormGroup.valid) {
       this.httpService.post('auth/change-email', this.newEmailFormGroup.value).pipe(
         take(1)

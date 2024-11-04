@@ -47,7 +47,11 @@ export class ProfileComponent {
   }
 
   openEmailChangeDialog() {
-    this.dialog.open(ChangeEmailModalComponent, {width: '500px'}).afterClosed().subscribe(() => this.refreshUserData())
+    this.dialog.open(ChangeEmailModalComponent, {width: '500px'}).afterClosed().subscribe((data) => {
+      if (data !== 'abandon') {
+        this.refreshUserData()
+      }
+    })
   }
 
   private refreshUserData() {
