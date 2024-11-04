@@ -7,11 +7,7 @@
 }
 
 :where(.menu li:not(.menu-title, .disabled) > *:not(ul, details, .menu-title)):not(.active, .btn):hover {
-  @apply bg-secondary
-}
-
-:where(.menu li:not(.menu-title, .disabled) > *:not(ul, details, .menu-title)):not(.active, .btn, .logout):hover {
-  @apply text-neutral
+  @apply bg-secondary text-neutral
 }
 
 .hidden-menu {

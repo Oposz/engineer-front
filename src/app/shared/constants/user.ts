@@ -5,6 +5,5 @@ export interface User {
   email: string
   name: string
   lastName: string
-  universityId: number
-  university: University
+  universities: University[]
 }

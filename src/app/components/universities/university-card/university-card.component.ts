@@ -18,4 +18,7 @@ export class UniversityCardComponent {
   @Input({required: true})
   university!: University
 
+  @Input()
+  withFavouriteFeature: boolean = true;
+
 }

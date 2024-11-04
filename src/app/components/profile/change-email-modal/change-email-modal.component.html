@@ -1,0 +1,31 @@
+<div class="p-4 flex flex-col justify-center items-center text-center">
+  <h2 class="font-medium text-xl text-primary mb-2">Zmiana adresu Email</h2>
+  <form class="w-full" [formGroup]="newEmailFormGroup" (ngSubmit)="changeEmail()">
+    <label class="w-full">
+      <div class="label">
+        <span class="label-text text-primary font-normal text-xs">Nowy adres email</span>
+      </div>
+      <input type="text" placeholder="Email" formControlName="newEmail"
+             [class.input-error]="getFormGroup().newEmail.errors"
+             class="input input-bordered input-secondary w-full mb-2"/>
+    </label>
+    <label class="w-full">
+      <div class="label">
+        <span class="label-text text-primary font-normal text-xs">Hasło</span>
+      </div>
+      <input type="password" placeholder="Hasło" formControlName="password"
+             class="input input-bordered input-secondary w-full mb-4"/>
+    </label>
+    <button type="submit" class="btn btn-primary">
+      @if (loading) {
+        <span class="loading loading-spinner"></span>
+      } @else {
+        Zatwierdź
+      }
+    </button>
+  </form>
+  <button class="btn btn-circle btn-sm absolute top-3.5 right-4" mat-dialog-close>
+    <img ngSrc="assets/icons/x-mark.svg" alt="close"
+         height="13" width="13">
+  </button>
+</div>

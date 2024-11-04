@@ -1,1 +1,69 @@
-tbd
+@if (user$ | async; as user) {
+  <app-view-header class="px-4">
+    <ng-container header>
+      {{ user.name }} {{ user.lastName }}
+    </ng-container>
+  </app-view-header>
+  <div class="mb-4 px-4">
+    <p class="text-secondary font-semibold text-base">
+      Dane użytkownika:
+    </p>
+    <div class="grid grid-cols-2 gap-3">
+      <label class="w-full">
+        <div class="label">
+          <span class="label-text text-primary font-normal text-xs">Imię</span>
+        </div>
+        <input type="text" placeholder="Imię" [value]="user.name" disabled
+               class="input input-bordered input-secondary w-full mb-2"/>
+      </label>
+      <label class="w-full">
+        <div class="label">
+          <span class="label-text text-primary font-normal text-xs">Nazwisko</span>
+        </div>
+        <input type="text" placeholder="Nazwisko" [value]="user.lastName" disabled
+               class="input input-bordered input-secondary w-full mb-2"/>
+      </label>
+      <label class="w-full">
+        <div class="label">
+          <span class="label-text text-primary font-normal text-xs">Email</span>
+        </div>
+        <div class="flex gap-2">
+          <input type="text" placeholder="Email" [value]="user.email" disabled
+                 class="input input-bordered input-secondary w-full mb-2"/>
+          <button class="btn btn-primary" (click)="openEmailChangeDialog()">
+            <img class="w-4 h-4 m-auto" ngSrc="assets/icons/edit-pencil.svg"
+                 alt="edit-icon"
+                 height="16" width="16"></button>
+        </div>
+      </label>
+      <label class="w-full">
+        <div class="label">
+          <span class="label-text text-primary font-normal text-xs">Hasło</span>
+        </div>
+        <div class="flex gap-2">
+          <input type="password" placeholder="Hasło" [value]="'******************'" disabled
+                 class="input input-bordered input-secondary w-full mb-2"/>
+          <button class="btn btn-primary">
+            <img class="w-4 h-4 m-auto" ngSrc="assets/icons/edit-pencil.svg"
+                 alt="edit-icon"
+                 height="16" width="16"></button>
+        </div>
+      </label>
+    </div>
+  </div>
+  <p class="text-secondary font-semibold text-base mb-2 px-4">
+    Przypisane uczelnie:
+  </p>
+  <ng-scrollbar orientation="vertical" visibility="native"
+                [thumbClass]="'!rounded-lg !bg-primary'">
+    <div class="flex flex-col h-full justify-between mb-2 px-4">
+      <div class="grid grid-cols-2 gap-3">
+        @for (uni of user.universities; track uni.id) {
+          <app-university-card [university]="uni" [withFavouriteFeature]="false"/>
+        }
+      </div>
+    </div>
+  </ng-scrollbar>
+  <button class="btn btn-primary absolute bottom-2.5 right-5">Dodaj uczelnie</button>
+<!--  TODO add validation for backend side, create feature for password and email change, create add uni feature-->
+}

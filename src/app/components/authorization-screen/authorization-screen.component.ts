@@ -25,7 +25,7 @@ interface RegisterForm extends LoginForm {
   university: FormControl<string>
 }
 
-type LoginData = {
+export type TokenData = {
   access_token: string;
 }
 
@@ -112,7 +112,7 @@ export class AuthorizationScreenComponent implements OnInit {
 
     this.httpService.post('auth/register', registrationData)
       .subscribe({
-        next: (loginData: LoginData) => {
+        next: (loginData: TokenData) => {
           this.handleSuccessAuth(loginData)
         },
         error: (e: HttpErrorResponse) => {
@@ -128,7 +128,7 @@ export class AuthorizationScreenComponent implements OnInit {
     this.loading = true;
     this.httpService.post('auth/login', this.loginFormFormGroup.value)
       .subscribe({
-        next: (loginData: LoginData) => {
+        next: (loginData: TokenData) => {
           this.handleSuccessAuth(loginData)
         },
         error: (e: HttpErrorResponse) => {
@@ -168,7 +168,7 @@ export class AuthorizationScreenComponent implements OnInit {
     return passwordsMatched;
   }
 
-  private handleSuccessAuth(loginData: LoginData) {
+  private handleSuccessAuth(loginData: TokenData) {
     this.localStorage.setItem('uniteam-token', loginData.access_token)
     this.loading = false;
     this.changeDetectorRef.detectChanges();
