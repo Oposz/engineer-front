@@ -1,4 +1,4 @@
-@if (user$ | async; as user) {
+@if (userPersonalData$ | async; as user) {
   <app-view-header class="px-4">
     <ng-container header>
       {{ user.name }} {{ user.lastName }}
@@ -64,6 +64,5 @@
       </div>
     </div>
   </ng-scrollbar>
-  <button class="btn btn-primary absolute bottom-2.5 right-5">Dodaj uczelnie</button>
-<!--  TODO create feature for password change, create add uni feature-->
+  <button class="btn btn-primary absolute bottom-2.5 right-5" (click)="connectUniversity()">Dodaj uczelnie</button>
 }

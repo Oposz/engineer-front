@@ -11,6 +11,7 @@ import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialog
 import {ChangeEmailModalComponent} from "./change-email-modal/change-email-modal.component";
 import {ChangePasswordModalComponent} from "./change-password-modal/change-password-modal.component";
 import {ModalOutcome} from "../../shared/constants/modalOutcome";
+import {ConnectNewUniversityComponent} from "./connect-new-university/connect-new-university.component";
 
 
 @Component({
@@ -32,17 +33,16 @@ import {ModalOutcome} from "../../shared/constants/modalOutcome";
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  readonly dialog = inject(MatDialog);
-
-  user$: Observable<User> = this.httpService.get('users/me').pipe(
+  userPersonalData$: Observable<User> = this.httpService.get('users/me').pipe(
     take(1)
   )
+
+  readonly dialog = inject(MatDialog);
 
   constructor(
     private readonly httpService: HttpService
   ) {
   }
-
 
   openPasswordChangeModal() {
     this.dialog.open(ChangePasswordModalComponent, {width: '500px'})
@@ -59,11 +59,14 @@ export class ProfileComponent {
       })
   }
 
+  connectUniversity() {
+    this.dialog.open(ConnectNewUniversityComponent, {width: '500px'})
+  }
+
   private refreshUserData() {
-    this.user$ = this.httpService.get('users/me').pipe(
+    this.userPersonalData$ = this.httpService.get('users/me').pipe(
       take(1)
     )
   }
-
 
 }
