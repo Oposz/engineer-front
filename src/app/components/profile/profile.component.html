@@ -30,7 +30,7 @@
         <div class="flex gap-2">
           <input type="text" placeholder="Email" [value]="user.email" disabled
                  class="input input-bordered input-secondary w-full mb-2"/>
-          <button class="btn btn-primary" (click)="openEmailChangeDialog()">
+          <button class="btn btn-primary" (click)="openEmailChangeDialog(user.email)">
             <img class="w-4 h-4 m-auto" ngSrc="assets/icons/edit-pencil.svg"
                  alt="edit-icon"
                  height="16" width="16"></button>
@@ -43,7 +43,7 @@
         <div class="flex gap-2">
           <input type="password" placeholder="Hasło" [value]="'******************'" disabled
                  class="input input-bordered input-secondary w-full mb-2"/>
-          <button class="btn btn-primary">
+          <button class="btn btn-primary" (click)="openPasswordChangeModal()">
             <img class="w-4 h-4 m-auto" ngSrc="assets/icons/edit-pencil.svg"
                  alt="edit-icon"
                  height="16" width="16"></button>
@@ -65,5 +65,5 @@
     </div>
   </ng-scrollbar>
   <button class="btn btn-primary absolute bottom-2.5 right-5">Dodaj uczelnie</button>
-<!--  TODO add validation for backend side, create feature for password and email change, create add uni feature-->
+<!--  TODO create feature for password change, create add uni feature-->
 }

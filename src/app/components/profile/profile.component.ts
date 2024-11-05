@@ -9,6 +9,8 @@ import {UniversityCardComponent} from "../universities/university-card/universit
 import {NgScrollbar} from "ngx-scrollbar";
 import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {ChangeEmailModalComponent} from "./change-email-modal/change-email-modal.component";
+import {ChangePasswordModalComponent} from "./change-password-modal/change-password-modal.component";
+import {ModalOutcome} from "../../shared/constants/modalOutcome";
 
 
 @Component({
@@ -42,16 +44,19 @@ export class ProfileComponent {
   }
 
 
-  openChangePasswordModal() {
-    console.log('dupa')
+  openPasswordChangeModal() {
+    this.dialog.open(ChangePasswordModalComponent, {width: '500px'})
   }
 
-  openEmailChangeDialog() {
-    this.dialog.open(ChangeEmailModalComponent, {width: '500px'}).afterClosed().subscribe((data) => {
-      if (data !== 'abandon') {
-        this.refreshUserData()
-      }
-    })
+  openEmailChangeDialog(oldEmail: string) {
+    const openedDialog = this.dialog.open(ChangeEmailModalComponent, {width: '500px', data: {oldEmail}})
+
+    openedDialog.afterClosed()
+      .subscribe((action: ModalOutcome) => {
+        if (action === ModalOutcome.SUCCESS) {
+          this.refreshUserData()
+        }
+      })
   }
 
   private refreshUserData() {
