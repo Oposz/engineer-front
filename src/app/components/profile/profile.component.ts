@@ -12,6 +12,7 @@ import {ChangeEmailModalComponent} from "./change-email-modal/change-email-modal
 import {ChangePasswordModalComponent} from "./change-password-modal/change-password-modal.component";
 import {ModalOutcome} from "../../shared/constants/modalOutcome";
 import {ConnectNewUniversityComponent} from "./connect-new-university/connect-new-university.component";
+import {University} from "../../shared/constants/university";
 
 
 @Component({
@@ -59,8 +60,13 @@ export class ProfileComponent {
       })
   }
 
-  connectUniversity() {
-    this.dialog.open(ConnectNewUniversityComponent, {width: '500px'})
+  connectUniversity(universities: University[]) {
+    this.dialog.open(ConnectNewUniversityComponent, {width: '500px', data:{universities}}).afterClosed()
+      .subscribe((action: ModalOutcome) => {
+        if (action === ModalOutcome.SUCCESS) {
+          this.refreshUserData()
+        }
+      })
   }
 
   private refreshUserData() {

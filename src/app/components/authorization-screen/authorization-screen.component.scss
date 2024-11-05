@@ -5,21 +5,3 @@
 .label {
   @apply p-1;
 }
-
-::ng-deep div.mat-mdc-autocomplete-panel {
-  @apply bg-secondary rounded-lg #{!important};
-  mat-option {
-    @apply text-primary text-xl #{!important};
-   span{
-     @apply truncate
-   }
-  }
-
-  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
-    @apply bg-secondary #{!important};
-  }
-
-  .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after, .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after {
-    @apply text-primary #{!important};
-  }
-}

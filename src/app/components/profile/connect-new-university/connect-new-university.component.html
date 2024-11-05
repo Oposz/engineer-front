@@ -1,1 +1,36 @@
-<p>connect-new-university works!</p>
+<div class="p-4 flex flex-col justify-center items-center text-center">
+  <h2 class="font-medium text-xl text-primary mb-2">Dodaj uczelnie do profilu</h2>
+  <form class="w-full" (ngSubmit)="connectUniversity()">
+    <label class="w-full">
+      <div class="label">
+        <span class="label-text text-primary font-normal text-xs">Uczelnia</span>
+      </div>
+      <input type="text"
+             class="input input-bordered input-secondary w-full mb-4"
+             placeholder="Uczelnia"
+             [formControl]="universityControl"
+             [matAutocomplete]="auto"/>
+
+      <mat-autocomplete #auto="matAutocomplete">
+        <ng-scrollbar orientation="vertical" visibility="native"
+                      [thumbClass]="'!rounded-lg !bg-primary'">
+          @for (university of filteredUniversities; track university.id) {
+            <mat-option [value]="university.name">{{ university.name }}</mat-option>
+          }
+        </ng-scrollbar>
+      </mat-autocomplete>
+    </label>
+    <button type="submit" class="btn btn-primary">
+      @if (loading) {
+        <span class="loading loading-spinner"></span>
+      } @else {
+        Dodaj
+      }
+    </button>
+  </form>
+  <button class="btn btn-circle btn-sm absolute top-3.5 right-4" mat-dialog-close
+          [matDialogClose]="ModalOutcome.ABANDON">
+    <img ngSrc="assets/icons/x-mark.svg" alt="close"
+         height="13" width="13">
+  </button>
+</div>
