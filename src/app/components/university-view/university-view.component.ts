@@ -4,7 +4,6 @@ import {QuickFiltersComponent} from "../shared/quick-filters/quick-filters.compo
 import {UniversityCardComponent} from "../universities/university-card/university-card.component";
 import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
 import {ProjectCardComponent} from "../open-projects/project-card/project-card.component";
-import {Project} from "../../shared/constants/project";
 import * as mockData from "../open-projects/mock-projects.json";
 import {RouterLink} from "@angular/router";
 
@@ -24,7 +23,7 @@ import {RouterLink} from "@angular/router";
 })
 export class UniversityViewComponent {
 
-  data: Project[] = mockData.cards;
+  data: any = mockData.cards;
 
 
 }

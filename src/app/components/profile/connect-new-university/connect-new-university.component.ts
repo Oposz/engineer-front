@@ -99,14 +99,6 @@ export class ConnectNewUniversityComponent implements OnInit {
       closeButton: true
     }
 
-    if (e.status === 401) {
-      data = {
-        message: 'Niepoprawne dane',
-        variant: "error",
-        closeButton: true
-      }
-    }
-
     this.snackbarService.snackbarFromComponent(SnackbarComponent, data)
     this.loading = false;
   }

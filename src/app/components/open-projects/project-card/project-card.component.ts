@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Project} from "../../../shared/constants/project";
-import {NgOptimizedImage} from "@angular/common";
+import {NgClass, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {getDate, getRemainingDays} from "../../../utils/date";
 
@@ -9,7 +9,8 @@ import {getDate, getRemainingDays} from "../../../utils/date";
   standalone: true,
   imports: [
     NgOptimizedImage,
-    RouterLink
+    RouterLink,
+    NgClass
   ],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.scss'
