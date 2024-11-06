@@ -14,11 +14,12 @@
 <div class="flex justify-between items-center">
   <p class="text-xs text-secondary">Data zakończenia projektu:
     @if (project.dueTo) {
+      @let remainingDays = getRemainingDays(project.dueTo);
       <span
-          [ngClass]="{ 'text-error':getRemainingDays(project.dueTo)<=0,
-          'text-warning': getRemainingDays(project.dueTo)<15 && getRemainingDays(project.dueTo)>0 }">
+          [ngClass]="{ 'text-error':remainingDays<=0,
+          'text-warning': remainingDays<15 && remainingDays>0 }">
         {{ getDate(project.dueTo) }}
-        (pozostało {{ getRemainingDays(project.dueTo) }} dni)
+        (pozostało {{ remainingDays }} dni)
       </span>
     } @else {
       -
