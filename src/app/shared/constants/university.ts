@@ -1,7 +1,9 @@
+import {Project} from "./project";
+
 export interface University {
   id: string,
   name: string,
   description: string,
-  numberOfProjects: number,
+  projects: Project[],
   photo?: string
 }

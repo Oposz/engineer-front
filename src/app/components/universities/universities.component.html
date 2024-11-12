@@ -12,7 +12,7 @@
               [trackClass]="'my-4'"
               [thumbClass]="'!rounded-lg !bg-primary'">
   <div class="p-4 grid grid-cols-1 gap-4">
-    @for (uni of data; track uni.id) {
+    @for (uni of universities; track uni.id) {
       <app-university-card [university]="uni"/>
     }
   </div>
