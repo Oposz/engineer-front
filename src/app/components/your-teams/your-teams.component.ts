@@ -6,6 +6,7 @@ import {ProjectCardComponent} from "../open-projects/project-card/project-card.c
 import {TeamCardComponent} from "./team-card/team-card.component";
 import {HttpService} from "../../shared/service/http.service";
 import {Team} from "../../shared/constants/team";
+import {LoaderComponent} from "../shared/loader/loader.component";
 
 @Component({
   selector: 'app-your-teams',
@@ -15,7 +16,8 @@ import {Team} from "../../shared/constants/team";
     ViewHeaderComponent,
     NgScrollbar,
     ProjectCardComponent,
-    TeamCardComponent
+    TeamCardComponent,
+    LoaderComponent
   ],
   templateUrl: './your-teams.component.html',
   styleUrl: './your-teams.component.scss',

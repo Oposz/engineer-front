@@ -7,6 +7,7 @@ import {UniversityCardComponent} from "./university-card/university-card.compone
 import {University} from "../../shared/constants/university";
 import {take} from "rxjs";
 import {HttpService} from "../../shared/service/http.service";
+import {LoaderComponent} from "../shared/loader/loader.component";
 
 @Component({
   selector: 'app-universities',
@@ -16,18 +17,20 @@ import {HttpService} from "../../shared/service/http.service";
     ViewHeaderComponent,
     NgScrollbar,
     ProjectCardComponent,
-    UniversityCardComponent
+    UniversityCardComponent,
+    LoaderComponent
   ],
   templateUrl: './universities.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './universities.component.scss'
 })
 export class UniversitiesComponent implements OnInit {
+  fetching = true;
 
   universities: University[] = [];
 
   constructor(
-    private readonly httpService:HttpService,
+    private readonly httpService: HttpService,
     private readonly changeDetectorRef: ChangeDetectorRef
   ) {
   }
@@ -42,6 +45,7 @@ export class UniversitiesComponent implements OnInit {
       take(1)
     ).subscribe((universities: University[]) => {
       this.universities = universities;
+      this.fetching = false;
       this.changeDetectorRef.detectChanges();
     })
   }

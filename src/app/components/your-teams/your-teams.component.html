@@ -9,12 +9,16 @@
 </app-view-header>
 <app-quick-filters [addButton]="false" [dateRange]="false"/>
 
-<ng-scrollbar orientation="vertical" visibility="native"
-              [trackClass]="'my-4'"
-              [thumbClass]="'!rounded-lg !bg-primary'">
-  <div class="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-    @for (team of teams; track team.id) {
-      <app-team-card [team]="team"/>
-    }
-  </div>
-</ng-scrollbar>
+@if (fetching) {
+  <app-loader/>
+} @else {
+  <ng-scrollbar orientation="vertical" visibility="native"
+                [trackClass]="'my-4'"
+                [thumbClass]="'!rounded-lg !bg-primary'">
+    <div class="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+      @for (team of teams; track team.id) {
+        <app-team-card [team]="team"/>
+      }
+    </div>
+  </ng-scrollbar>
+}
