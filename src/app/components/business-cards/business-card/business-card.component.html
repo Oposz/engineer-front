@@ -5,7 +5,7 @@
          alt="project photo"
          width="36"
          height="36">
-    <p class="text-primary font-semibold text-2xl">{{ cardData.name }}</p>
+    <p class="text-primary font-semibold text-2xl">{{cardData.title}} {{ cardData.name }} {{ cardData.lastName }}</p>
   </div>
   <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
 </div>
@@ -16,7 +16,7 @@
   </div>
   <div class="flex flex-col">
     <p class="text-secondary text-sm select-none">Uczelnia:</p>
-    <p class="text-primary font-light text-xs truncate">{{ cardData.university }}</p>
+    <p class="text-primary font-light text-xs truncate">{{ cardData.university.name }}</p>
   </div>
   <div class="flex flex-col">
     <p class="text-secondary text-sm select-none">Katedra:</p>
