@@ -34,7 +34,7 @@ import {University} from "../../shared/constants/university";
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  userPersonalData$: Observable<User> = this.httpService.get('users/me').pipe(
+  userPersonalData$: Observable<User> = this.httpService.get('user').pipe(
     take(1)
   )
 
@@ -70,7 +70,7 @@ export class ProfileComponent {
   }
 
   private refreshUserData() {
-    this.userPersonalData$ = this.httpService.get('users/me').pipe(
+    this.userPersonalData$ = this.httpService.get('user').pipe(
       take(1)
     )
   }

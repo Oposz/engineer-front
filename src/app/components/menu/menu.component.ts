@@ -28,7 +28,7 @@ import {MatButton} from "@angular/material/button";
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-  userName$: Observable<string> = this.httpService.get('users/me').pipe(
+  userName$: Observable<string> = this.httpService.get('user').pipe(
     map((user: User) => {
       return `${user.name} ${user.lastName}`
     })

@@ -35,22 +35,10 @@ export class OpenProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpService.get('projects/all').subscribe((projects) => {
+    this.httpService.get('projects/all').subscribe((projects: Project[]) => {
       this.projects = projects;
       this.fetching = false;
       this.changeDetectorRef.detectChanges();
     })
   }
-
-
-  // private handleError(e: HttpErrorResponse) {
-  //   let data: SnackbarData = {
-  //     message: 'Ups! Coś poszło nie tak :(',
-  //     variant: "error",
-  //     closeButton: true
-  //   }
-  //
-  //   this.snackbarService.snackbarFromComponent(SnackbarComponent, data)
-  // }
-
 }

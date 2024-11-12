@@ -13,11 +13,11 @@
 <div class="grid grid-cols-2 xl:grid-cols-3 h-full mb-2 gap-2">
   <div class="flex flex-col">
     <p class="text-secondary text-sm">Uczelnia macierzysta:</p>
-    <p class="text-primary font-light text-xs truncate">{{ team.university }}</p>
+    <p class="text-primary font-light text-xs truncate">{{ team.leadingUniversityName }}</p>
   </div>
   <div class="flex flex-col">
     <p class="text-secondary text-sm">Kierownik projektu:</p>
-    <p class="text-primary font-light text-xs truncate">{{ team.manager }}</p>
+    <p class="text-primary font-light text-xs truncate">{{ team.leader.name }} {{team.leader.lastName}}</p>
   </div>
   <div class="flex flex-col">
     <p class="text-secondary text-sm">Rola w projekcie:</p>
@@ -25,12 +25,23 @@
   </div>
 </div>
 <div class="flex justify-between items-center">
-  <p class="text-xs text-secondary" [class.text-accent]="getRemainingDays(team.end_date)<=3">Data zakończenia
-    projektu: {{ getDate(team.end_date) }}
-    (pozostało {{ getRemainingDays(team.end_date) }} dni)</p>
+  <p class="text-xs text-secondary">Data zakończenia
+    projektu:
+    @if (team.dueTo) {
+      @let remainingDays = getRemainingDays(team.dueTo);
+      <span
+          [ngClass]="{ 'text-error':remainingDays<=0,
+          'text-warning': remainingDays<15 && remainingDays>0 }">
+        {{ getDate(team.dueTo) }}
+        (pozostało {{ remainingDays }} dni)
+      </span>
+    } @else {
+      -
+    }
+  </p>
 
   <div class="flex text-primary items-center text-base font-normal select-none">
-    {{ team.enrolled }}/{{ team.max_slots }}
+    {{ team.signedUsers.length }}/{{ team.availableSlots }}
     <img class="w-6 h-6 ml-0.5" ngSrc="assets/icons/people.svg" height="24"
          width="24"
          alt="icon">

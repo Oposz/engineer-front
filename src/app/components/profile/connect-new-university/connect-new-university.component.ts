@@ -56,7 +56,7 @@ export class ConnectNewUniversityComponent implements OnInit {
     this.loading = true
     const uniToConnect = this.universities.find((_university) => _university.name === this.universityControl.value)?.id
     if (!uniToConnect) return;
-    this.httpService.post('users/connect-university', {universityId: uniToConnect}).pipe(
+    this.httpService.post('user/connect-university', {universityId: uniToConnect}).pipe(
       take(1)
     ).subscribe({
       next: () => {
