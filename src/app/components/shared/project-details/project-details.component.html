@@ -1,0 +1,106 @@
+@if (fetching) {
+  <app-loader/>
+} @else {
+  <div class="p-4 flex justify-between mb-4">
+    <div class="flex gap-2.5 items-center w-full">
+      <img [ngSrc]="'assets/icons/ellipse-avatar.svg'"
+           class="w-12 h-12"
+           alt="project photo"
+           width="48"
+           height="48">
+      <div class="relative w-full">
+        <h1 class="text-primary font-semibold text-2xl">{{ project.name }}</h1>
+        <div class="breadcrumbs text-xs text-secondary absolute -bottom-5">
+          <ul>
+            @if (variant==='team'){
+              <li><span [routerLink]="'/teams'" class="cursor-pointer">Twoje projekty</span></li>
+            } @else {
+              <li><span [routerLink]="'/projects'" class="cursor-pointer">Otwarte projekty</span></li>
+            }
+            <li>{{ project.name }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    @if (variant==='team'){
+      <button class="btn btn-accent text-neutral">Opuść projekt</button>
+    } @else {
+      <button class="btn btn-primary">Aplikuj do projektu</button>
+    }
+  </div>
+
+
+  <div class="px-4 pb-4 flex flex-col justify-between h-full">
+    <div>
+      <div
+          class="p-2.5 border border-solid border-primary rounded-lg w-full text-primary font-medium mb-2.5 max-h-72 flex">
+        <ng-scrollbar orientation="vertical" visibility="native"
+                      [thumbClass]="'!rounded-lg !bg-primary'">
+          {{ project.description }}
+        </ng-scrollbar>
+
+      </div>
+      <div class="w-full flex justify-between text-primary">
+        <div class="border border-solid border-primary rounded-lg w-full mr-2.5">
+          <div class="flex-col flex font-medium">
+            <div class="flex justify-between border-b border-solid border-primary p-2.5">
+              <h2 class="text-2xl">Członkowie zespołu</h2>
+              <div class="flex text-primary items-center text-2xl select-none">
+                {{ project.signedUsers.length }}/{{ project.availableSlots }}
+                <img class="w-8 h-8 ml-0.5" ngSrc="../../../../assets/icons/people.svg" height="24"
+                     width="24"
+                     alt="icon">
+              </div>
+            </div>
+            <div class="p-2.5 text-primary text-xl font-medium">
+              <ul class="list-disc pl-5">
+                @for (user of project.signedUsers; track user.id) {
+                  <li>{{ user.name }} {{ user.lastName }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-solid border-primary rounded-lg w-full">
+          <div class="flex-col flex font-medium">
+            <h2 class="text-2xl w-full p-2.5 border-b border-solid border-primary">Potrzebni specjaliści:</h2>
+            <div class="p-2.5 text-primary text-xl font-medium">
+              <ul class="list-disc pl-5">
+                @for (position of definedPositions; track position.id) {
+                  <li>
+                    <div class="flex gap-2.5">
+                      <p>{{ position.name }}</p>
+                      @if (position.taken) {
+                        <img ngSrc="../../../../assets/icons/check-mark.svg" height="14" width="18" alt="check">
+                      }
+                    </div>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="flex flex-col gap-2.5 mt-auto font-semibold text-xl text-primary">
+      <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+        <p>Osoba odpowiedzialna za kierownictwo projektem:</p>
+        <p class="font-medium text-xl">{{ project.leader.title }} {{ project.leader.name }} {{ project.leader.lastName }}</p>
+      </div>
+      <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+        <p>Terminy oddania projektu bądź jego kamieni milowych:</p>
+        <div class="flex text-primary font-medium">{{ project.dueTo ? project.dueTo : '-' }}</div>
+      </div>
+      <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 ">
+        <p class="text-base">Sponsorzy projektu:</p>
+<!--        <div class="flex max-h-4">-->
+<!--          {{project.sponsors}}-->
+<!--        </div>-->
+<!--        TODO implement photos-->
+      </div>
+    </div>
+  </div>
+}
