@@ -6,8 +6,7 @@
     Aktualnie znajdujesz się na ekranie wszystkich projektów, w których bierzesz udział.
   </ng-container>
 </app-view-header>
-<app-quick-filters/>
-
+<app-quick-filters (favToggled)="filterFavourites($event)" (alphabeticalSortChanged)="sortProjects($event)"/>
 
 @if (fetching) {
   <app-loader></app-loader>
@@ -16,7 +15,7 @@
                 [trackClass]="'my-4'"
                 [thumbClass]="'!rounded-lg !bg-primary'">
     <div class="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-      @for (project of projects; track project.id) {
+      @for (project of renderedProjects; track project.id) {
         <app-project-card [project]="project"/>
       }
     </div>

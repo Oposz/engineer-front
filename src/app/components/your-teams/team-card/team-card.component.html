@@ -8,7 +8,13 @@
     <p class="text-primary font-semibold text-2xl cursor-pointer"
        [routerLink]="'/teams/'+team.id">{{ team.name }}</p>
   </div>
-  <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
+  @if (team.favourite) {
+    <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-filled.svg"
+         alt="favourite" height="32" width="32">
+  } @else {
+    <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-empty.svg"
+         alt="favourite" height="32" width="32">
+  }
 </div>
 <div class="grid grid-cols-2 xl:grid-cols-3 h-full mb-2 gap-2">
   <div class="flex flex-col">
@@ -17,7 +23,7 @@
   </div>
   <div class="flex flex-col">
     <p class="text-secondary text-sm">Kierownik projektu:</p>
-    <p class="text-primary font-light text-xs truncate">{{ team.leader.name }} {{team.leader.lastName}}</p>
+    <p class="text-primary font-light text-xs truncate">{{ team.leader.name }} {{ team.leader.lastName }}</p>
   </div>
   <div class="flex flex-col">
     <p class="text-secondary text-sm">Rola w projekcie:</p>
@@ -28,7 +34,7 @@
   <p class="text-xs text-secondary">Data zakończenia
     projektu:
     @if (team.dueTo) {
-      @let remainingDays = getRemainingDays(team.dueTo);
+      @let remainingDays = getRemainingDays(team.dueTo) ;
       <span
           [ngClass]="{ 'text-error':remainingDays<=0,
           'text-warning': remainingDays<15 && remainingDays>0 }">
@@ -39,7 +45,6 @@
       -
     }
   </p>
-
   <div class="flex text-primary items-center text-base font-normal select-none">
     {{ team.signedUsers.length }}/{{ team.availableSlots }}
     <img class="w-6 h-6 ml-0.5" ngSrc="assets/icons/people.svg" height="24"

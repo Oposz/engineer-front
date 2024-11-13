@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
-import {QuickFiltersComponent} from "../shared/quick-filters/quick-filters.component";
+import {QuickFiltersComponent, SortingMode} from "../shared/quick-filters/quick-filters.component";
 import {ProjectCardComponent} from "./project-card/project-card.component";
 import {Project} from "../../shared/constants/project";
 import {NgScrollbar} from "ngx-scrollbar";
@@ -26,7 +26,8 @@ import {LoaderComponent} from "../shared/loader/loader.component";
 export class OpenProjectsComponent implements OnInit {
 
   fetching: boolean = true;
-  projects: Project[] = [];
+  allProjects: Project[] = []
+  renderedProjects: Project[] = [];
 
   constructor(
     private readonly httpService: HttpService,
@@ -35,8 +36,31 @@ export class OpenProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fetchAllProjects();
+  }
+
+  filterFavourites(favouritesVisible: boolean) {
+    if (favouritesVisible) {
+      this.renderedProjects = this.allProjects.filter((project) => project.favourite)
+    } else {
+      this.renderedProjects = this.allProjects;
+    }
+    this.changeDetectorRef.detectChanges();
+  }
+
+  sortProjects(sortingMode: SortingMode) {
+    if (sortingMode===SortingMode.ASCENDING){
+      this.renderedProjects.sort((a, b) => a.name.localeCompare(b.name))
+    } else {
+      this.renderedProjects.sort((a, b) => b.name.localeCompare(a.name))
+    }
+    this.changeDetectorRef.detectChanges();
+  }
+
+  private fetchAllProjects() {
     this.httpService.get('projects/all').subscribe((projects: Project[]) => {
-      this.projects = projects;
+      this.allProjects = projects.sort((a, b) => a.name.localeCompare(b.name));
+      this.renderedProjects = this.allProjects;
       this.fetching = false;
       this.changeDetectorRef.detectChanges();
     })

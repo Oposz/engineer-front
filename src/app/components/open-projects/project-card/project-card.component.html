@@ -8,13 +8,19 @@
     <p class="text-primary font-semibold text-2xl cursor-pointer"
        [routerLink]="'/projects/'+project.id">{{ project.name }}</p>
   </div>
-  <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
+  @if (project.favourite) {
+    <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-filled.svg"
+         alt="favourite" height="32" width="32">
+  } @else {
+    <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-empty.svg"
+         alt="favourite" height="32" width="32">
+  }
 </div>
 <p class="mt-1 text-sm text-secondary line-clamp-3">{{ project.description }}</p>
 <div class="flex justify-between items-center mt-auto">
   <p class="text-xs text-secondary">Data zakończenia projektu:
     @if (project.dueTo) {
-      @let remainingDays = getRemainingDays(project.dueTo);
+      @let remainingDays = getRemainingDays(project.dueTo) ;
       <span
           [ngClass]="{ 'text-error':remainingDays<=0,
           'text-warning': remainingDays<15 && remainingDays>0 }">
@@ -25,7 +31,6 @@
       -
     }
   </p>
-
   <div class="flex text-primary items-center text-base font-normal select-none">
     {{ project.signedUsers.length }}/{{ project.availableSlots }}
     <img class="w-6 h-6 ml-0.5" ngSrc="assets/icons/people.svg" height="24"

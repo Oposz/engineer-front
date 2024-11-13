@@ -6,20 +6,34 @@
 
 <div class="flex justify-end gap-3 w-full items-center">
 
-  <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle">
+  <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle" (click)="toggleAlphabeticalSort()">
     <span class="text-base">A-Z</span>
-    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 13.5V4.3L1.4 7.9L0 6.5L6 0.5L12 6.5L10.6 7.9L7 4.3V13.5H5Z" fill="#457B9D"/>
-    </svg>
+    @if (alphabeticalSortState === SortingMode.ASCENDING) {
+      <!--A-Z-->
+      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 13.5V4.3L1.4 7.9L0 6.5L6 0.5L12 6.5L10.6 7.9L7 4.3V13.5H5Z" fill="#457B9D"/>
+      </svg>
+    } @else if (alphabeticalSortState === SortingMode.DESCENDING) {
+      <!--Z-A-->
+      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180">
+        <path d="M5 13.5V4.3L1.4 7.9L0 6.5L6 0.5L12 6.5L10.6 7.9L7 4.3V13.5H5Z" fill="#457B9D"/>
+      </svg>
+    }
   </button>
 
   @if (favouritesButton) {
-    <button class="btn btn-outline btn-secondary flex items-center">
+    <button class="btn btn-outline btn-secondary flex items-center" (click)="toggleFavs()">
       <span class="text-base">Favourites</span>
       <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#FFFFFF"
+        @if (this.favourites) {
+          <path
               d="M12 2.02254L14.0998 8.48493L14.2401 8.9168H14.6942H21.4891L15.9919 12.9108L15.6245 13.1777L15.7648 13.6095L17.8646 20.0719L12.3674 16.078L12 15.811L11.6326 16.078L6.1354 20.0719L8.23516 13.6095L8.37548 13.1777L8.00811 12.9108L2.51087 8.9168H9.30583H9.75992L9.90024 8.48493L12 2.02254Z"
-              stroke="#DFC25B" stroke-width="1.25"/>
+              fill="#DFC25B" stroke="#DFC25B" stroke-width="1.25"/>
+        } @else {
+          <path fill="#FFFFFF"
+                d="M12 2.02254L14.0998 8.48493L14.2401 8.9168H14.6942H21.4891L15.9919 12.9108L15.6245 13.1777L15.7648 13.6095L17.8646 20.0719L12.3674 16.078L12 15.811L11.6326 16.078L6.1354 20.0719L8.23516 13.6095L8.37548 13.1777L8.00811 12.9108L2.51087 8.9168H9.30583H9.75992L9.90024 8.48493L12 2.02254Z"
+                stroke="#DFC25B" stroke-width="1.25"/>
+        }
       </svg>
     </button>
   }

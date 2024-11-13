@@ -20,6 +20,10 @@ export class HttpService {
     return this.httpClient.get(`http://localhost:3000/${url}`)
   }
 
+  patch(url: string, body: any): Observable<any> {
+    return this.httpClient.patch(`http://localhost:3000/${url}`, body)
+  }
+
 }
 
 

@@ -1,8 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
 import {NgClass, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {getDate, getRemainingDays} from "../../../utils/date";
 import {Team} from "../../../shared/constants/team";
+import {HttpService} from "../../../shared/service/http.service";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-team-card',
@@ -13,7 +15,8 @@ import {Team} from "../../../shared/constants/team";
     NgClass
   ],
   templateUrl: './team-card.component.html',
-  styleUrl: './team-card.component.scss'
+  styleUrl: './team-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamCardComponent {
 
@@ -22,4 +25,15 @@ export class TeamCardComponent {
 
   protected readonly getDate = getDate;
   protected readonly getRemainingDays = getRemainingDays;
+
+  constructor(private readonly httpService: HttpService,
+              private readonly changeDetectorRef: ChangeDetectorRef) {
+  }
+
+  toggleFavProperty() {
+    this.httpService.patch(`projects/favourite/${this.team.id}`, {}).pipe(take(1)).subscribe()
+    this.team.favourite = !this.team.favourite;
+    this.changeDetectorRef.detectChanges();
+  }
+
 }

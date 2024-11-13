@@ -7,7 +7,11 @@
     jeśli nie jesteś w stanie odnaleźć interesującego cię zespołu.
   </ng-container>
 </app-view-header>
-<app-quick-filters [addButton]="false" [dateRange]="false"/>
+<app-quick-filters
+    [addButton]="false"
+    [dateRange]="false"
+    (favToggled)="filterFavourites($event)"
+    (alphabeticalSortChanged)="sortTeams($event)"/>
 
 @if (fetching) {
   <app-loader/>
@@ -16,7 +20,7 @@
                 [trackClass]="'my-4'"
                 [thumbClass]="'!rounded-lg !bg-primary'">
     <div class="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-      @for (team of teams; track team.id) {
+      @for (team of renderedTeams; track team.id) {
         <app-team-card [team]="team"/>
       }
     </div>
