@@ -28,6 +28,7 @@ export class OpenProjectsComponent implements OnInit {
   fetching: boolean = true;
   allProjects: Project[] = []
   renderedProjects: Project[] = [];
+  projectsBeforeDateFiltering: Project[] = [];
 
   constructor(
     private readonly httpService: HttpService,
@@ -49,23 +50,47 @@ export class OpenProjectsComponent implements OnInit {
   }
 
   sortProjects(sortingMode: SortingMode) {
-    if (sortingMode===SortingMode.ASCENDING){
-      this.renderedProjects.sort((a, b) => a.name.localeCompare(b.name))
+    if (sortingMode === SortingMode.ASCENDING) {
+      this.renderedProjects.sort((a, b) => a.name.localeCompare(b.name));
     } else {
-      this.renderedProjects.sort((a, b) => b.name.localeCompare(a.name))
+      this.renderedProjects.sort((a, b) => b.name.localeCompare(a.name));
     }
     this.changeDetectorRef.detectChanges();
   }
 
-  filterProjectsByName(searchValue: string){
+  filterProjectsByName(searchValue: string) {
     this.renderedProjects = this.allProjects.filter((project) => project.name.includes(searchValue));
+    this.projectsBeforeDateFiltering = this.renderedProjects;
     this.changeDetectorRef.detectChanges();
+  }
+
+  filterEndDueTo(date: string) {
+    if (!date){
+      this.renderedProjects = this.projectsBeforeDateFiltering;
+      return;
+    }
+    this.renderedProjects = this.projectsBeforeDateFiltering.filter((project) => {
+      const projectDueTo = project.dueTo?.toString();
+      return projectDueTo && projectDueTo < date;
+    })
+  }
+
+  filterStartDueTo(date: string) {
+    if (date===''){
+      this.renderedProjects = this.projectsBeforeDateFiltering;
+      return;
+    }
+    this.renderedProjects = this.projectsBeforeDateFiltering.filter((project) => {
+      const projectDueTo = project.dueTo?.toString();
+      return projectDueTo && projectDueTo > date;
+    })
   }
 
   private fetchAllProjects() {
     this.httpService.get('projects/all').subscribe((projects: Project[]) => {
       this.allProjects = projects.sort((a, b) => a.name.localeCompare(b.name));
       this.renderedProjects = this.allProjects;
+      this.projectsBeforeDateFiltering = this.renderedProjects;
       this.fetching = false;
       this.changeDetectorRef.detectChanges();
     })

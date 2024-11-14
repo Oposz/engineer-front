@@ -10,16 +10,17 @@ import {
   Output
 } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
-import {MatDatepickerModule,} from "@angular/material/datepicker";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {MatDatepickerInputEvent, MatDatepickerModule,} from "@angular/material/datepicker";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {DateAdapter, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MatInput, MatSuffix} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {debounceTime} from "rxjs";
+import {NgxMaskDirective} from "ngx-mask";
+import {DateMaskDirective} from "./date-mask.directive";
 
 export enum SortingMode {
-  // NONE,
   ASCENDING,
   DESCENDING,
 }
@@ -33,7 +34,9 @@ export enum SortingMode {
     MatInput,
     MatSuffix,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskDirective,
+    DateMaskDirective
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
@@ -65,14 +68,15 @@ export class QuickFiltersComponent implements OnInit {
   @Output()
   searchbarValueChanged: EventEmitter<string> = new EventEmitter()
 
+  @Output()
+  startDatePicked: EventEmitter<string> = new EventEmitter()
+
+  @Output()
+  endDatePicked: EventEmitter<string> = new EventEmitter()
+
   favourites: boolean = false;
   alphabeticalSortState = SortingMode.ASCENDING
   destroyRef: DestroyRef = inject(DestroyRef);
-
-  readonly range = new FormGroup({
-    start: new FormControl<Date | null>({value: null, disabled: true}),
-    end: new FormControl<Date | null>({value: null, disabled: true}),
-  });
 
   searchbarControl: FormControl<string> = new FormControl('', {nonNullable: true});
 
@@ -105,11 +109,36 @@ export class QuickFiltersComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
-  private observeSearchbarValue(){
+  filterStartDueToDate(event: MatDatepickerInputEvent<any>) {
+    const date = new Date(event.value);
+    let formattedDate = date.toISOString().slice(0,23).replace('T', ' ');
+    if (formattedDate.includes('1970')){
+      formattedDate='';
+    }
+    this.startDatePicked.emit(formattedDate);
+  }
+
+  filterEndDueToDate(event: MatDatepickerInputEvent<any>) {
+    const date = new Date(event.value);
+    let formattedDate = date.toISOString().slice(0,23).replace('T', ' ');
+    if (formattedDate.includes('1970')){
+      formattedDate='';
+    }
+    this.endDatePicked.emit(formattedDate);
+  }
+
+  focusEnd(event: MouseEvent) {
+    const input = event.target as HTMLInputElement;
+    setTimeout(() => {
+      input.selectionStart = input.selectionEnd = input.value.length;
+    });
+  }
+
+  private observeSearchbarValue() {
     this.searchbarControl.valueChanges.pipe(
       debounceTime(500),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((searchValue)=>{
+    ).subscribe((searchValue) => {
       this.searchbarValueChanged.emit(searchValue)
     })
   }

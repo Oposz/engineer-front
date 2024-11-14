@@ -9,7 +9,9 @@
 <app-quick-filters
     (favToggled)="filterFavourites($event)"
     (alphabeticalSortChanged)="sortProjects($event)"
-    (searchbarValueChanged)="filterProjectsByName($event)"/>
+    (searchbarValueChanged)="filterProjectsByName($event)"
+    (endDatePicked)="filterEndDueTo($event)"
+    (startDatePicked)="filterStartDueTo($event)"/>
 
 @if (fetching) {
   <app-loader></app-loader>

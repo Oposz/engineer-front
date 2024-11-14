@@ -42,8 +42,8 @@
   @if (dateRange) {
     <div class="flex items-center gap-1">
       <div class="flex text-primary relative w-40">
-        <input matInput [matDatepicker]="startPicker" placeholder="Start date"
-               class="input input-bordered input-secondary text-secondary w-full">
+        <input matInput [matDatepicker]="startPicker" placeholder="Start date" appDateMask
+               maxlength="10" class="input input-bordered input-secondary text-secondary w-full" (dateChange)="filterStartDueToDate($event)">
         <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-1 text-secondary" matIconSuffix
                                [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
@@ -52,8 +52,8 @@
         <path d="M12.01 3H0V5H12.01V8L16 4L12.01 0V3Z" fill="#457B9D"/>
       </svg>
       <div class="flex text-primary relative w-40">
-        <input matInput [matDatepicker]="endPicker" placeholder="End date"
-               class="input input-bordered input-secondary text-secondary w-full">
+        <input matInput [matDatepicker]="endPicker" placeholder="End date" appDateMask
+               maxlength="10" class="input input-bordered input-secondary text-secondary w-full" (dateChange)="filterEndDueToDate($event)">
         <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-1 text-secondary" matIconSuffix
                                [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
