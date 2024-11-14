@@ -55,6 +55,11 @@ export class YourTeamsComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
+  filterTeamsByName(searchValue: string){
+    this.renderedTeams = this.allTeams.filter((project) => project.name.includes(searchValue));
+    this.changeDetectorRef.detectChanges();
+  }
+
   private fetchTeams(){
     this.httpService.get('user/teams').subscribe((teams: Team[]) => {
       this.allTeams = teams.sort((a, b) => a.name.localeCompare(b.name))

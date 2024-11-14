@@ -11,7 +11,8 @@
     [addButton]="false"
     [dateRange]="false"
     (favToggled)="filterFavourites($event)"
-    (alphabeticalSortChanged)="sortTeams($event)"/>
+    (alphabeticalSortChanged)="sortTeams($event)"
+    (searchbarValueChanged)="filterTeamsByName($event)"/>
 
 @if (fetching) {
   <app-loader/>

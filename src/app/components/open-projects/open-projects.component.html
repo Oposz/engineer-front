@@ -6,7 +6,10 @@
     Aktualnie znajdujesz się na ekranie wszystkich projektów, w których bierzesz udział.
   </ng-container>
 </app-view-header>
-<app-quick-filters (favToggled)="filterFavourites($event)" (alphabeticalSortChanged)="sortProjects($event)"/>
+<app-quick-filters
+    (favToggled)="filterFavourites($event)"
+    (alphabeticalSortChanged)="sortProjects($event)"
+    (searchbarValueChanged)="filterProjectsByName($event)"/>
 
 @if (fetching) {
   <app-loader></app-loader>

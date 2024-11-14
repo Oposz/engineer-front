@@ -1,7 +1,8 @@
 <div class="relative w-5/12 max-w-md form-control">
   <img class="absolute m-auto top-0 bottom-0 right-3" ngSrc="assets/icons/search.svg" alt="search" height="24"
        width="24">
-  <input type="text" placeholder="Search..." class="input input-bordered input-secondary w-full"/>
+  <input [formControl]="searchbarControl" type="text" placeholder="Search..."
+         class="input input-bordered input-secondary w-full"/>
 </div>
 
 <div class="flex justify-end gap-3 w-full items-center">

@@ -2,17 +2,21 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output
 } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {MatDatepickerModule,} from "@angular/material/datepicker";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {DateAdapter, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MatInput, MatSuffix} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {debounceTime} from "rxjs";
 
 export enum SortingMode {
   // NONE,
@@ -28,7 +32,8 @@ export enum SortingMode {
     MatDatepickerModule,
     MatInput,
     MatSuffix,
-    RouterLink
+    RouterLink,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
@@ -57,13 +62,19 @@ export class QuickFiltersComponent implements OnInit {
   @Output()
   alphabeticalSortChanged: EventEmitter<SortingMode> = new EventEmitter()
 
+  @Output()
+  searchbarValueChanged: EventEmitter<string> = new EventEmitter()
+
   favourites: boolean = false;
   alphabeticalSortState = SortingMode.ASCENDING
+  destroyRef: DestroyRef = inject(DestroyRef);
 
   readonly range = new FormGroup({
     start: new FormControl<Date | null>({value: null, disabled: true}),
     end: new FormControl<Date | null>({value: null, disabled: true}),
   });
+
+  searchbarControl: FormControl<string> = new FormControl('', {nonNullable: true});
 
   constructor(
     private readonly dateAdapter: DateAdapter<Date>,
@@ -73,6 +84,7 @@ export class QuickFiltersComponent implements OnInit {
 
   ngOnInit() {
     this.dateAdapter.setLocale('en-GB');
+    this.observeSearchbarValue();
   }
 
   toggleFavs() {
@@ -91,6 +103,15 @@ export class QuickFiltersComponent implements OnInit {
     }
     this.alphabeticalSortChanged.emit(this.alphabeticalSortState)
     this.changeDetectorRef.detectChanges();
+  }
+
+  private observeSearchbarValue(){
+    this.searchbarControl.valueChanges.pipe(
+      debounceTime(500),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((searchValue)=>{
+      this.searchbarValueChanged.emit(searchValue)
+    })
   }
 
   protected readonly SortingMode = SortingMode;

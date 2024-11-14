@@ -57,6 +57,11 @@ export class OpenProjectsComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
+  filterProjectsByName(searchValue: string){
+    this.renderedProjects = this.allProjects.filter((project) => project.name.includes(searchValue));
+    this.changeDetectorRef.detectChanges();
+  }
+
   private fetchAllProjects() {
     this.httpService.get('projects/all').subscribe((projects: Project[]) => {
       this.allProjects = projects.sort((a, b) => a.name.localeCompare(b.name));
