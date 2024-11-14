@@ -1,6 +1,6 @@
 <div class="flex justify-between items-center mb-1">
   <div class="flex items-center">
-    <img [ngSrc]="university.photo ? university.photo:'assets/icons/ellipse-avatar.svg'"
+    <img [src]="university.photo ? university.photo:'assets/icons/ellipse-avatar.svg'"
          class="mr-2.5"
          alt="project photo"
          width="36"
@@ -8,7 +8,7 @@
     <p class="text-primary font-semibold text-2xl cursor-pointer"
        [routerLink]="'/universities/'+university.id">{{ university.name }}</p>
   </div>
-  @if (withFavouriteFeature){
+  @if (withFavouriteFeature) {
     <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
   }
 </div>

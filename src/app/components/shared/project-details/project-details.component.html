@@ -3,7 +3,7 @@
 } @else {
   <div class="p-4 flex justify-between mb-4">
     <div class="flex gap-2.5 items-center w-full">
-      <img [ngSrc]="'assets/icons/ellipse-avatar.svg'"
+      <img [src]="project.photo ? project.photo:'assets/icons/ellipse-avatar.svg'"
            class="w-12 h-12"
            alt="project photo"
            width="48"
@@ -12,7 +12,7 @@
         <h1 class="text-primary font-semibold text-2xl">{{ project.name }}</h1>
         <div class="breadcrumbs text-xs text-secondary absolute -bottom-5">
           <ul>
-            @if (variant==='team'){
+            @if (variant === 'team') {
               <li><span [routerLink]="'/teams'" class="cursor-pointer">Twoje projekty</span></li>
             } @else {
               <li><span [routerLink]="'/projects'" class="cursor-pointer">Otwarte projekty</span></li>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    @if (variant==='team'){
+    @if (variant === 'team') {
       <button class="btn btn-accent text-neutral">Opuść projekt</button>
     } @else {
       <button class="btn btn-primary">Aplikuj do projektu</button>
@@ -94,13 +94,16 @@
         <p>Terminy oddania projektu bądź jego kamieni milowych:</p>
         <div class="flex text-primary font-medium">{{ project.dueTo ? project.dueTo : '-' }}</div>
       </div>
-      <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 ">
-        <p class="text-base">Sponsorzy projektu:</p>
-<!--        <div class="flex max-h-4">-->
-<!--          {{project.sponsors}}-->
-<!--        </div>-->
-<!--        TODO implement photos-->
-      </div>
+      @if (project.sponsors) {
+        <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full">
+          <p class="text-base">Sponsorzy projektu:</p>
+          <div class="flex gap-2.5">
+            @for (sponsor of project.sponsors; track sponsor.id) {
+              <img [src]="sponsor.photo" alt="sponsor photo" class="w-12 h-12">
+            }
+          </div>
+        </div>
+      }
     </div>
   </div>
 }

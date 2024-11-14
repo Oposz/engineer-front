@@ -4,7 +4,7 @@ export interface Project {
   id: string
   name: string
   description: string
-  photo: any
+  photo: string
   favourite: boolean
   availableSlots: number
   dueTo?: string

@@ -17,7 +17,6 @@ import {MatInput, MatSuffix} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {debounceTime} from "rxjs";
-import {NgxMaskDirective} from "ngx-mask";
 import {DateMaskDirective} from "./date-mask.directive";
 
 export enum SortingMode {
@@ -35,7 +34,6 @@ export enum SortingMode {
     MatSuffix,
     RouterLink,
     ReactiveFormsModule,
-    NgxMaskDirective,
     DateMaskDirective
   ],
   providers: [

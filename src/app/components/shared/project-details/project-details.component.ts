@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
+import {JsonPipe, NgOptimizedImage} from "@angular/common";
 import {BreadcrumbsComponent} from "../breadcrumbs/breadcrumbs.component";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {NgScrollbar} from "ngx-scrollbar";
@@ -23,7 +23,8 @@ import {DefinedPositionWithAvailability, Project} from "../../../shared/constant
     MatDatepickerToggle,
     MatInput,
     MatSuffix,
-    LoaderComponent
+    LoaderComponent,
+    JsonPipe
   ],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss',

@@ -1,11 +1,11 @@
 <div class="flex justify-between items-center mb-6">
   <div class="flex items-center">
-    <img [ngSrc]="cardData.photo ? cardData.photo:'assets/icons/ellipse-avatar.svg'"
+    <img [src]="cardData.photo ? cardData.photo:'assets/icons/ellipse-avatar.svg'"
          class="mr-2.5"
          alt="project photo"
          width="36"
          height="36">
-    <p class="text-primary font-semibold text-2xl">{{cardData.title}} {{ cardData.name }} {{ cardData.lastName }}</p>
+    <p class="text-primary font-semibold text-2xl">{{ cardData.title }} {{ cardData.name }} {{ cardData.lastName }}</p>
   </div>
   <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
 </div>
