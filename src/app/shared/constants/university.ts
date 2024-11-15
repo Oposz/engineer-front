@@ -1,4 +1,5 @@
 import {Project} from "./project";
+import {Leader} from "./leader";
 
 export interface University {
   id: string,
@@ -6,4 +7,5 @@ export interface University {
   description: string,
   projects: Project[],
   photo?: string
+  leaders: Leader[]
 }

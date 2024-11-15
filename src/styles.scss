@@ -19,7 +19,7 @@ div.mat-mdc-autocomplete-panel {
   @apply bg-secondary rounded-lg #{!important};
   mat-option {
     @apply text-primary text-xl #{!important};
-    span{
+    span {
       @apply truncate
     }
   }
@@ -31,4 +31,8 @@ div.mat-mdc-autocomplete-panel {
   .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after, .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after {
     @apply text-primary #{!important};
   }
+}
+
+.mat-mdc-tooltip-surface {
+  @apply bg-primary text-neutral #{!important};
 }

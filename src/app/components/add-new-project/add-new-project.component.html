@@ -1,64 +1,112 @@
-<div class="flex justify-between">
-  <div class="flex items-center mb-8">
-    <div class="relative mr-2.5">
-      <img [ngSrc]="'assets/icons/ellipse-avatar.svg'"
-           class="w-12 h-12"
-           alt="project photo"
-           width="48"
-           height="48">
-      <img class="w-6 h-6 absolute top-0 bottom-0 right-0 left-0 m-auto" ngSrc="assets/icons/edit-pencil.svg"
-           alt="edit-icon"
-           height="24" width="24">
+<form class="flex flex-col h-full" (ngSubmit)="saveNewProject()" [formGroup]="newProjectFormGroup">
+  <div class="flex justify-between">
+    <div class="flex items-center mb-8">
+      <div class="relative mr-2.5">
+        <input type="file" hidden accept="image/*" #imageInput (change)="uploadImage($event)">
+        <img [ngSrc]="uploadedPhotoSrc ? uploadedPhotoSrc : 'assets/icons/ellipse-avatar.svg'"
+             class="w-12 h-12 rounded-3xl"
+             alt="project photo"
+             width="48"
+             height="48">
+        <img class="w-6 h-6 absolute top-0 bottom-0 right-0 left-0 m-auto cursor-pointer hover:scale-110"
+             ngSrc="assets/icons/edit-pencil.svg"
+             alt="edit-icon"
+             height="24" width="24" (click)="onImageClick()">
+      </div>
+      <input type="text" placeholder="Project Name..." formControlName="projectName"
+             class="input input-bordered input-secondary px-3 text-secondary font-semibold text-2xl"/>
     </div>
-    <input type="text" placeholder="Project Name..."
-           class="input input-bordered input-secondary px-3 text-secondary font-semibold text-2xl"/>
+    <button class="btn btn-primary" type="submit">Zapisz</button>
   </div>
-  <button class="btn btn-primary">Zapisz</button>
-</div>
-<div class="px-2.5 mb-5 flex flex-col">
-  <p class="text-primary text-base font-semibold mb-2.5">Opis projektu:</p>
-  <textarea class="textarea textarea-secondary w-full h-36 resize-none" placeholder="Description..."></textarea>
-</div>
-<div class="px-2.5 flex flex-col">
-  <p class="text-primary text-base font-semibold mb-2.5">Potrzebne role oraz liczba uczestników:</p>
-  <div class="flex flex-col gap-4 border border-solid border-secondary px-6 py-4 rounded-lg w-2/5">
-    <app-new-position [positionName]="'Grafik'"/>
-    <div class="flex">
-      <input type="text" placeholder="Dodaj pozycje"
-             class="input input-bordered input-secondary px-3 text-secondary font-semibold text-xl mr-2.5 h-10"/>
-      <button class="btn btn-primary add-button">
-        <svg width="14" height="14" viewBox="0 0 14 14" class="fill-neutral" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z"/>
-        </svg>
-      </button>
+  <div class="px-2.5 mb-5 flex flex-col">
+    <p class="text-primary text-base font-semibold mb-2.5">Opis projektu:</p>
+    <textarea class="textarea textarea-secondary w-full h-36 resize-none text-secondary font-semibold text-md"
+              placeholder="Description..."></textarea>
+  </div>
+  <div class="px-2.5 flex flex-col">
+    <p class="text-primary text-base font-semibold mb-2.5">Potrzebne role oraz liczba uczestników:</p>
+    <div class="flex flex-col gap-4 border border-solid border-secondary px-6 py-4 rounded-lg w-2/5">
+      <div class="pl-1 max-h-32">
+        <ng-scrollbar orientation="vertical" visibility="native"
+                      [thumbClass]="'!rounded-lg !bg-primary'">
+          @for (position of positions; track position.name) {
+            <app-new-position [positionName]="position.name" [quantity]="position.quantity"/>
+          }
+        </ng-scrollbar>
+      </div>
+      <div class="flex w-full">
+        <input type="text" placeholder="Dodaj pozycje" [formControl]="newPositionControl"
+               class="input input-bordered input-secondary px-3 text-secondary font-semibold text-xl mr-2.5 h-10 w-full"/>
+        <button class="btn btn-primary add-button" type="button" (click)="addPositionToProject()">
+          <svg width="14" height="14" viewBox="0 0 14 14" class="fill-neutral" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="flex flex-col gap-2.5 mt-auto font-semibold text-xl text-primary px-2.5">
-  <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
-    <p>Osoba odpowiedzialna za kierownictwo projektem:</p>
-    <input type="text" placeholder="Kierownik projektu"
-           class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-2/5"/>
-  </div>
-  <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
-    <p>Terminy oddania projektu bądź jego kamieni milowych:</p>
-    <div class="flex text-primary relative w-44">
-      <input matInput [matDatepicker]="startPicker" placeholder="dd/mm/yyyy"
-             class="input input-bordered input-secondary text-secondary h-10 datepicker w-full">
-      <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-0 text-secondary" matIconSuffix
-                             [for]="startPicker"></mat-datepicker-toggle>
-      <mat-datepicker #startPicker></mat-datepicker>
+  <div class="flex flex-col gap-2.5 mt-auto font-semibold text-xl text-primary px-2.5">
+    <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+      <p>Uczelnia:</p>
+      <input type="text"
+             formControlName="university"
+             class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-2/5"
+             placeholder="Uczelnia"
+             [matAutocomplete]="uniAuto"/>
+
+      <mat-autocomplete #uniAuto="matAutocomplete">
+        <ng-scrollbar orientation="vertical" visibility="native"
+                      [thumbClass]="'!rounded-lg !bg-primary'">
+          @for (university of filteredUniversities; track university.id) {
+            <mat-option [value]="university.name">{{ university.name }}</mat-option>
+          }
+        </ng-scrollbar>
+      </mat-autocomplete>
+    </div>
+    <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+      <p>Kierownik projektu:</p>
+      <input type="text"
+             formControlName="leader"
+             class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-2/5 disabled"
+             placeholder="Kierownik projektu"
+             [matAutocomplete]="leaderAuto"/>
+
+      <mat-autocomplete #leaderAuto="matAutocomplete" [displayWith]="leaderDisplayFn">
+        <ng-scrollbar orientation="vertical" visibility="native"
+                      [thumbClass]="'!rounded-lg !bg-primary'">
+          @for (leader of universityLeaders; track leader.id) {
+            <mat-option [value]="leader">{{ leader.name }} {{ leader.lastName }}</mat-option>
+          }
+        </ng-scrollbar>
+      </mat-autocomplete>
+    </div>
+    <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
+      <p>Terminy oddania projektu:</p>
+      <div class="flex text-primary relative w-44">
+        <input matInput [matDatepicker]="startPicker" placeholder="dd/mm/yyyy" appDateMask formControlName="dueTo"
+               class="input input-bordered input-secondary text-secondary h-10 datepicker w-full" [min]="minDate"
+               (dateChange)="onDateChange($event)">
+        <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-0 text-secondary" matIconSuffix
+                               [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </div>
+    </div>
+    <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 ">
+      <p class="text-base">Sponsorzy projektu:</p>
+      <div class="flex gap-1">
+        @for (sponsor of sponsors; track sponsor.name) {
+          <img [matTooltip]="sponsor.name" [src]="getPhotoUrl(sponsor.photo)" alt="sponsor photo"
+               class="w-16 h-16 object-contain">
+        }
+        <div class="border border-dashed border-primary w-16 h-16 relative">
+          <svg width="14" height="14" viewBox="0 0 14 14"
+               class="fill-primary absolute m-auto top-0 bottom-0 right-0 left-0 cursor-pointer"
+               xmlns="http://www.w3.org/2000/svg" (click)="openAddSponsorModal()">
+            <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 ">
-    <p class="text-base">Sponsorzy projektu:</p>
-    <div class="border border-dashed border-primary w-24 h-24 relative">
-      <svg width="14" height="14" viewBox="0 0 14 14"
-           class="fill-primary absolute m-auto top-0 bottom-0 right-0 left-0 cursor-pointer"
-           xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z"/>
-      </svg>
-    </div>
-  </div>
-</div>
+</form>

@@ -1,10 +1,10 @@
 :host {
-  @apply h-full w-full p-4 flex flex-col;
+  @apply w-full p-4;
 }
 
 .input {
   &::placeholder {
-    @apply text-secondary font-semibold text-2xl opacity-50;
+    @apply text-secondary font-semibold text-xl opacity-50;
   }
 }
 
