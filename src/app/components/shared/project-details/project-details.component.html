@@ -92,14 +92,14 @@
       </div>
       <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
         <p>Terminy oddania projektu bądź jego kamieni milowych:</p>
-        <div class="flex text-primary font-medium">{{ project.dueTo ? project.dueTo : '-' }}</div>
+        <div class="flex text-primary font-medium">{{ project.dueTo ? getDate(project.dueTo) : '-' }}</div>
       </div>
       @if (project.sponsors) {
         <div class="flex-col flex border border-solid border-secondary p-2.5 rounded-lg w-full">
           <p class="text-base">Sponsorzy projektu:</p>
           <div class="flex gap-2.5">
             @for (sponsor of project.sponsors; track sponsor.id) {
-              <img [src]="sponsor.photo" alt="sponsor photo" class="w-12 h-12">
+              <app-sponsor-details  [sponsor]="sponsor"/>
             }
           </div>
         </div>

@@ -1,0 +1,6 @@
+@if(safeImageUrl){
+  <img [src]="safeImageUrl" [matTooltip]="sponsor.name" alt="sponsor photo" class="w-12 h-12 object-contain">
+} @else {
+  <span class="loader"></span>
+}
+

@@ -38,11 +38,11 @@ interface TakenPosition {
   definedPositionId: string
 }
 
-interface Sponsor {
+export interface Sponsor {
   id: string
   name: string,
   description: string,
-  photo: string
+  photoId: string
 }
 
 export interface DefinedPositionWithAvailability extends DefinedPosition {

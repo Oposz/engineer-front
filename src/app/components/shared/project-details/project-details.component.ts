@@ -9,6 +9,8 @@ import {LoaderComponent} from "../loader/loader.component";
 import {HttpService} from "../../../shared/service/http.service";
 import {take} from "rxjs";
 import {DefinedPositionWithAvailability, Project} from "../../../shared/constants/project";
+import {SponsorDetailsComponent} from "./sponsor-details/sponsor-details.component";
+import {getDate} from "../../../utils/date";
 
 @Component({
   selector: 'app-project-details',
@@ -24,14 +26,14 @@ import {DefinedPositionWithAvailability, Project} from "../../../shared/constant
     MatInput,
     MatSuffix,
     LoaderComponent,
-    JsonPipe
+    JsonPipe,
+    SponsorDetailsComponent
   ],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectDetailsComponent implements OnInit {
-
 
   variant: 'team' | 'project' = 'project'
   fetching = true;
@@ -59,7 +61,7 @@ export class ProjectDetailsComponent implements OnInit {
         taken: project.takenPositions.some(taken => taken.definedPositionId === position.id)
       }));
       this.fetching = false;
-      this.changeDetectorRef.detectChanges()
+      this.changeDetectorRef.detectChanges();
     })
   }
 
@@ -77,4 +79,5 @@ export class ProjectDetailsComponent implements OnInit {
     })
   }
 
+  protected readonly getDate = getDate;
 }

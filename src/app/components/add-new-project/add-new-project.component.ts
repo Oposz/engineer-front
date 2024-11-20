@@ -162,19 +162,18 @@ export class AddNewProjectComponent implements OnInit {
       university: this.userUniversities.find((_university) => _university.name === this.newProjectFormGroup.value.university)?.id,
       positions: this.positionsService.getProjectPositions(),
       sponsors: this.sponsors,
-      photo: ''
+      photo: null
     }
 
     forkJoin(uploadFiles).pipe(
       switchMap((uploadIds: {id:string}[]) => {
-        console.log(uploadIds)
         const [sponsorUploadIds, projectPhotoId] = [
           uploadIds.slice(0, -1),
           uploadIds[uploadIds.length - 1]
         ];
         const sponsorsWithPhotos = requestData.sponsors.map((sponsor, index) => ({
           ...sponsor,
-          photo: sponsorUploadIds[index].id || null
+          photo: sponsorUploadIds[index].id
         }));
         const updatedRequestData = {
           ...requestData,
