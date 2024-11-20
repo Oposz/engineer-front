@@ -3,11 +3,15 @@
 } @else {
   <div class="p-4 flex justify-between mb-4">
     <div class="flex gap-2.5 items-center w-full">
-      <img [src]="project.photo ? project.photo:'assets/icons/ellipse-avatar.svg'"
-           class="w-12 h-12 rounded-3xl"
-           alt="project photo"
-           width="48"
-           height="48">
+      @if (project.photoId) {
+        <app-photo [cssClasses]="'w-12 h-12 rounded-3xl'" [photoId]="project.photoId"/>
+      } @else {
+        <img ngSrc="assets/icons/ellipse-avatar.svg"
+             alt="project photo"
+             class="w-12 h-12 rounded-3xl"
+             width="48"
+             height="48">
+      }
       <div class="relative w-full">
         <h1 class="text-primary font-semibold text-2xl">{{ project.name }}</h1>
         <div class="breadcrumbs text-xs text-secondary absolute -bottom-5">
@@ -25,7 +29,7 @@
     @if (variant === 'team') {
       <button class="btn btn-accent text-neutral">Opuść projekt</button>
     } @else {
-      <button class="btn btn-primary">Aplikuj do projektu</button>
+      <button class="btn btn-primary" (click)="openApplyModal()">Aplikuj do projektu</button>
     }
   </div>
 
@@ -70,8 +74,8 @@
                 @for (position of definedPositions; track position.id) {
                   <li>
                     <div class="flex gap-2.5">
-                      <p>{{ position.name }}</p>
-                      @if (position.taken) {
+                      <p>{{ position.name }} {{ position.closedSlots }}/{{ position.quantity }}</p>
+                      @if (position.closedSlots === position.quantity) {
                         <img ngSrc="../../../../assets/icons/check-mark.svg" height="14" width="18" alt="check">
                       }
                     </div>
@@ -87,11 +91,11 @@
 
     <div class="flex flex-col gap-2.5 mt-auto font-semibold text-xl text-primary">
       <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
-        <p>Osoba odpowiedzialna za kierownictwo projektem:</p>
+        <p>Kierownik projektu:</p>
         <p class="font-medium text-xl">{{ project.leader.title }} {{ project.leader.name }} {{ project.leader.lastName }}</p>
       </div>
       <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
-        <p>Terminy oddania projektu bądź jego kamieni milowych:</p>
+        <p>Terminy oddania projektu:</p>
         <div class="flex text-primary font-medium">{{ project.dueTo ? getDate(project.dueTo) : '-' }}</div>
       </div>
       @if (project.sponsors) {
@@ -99,7 +103,7 @@
           <p class="text-base">Sponsorzy projektu:</p>
           <div class="flex gap-2.5">
             @for (sponsor of project.sponsors; track sponsor.id) {
-              <app-sponsor-details  [sponsor]="sponsor"/>
+              <app-sponsor-details [sponsor]="sponsor"/>
             }
           </div>
         </div>

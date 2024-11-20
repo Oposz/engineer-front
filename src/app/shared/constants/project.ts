@@ -1,10 +1,22 @@
 import {Leader} from "./leader";
 
-export interface Project {
+export interface CreatedProject {
   id: string
   name: string
   description: string
   photo: string
+  favourite: boolean
+  availableSlots: number
+  dueTo?: string
+  universityId: string
+  leaderId: string
+}
+
+export interface Project {
+  id: string
+  name: string
+  description: string
+  photoId: string
   favourite: boolean
   availableSlots: number
   dueTo?: string
@@ -26,6 +38,7 @@ interface SignedUser {
 interface DefinedPosition {
   id: string
   name: string
+  quantity: number
   description: string
   projectId: string
 }
@@ -46,5 +59,5 @@ export interface Sponsor {
 }
 
 export interface DefinedPositionWithAvailability extends DefinedPosition {
-  taken: boolean
+  closedSlots: number
 }

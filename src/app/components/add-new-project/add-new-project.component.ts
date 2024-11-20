@@ -32,6 +32,11 @@ import {ModalOutcome} from "../../shared/constants/modalOutcome";
 import {MatTooltip} from "@angular/material/tooltip";
 import {DefinedPosition, PositionsService} from "./positions.service";
 import {UploadService} from "../../shared/service/upload.service";
+import {CreatedProject} from "../../shared/constants/project";
+import {HttpErrorResponse} from "@angular/common/http";
+import {SnackbarComponent, SnackbarData} from "../shared/snackbar/snackbar.component";
+import {SnackbarService} from "../../shared/service/snackbar.service";
+import {Router} from "@angular/router";
 
 interface newProjectGroup {
   projectName: FormControl<string>,
@@ -90,6 +95,8 @@ export class AddNewProjectComponent implements OnInit {
 
   universityLeaders: Leader[] = [];
 
+  loading = false;
+
   newProjectFormGroup: FormGroup<newProjectGroup> = new FormGroup({
     projectName: new FormControl<string>('', {nonNullable: true, validators: [Validators.minLength(3)]}),
     description: new FormControl<string>('', {nonNullable: true}),
@@ -110,7 +117,9 @@ export class AddNewProjectComponent implements OnInit {
   constructor(
     private readonly httpService: HttpService,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly positionsService: PositionsService
+    private readonly positionsService: PositionsService,
+    private readonly snackbarService: SnackbarService,
+    private readonly router: Router
   ) {
   }
 
@@ -142,6 +151,8 @@ export class AddNewProjectComponent implements OnInit {
   }
 
   saveNewProject() {
+    this.loading = true;
+
     if (!this.newProjectFormGroup.valid) {
       this.validate = true;
       this.tooltip.toggle()
@@ -166,7 +177,7 @@ export class AddNewProjectComponent implements OnInit {
     }
 
     forkJoin(uploadFiles).pipe(
-      switchMap((uploadIds: {id:string}[]) => {
+      switchMap((uploadIds: { id: string }[]) => {
         const [sponsorUploadIds, projectPhotoId] = [
           uploadIds.slice(0, -1),
           uploadIds[uploadIds.length - 1]
@@ -182,7 +193,14 @@ export class AddNewProjectComponent implements OnInit {
         };
         return this.httpService.post('projects/add', updatedRequestData)
       })
-    ).subscribe((data) => console.log(data))
+    ).subscribe({
+      next: (project: CreatedProject) => {
+        this.handleSuccess(project)
+      },
+      error: (e: HttpErrorResponse) => {
+        this.handleError(e);
+      }
+    })
   }
 
   getFormGroupControls() {
@@ -216,8 +234,30 @@ export class AddNewProjectComponent implements OnInit {
     ).subscribe(() => {
       this.positions = this.positionsService.getProjectPositions();
       this.changeDetectorRef.detectChanges();
-      console.log(this.positions)
     })
+  }
+
+  private handleSuccess(project: CreatedProject) {
+    this.loading = false;
+    let data: SnackbarData = {
+      message: 'Utworzono projekt!',
+      variant: "info",
+      closeButton: true
+    }
+    this.snackbarService.snackbarFromComponent(SnackbarComponent, data)
+    this.changeDetectorRef.detectChanges()
+    this.router.navigate(['/projects', project.id]);
+  }
+
+  private handleError(e: HttpErrorResponse) {
+    let data: SnackbarData = {
+      message: 'Ups! Coś poszło nie tak :(',
+      variant: "error",
+      closeButton: true
+    }
+    this.snackbarService.snackbarFromComponent(SnackbarComponent, data)
+    this.loading = false;
+    this.changeDetectorRef.detectChanges()
   }
 
   private fetchUserUniversities() {

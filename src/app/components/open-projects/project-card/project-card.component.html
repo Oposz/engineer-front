@@ -1,10 +1,14 @@
 <div class="flex justify-between items-center mb-1">
   <div class="flex items-center">
-    <img [src]="project.photo ? project.photo:'assets/icons/ellipse-avatar.svg'"
-         class="mr-2.5 rounded-3xl"
-         alt="project photo"
-         width="36"
-         height="36">
+    @if (project.photoId) {
+      <app-photo [cssClasses]="'w-9 h-9 rounded-3xl'" [photoId]="project.photoId" class="mr-2.5"/>
+    } @else {
+      <img ngSrc="assets/icons/ellipse-avatar.svg"
+           alt="project photo"
+           class="w-9 h-9 rounded-3xl"
+           width="36"
+           height="36">
+    }
     <p class="text-primary font-semibold text-2xl cursor-pointer"
        [routerLink]="'/projects/'+project.id">{{ project.name }}</p>
   </div>

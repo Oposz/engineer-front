@@ -5,6 +5,7 @@ import {RouterLink} from "@angular/router";
 import {getDate, getRemainingDays} from "../../../utils/date";
 import {take} from "rxjs";
 import {HttpService} from "../../../shared/service/http.service";
+import {PhotoComponent} from "../../shared/photo/photo.component";
 
 @Component({
   selector: 'app-project-card',
@@ -12,7 +13,8 @@ import {HttpService} from "../../../shared/service/http.service";
   imports: [
     NgOptimizedImage,
     RouterLink,
-    NgClass
+    NgClass,
+    PhotoComponent
   ],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.scss'

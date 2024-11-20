@@ -2,7 +2,7 @@ export interface Team {
   id: string
   name: string
   description: string
-  photo: any
+  photoId: string
   favourite: boolean
   availableSlots: number
   dueTo: string

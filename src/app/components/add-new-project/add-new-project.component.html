@@ -21,7 +21,7 @@
              [class.input-error]="getFormGroupControls().projectName.errors  && validate"
              class="input input-bordered input-secondary px-3 text-secondary font-semibold text-2xl"/>
     </div>
-    <button class="btn btn-primary" type="submit">Zapisz</button>
+    <button class="btn btn-primary" type="submit" [disabled]="loading">Zapisz</button>
   </div>
   <div class="px-2.5 mb-5 flex flex-col">
     <p class="text-primary text-base font-semibold mb-2.5">Opis projektu:</p>

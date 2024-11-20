@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {JsonPipe, NgOptimizedImage} from "@angular/common";
 import {BreadcrumbsComponent} from "../breadcrumbs/breadcrumbs.component";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -11,6 +11,16 @@ import {take} from "rxjs";
 import {DefinedPositionWithAvailability, Project} from "../../../shared/constants/project";
 import {SponsorDetailsComponent} from "./sponsor-details/sponsor-details.component";
 import {getDate} from "../../../utils/date";
+import {MatDialog} from "@angular/material/dialog";
+import {ApplyToProjectModalComponent} from "./apply-to-project-modal/apply-to-project-modal.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ModalOutcome} from "../../../shared/constants/modalOutcome";
+import {PhotoComponent} from "../photo/photo.component";
+
+type ModalOutcomeWithData = {
+  result: ModalOutcome,
+  data: Project
+}
 
 @Component({
   selector: 'app-project-details',
@@ -27,13 +37,16 @@ import {getDate} from "../../../utils/date";
     MatSuffix,
     LoaderComponent,
     JsonPipe,
-    SponsorDetailsComponent
+    SponsorDetailsComponent,
+    PhotoComponent
   ],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectDetailsComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
+  readonly destroyRef = inject(DestroyRef)
 
   variant: 'team' | 'project' = 'project'
   fetching = true;
@@ -53,20 +66,41 @@ export class ProjectDetailsComponent implements OnInit {
     this.getTemplateVariant();
   }
 
+  openApplyModal() {
+    const dialog = this.dialog.open(ApplyToProjectModalComponent, {width: '500px', data: this.definedPositions})
+    dialog.afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((outcome: ModalOutcomeWithData) => {
+      if (outcome.result !== ModalOutcome.SUCCESS) {
+        return;
+      }
+      this.prepareProjectToDisplay(outcome.data)
+      this.variant = 'team';
+      this.changeDetectorRef.detectChanges();
+    })
+
+  }
+
   private fetchProject() {
     this.httpService.get(`projects/${this.projectId}`).subscribe((project: Project) => {
-      this.project = project;
-      this.definedPositions = project.definedPositions.map(position => ({
-        ...position,
-        taken: project.takenPositions.some(taken => taken.definedPositionId === position.id)
-      }));
+      this.prepareProjectToDisplay(project)
       this.fetching = false;
       this.changeDetectorRef.detectChanges();
     })
   }
 
-  private getTemplateVariant(){
-    if (this.router.url.includes('teams')){
+  private prepareProjectToDisplay(project: Project) {
+    this.project = project;
+    this.definedPositions = project.definedPositions.map(position => ({
+      ...position,
+      closedSlots: project.takenPositions.filter(taken =>
+        taken.definedPositionId === position.id
+      ).length
+    }));
+  }
+
+  private getTemplateVariant() {
+    if (this.router.url.includes('teams')) {
       this.variant = 'team'
     }
   }

@@ -5,6 +5,7 @@ import {getDate, getRemainingDays} from "../../../utils/date";
 import {Team} from "../../../shared/constants/team";
 import {HttpService} from "../../../shared/service/http.service";
 import {take} from "rxjs";
+import {PhotoComponent} from "../../shared/photo/photo.component";
 
 @Component({
   selector: 'app-team-card',
@@ -12,7 +13,8 @@ import {take} from "rxjs";
   imports: [
     NgOptimizedImage,
     RouterLink,
-    NgClass
+    NgClass,
+    PhotoComponent
   ],
   templateUrl: './team-card.component.html',
   styleUrl: './team-card.component.scss',

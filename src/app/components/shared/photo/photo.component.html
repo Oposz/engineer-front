@@ -1,0 +1,6 @@
+@if (safeImageUrl) {
+  <img [src]="safeImageUrl" alt="project photo" class="object-contain" [ngClass]="[cssClasses]">
+} @else {
+  <span class="loader"></span>
+}
+
