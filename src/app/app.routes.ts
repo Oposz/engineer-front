@@ -26,7 +26,7 @@ export const routes: Routes = [
           .then(m => m.ProfileComponent)
       },
       {
-        path: 'teams/:id', loadComponent: () => import('./components/shared/project-details/project-details.component')
+        path: 'teams/:id', loadComponent: () => import('./components/project-details/project-details.component')
           .then(m => m.ProjectDetailsComponent)
       },
       {
@@ -39,7 +39,7 @@ export const routes: Routes = [
           .then(m => m.AddNewProjectComponent),
       },
       {
-        path: 'projects/:id', loadComponent: () => import('./components/shared/project-details/project-details.component')
+        path: 'projects/:id', loadComponent: () => import('./components/project-details/project-details.component')
           .then(m => m.ProjectDetailsComponent),
       },
       {

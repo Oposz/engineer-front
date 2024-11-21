@@ -1,22 +1,22 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {JsonPipe, NgOptimizedImage} from "@angular/common";
-import {BreadcrumbsComponent} from "../breadcrumbs/breadcrumbs.component";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {NgScrollbar} from "ngx-scrollbar";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatInput, MatSuffix} from "@angular/material/input";
-import {LoaderComponent} from "../loader/loader.component";
-import {HttpService} from "../../../shared/service/http.service";
 import {take} from "rxjs";
-import {DefinedPositionWithAvailability, Project} from "../../../shared/constants/project";
 import {SponsorDetailsComponent} from "./sponsor-details/sponsor-details.component";
-import {getDate} from "../../../utils/date";
 import {MatDialog} from "@angular/material/dialog";
 import {ApplyToProjectModalComponent} from "./apply-to-project-modal/apply-to-project-modal.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {ModalOutcome} from "../../../shared/constants/modalOutcome";
-import {PhotoComponent} from "../photo/photo.component";
 import {AbandonProjectModalComponent} from "./abandon-project-modal/abandon-project-modal.component";
+import {ModalOutcome} from "../../shared/constants/modalOutcome";
+import {DefinedPositionWithAvailability, Project} from "../../shared/constants/project";
+import {BreadcrumbsComponent} from "../shared/breadcrumbs/breadcrumbs.component";
+import {LoaderComponent} from "../shared/loader/loader.component";
+import {PhotoComponent} from "../shared/photo/photo.component";
+import {HttpService} from "../../shared/service/http.service";
+import {getDate} from "../../utils/date";
 
 type ModalOutcomeWithData = {
   result: ModalOutcome,

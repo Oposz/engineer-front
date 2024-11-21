@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, inject, Input, OnInit} from '@angular/core';
-import {Sponsor} from "../../../../shared/constants/project";
-import {HttpService} from "../../../../shared/service/http.service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {JsonPipe} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
-import {LoaderComponent} from "../../loader/loader.component";
+import {LoaderComponent} from "../../shared/loader/loader.component";
+import {Sponsor} from "../../../shared/constants/project";
+import {HttpService} from "../../../shared/service/http.service";
 
 @Component({
   selector: 'app-sponsor-details',

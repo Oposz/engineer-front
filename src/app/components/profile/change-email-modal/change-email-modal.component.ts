@@ -5,11 +5,11 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {HttpService} from "../../../shared/service/http.service";
 import {take} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {TokenData} from "../../authorization-screen/authorization-screen.component";
 import {SnackbarComponent, SnackbarData} from "../../shared/snackbar/snackbar.component";
 import {SnackbarService} from "../../../shared/service/snackbar.service";
 import {LocalStorageService} from "../../../shared/service/local-storage.service";
 import {ModalOutcome} from "../../../shared/constants/modalOutcome";
+import {AuthData} from "../../authorization-screen/authorization-screen.component";
 
 @Component({
   selector: 'app-change-email-modal',
@@ -53,7 +53,7 @@ export class ChangeEmailModalComponent {
       this.httpService.post('auth/change-email', this.newEmailFormGroup.value).pipe(
         take(1)
       ).subscribe({
-        next: (newToken: TokenData) => {
+        next: (newToken: AuthData) => {
           this.handleDataChange(newToken)
         },
         error: (e: HttpErrorResponse) => {
@@ -79,7 +79,7 @@ export class ChangeEmailModalComponent {
     return duplicated
   }
 
-  private handleDataChange(newToken: TokenData) {
+  private handleDataChange(newToken: AuthData) {
     this.localStorage.setItem('uniteam-token', newToken.access_token)
     this.loading = false;
     this.changeDetectorRef.detectChanges();

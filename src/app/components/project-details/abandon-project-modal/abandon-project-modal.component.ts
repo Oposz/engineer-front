@@ -1,12 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {NgOptimizedImage} from "@angular/common";
-import {ModalOutcome} from "../../../../shared/constants/modalOutcome";
-import {HttpService} from "../../../../shared/service/http.service";
-import {Project} from "../../../../shared/constants/project";
 import {HttpErrorResponse} from "@angular/common/http";
-import {SnackbarComponent, SnackbarData} from "../../snackbar/snackbar.component";
-import {SnackbarService} from "../../../../shared/service/snackbar.service";
+import {HttpService} from "../../../shared/service/http.service";
+import {SnackbarService} from "../../../shared/service/snackbar.service";
+import {Project} from "../../../shared/constants/project";
+import {ModalOutcome} from '../../../shared/constants/modalOutcome';
+import {SnackbarComponent, SnackbarData} from "../../shared/snackbar/snackbar.component";
 
 @Component({
   selector: 'app-abandon-project-modal',

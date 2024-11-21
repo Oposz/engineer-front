@@ -4,12 +4,12 @@ import {NgOptimizedImage} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {NgScrollbar} from "ngx-scrollbar";
-import {HttpService} from "../../../../shared/service/http.service";
-import {DefinedPositionWithAvailability, Project} from "../../../../shared/constants/project";
-import {ModalOutcome} from "../../../../shared/constants/modalOutcome";
 import {HttpErrorResponse} from "@angular/common/http";
-import {SnackbarComponent, SnackbarData} from "../../snackbar/snackbar.component";
-import {SnackbarService} from "../../../../shared/service/snackbar.service";
+import {DefinedPositionWithAvailability, Project} from "../../../shared/constants/project";
+import {HttpService} from "../../../shared/service/http.service";
+import {SnackbarService} from "../../../shared/service/snackbar.service";
+import {ModalOutcome} from '../../../shared/constants/modalOutcome';
+import {SnackbarComponent, SnackbarData} from "../../shared/snackbar/snackbar.component";
 
 @Component({
   selector: 'app-apply-to-project-modal',

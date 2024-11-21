@@ -43,6 +43,7 @@ export class MenuComponent {
 
   logout() {
     this.localStorage.removeItem('uniteam-token')
+    this.localStorage.removeItem('uniteam-user-id')
     this.router.navigate(['/auth']);
   }
 

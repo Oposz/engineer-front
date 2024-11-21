@@ -6,7 +6,7 @@ import {ModalOutcome} from "../../../shared/constants/modalOutcome";
 import {HttpService} from "../../../shared/service/http.service";
 import {SnackbarService} from "../../../shared/service/snackbar.service";
 import {LocalStorageService} from "../../../shared/service/local-storage.service";
-import {TokenData} from "../../authorization-screen/authorization-screen.component";
+import {AuthData} from "../../authorization-screen/authorization-screen.component";
 import {HttpErrorResponse} from "@angular/common/http";
 import {SnackbarComponent, SnackbarData} from "../../shared/snackbar/snackbar.component";
 import {take} from "rxjs";
@@ -58,7 +58,7 @@ export class ChangePasswordModalComponent {
       this.httpService.post('auth/change-password', formData).pipe(
         take(1)
       ).subscribe({
-        next: (newToken: TokenData) => {
+        next: (newToken: AuthData) => {
           this.handleDataChange(newToken)
         },
         error: (e: HttpErrorResponse) => {
@@ -79,7 +79,7 @@ export class ChangePasswordModalComponent {
     return passwordsMatched;
   }
 
-  private handleDataChange(newToken: TokenData) {
+  private handleDataChange(newToken: AuthData) {
     this.localStorage.setItem('uniteam-token', newToken.access_token)
     this.loading = false;
     this.changeDetectorRef.detectChanges();
