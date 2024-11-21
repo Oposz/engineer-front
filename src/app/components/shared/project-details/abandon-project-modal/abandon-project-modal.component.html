@@ -1,0 +1,14 @@
+<div class="p-4 flex flex-col justify-center items-center text-center">
+  <h2 class="font-medium text-xl text-primary">Opuść projekt</h2>
+  <p class="text-secondary font-semibold text-base mb-2">
+    Czy jesteś pewien, że chcesz opuścić ten projekt?
+  </p>
+  <button type="submit" class="btn btn-error text-neutral" (click)="abandonProject()" [disabled]="loading">
+    Opuść projekt
+  </button>
+  <button class="btn btn-circle btn-sm absolute top-3.5 right-4" mat-dialog-close
+          [matDialogClose]="ModalOutcome.ABANDON">
+    <img ngSrc="assets/icons/x-mark.svg" alt="close"
+         height="13" width="13">
+  </button>
+</div>

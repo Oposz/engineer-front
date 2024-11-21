@@ -27,7 +27,7 @@
       </div>
     </div>
     @if (variant === 'team') {
-      <button class="btn btn-accent text-neutral">Opuść projekt</button>
+      <button class="btn btn-accent text-neutral" (click)="openAbandonModal()">Opuść projekt</button>
     } @else {
       <button class="btn btn-primary" (click)="openApplyModal()">Aplikuj do projektu</button>
     }

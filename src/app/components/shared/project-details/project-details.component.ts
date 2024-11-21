@@ -16,6 +16,7 @@ import {ApplyToProjectModalComponent} from "./apply-to-project-modal/apply-to-pr
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ModalOutcome} from "../../../shared/constants/modalOutcome";
 import {PhotoComponent} from "../photo/photo.component";
+import {AbandonProjectModalComponent} from "./abandon-project-modal/abandon-project-modal.component";
 
 type ModalOutcomeWithData = {
   result: ModalOutcome,
@@ -76,6 +77,20 @@ export class ProjectDetailsComponent implements OnInit {
       }
       this.prepareProjectToDisplay(outcome.data)
       this.variant = 'team';
+      this.changeDetectorRef.detectChanges();
+    })
+  }
+
+  openAbandonModal() {
+    const dialog = this.dialog.open(AbandonProjectModalComponent, {width: '500px', data: this.project.id})
+    dialog.afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((outcome: ModalOutcomeWithData) => {
+      if (outcome.result !== ModalOutcome.SUCCESS) {
+        return;
+      }
+      this.prepareProjectToDisplay(outcome.data);
+      this.variant = 'project';
       this.changeDetectorRef.detectChanges();
     })
 

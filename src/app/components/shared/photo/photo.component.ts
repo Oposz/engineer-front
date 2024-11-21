@@ -28,7 +28,6 @@ export class PhotoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('hao')
     this.httpService.get(`upload/${this.photoId}`).subscribe((base64: { data: string }) => {
       this.safeImageUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + base64.data)
       this.changeDetectorRef.detectChanges();
