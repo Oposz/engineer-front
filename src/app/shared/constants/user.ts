@@ -1,7 +1,7 @@
 import {University} from "./university";
 
 export interface User {
-  id: number
+  id: string
   email: string
   name: string
   lastName: string

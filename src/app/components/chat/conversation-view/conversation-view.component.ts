@@ -5,7 +5,6 @@ import {RouterLink} from "@angular/router";
 import {NgScrollbar} from "ngx-scrollbar";
 import {UniversityCardComponent} from "../../universities/university-card/university-card.component";
 import * as mockData from "./mock-messages.json";
-import {Message} from "../../../shared/constants/chat";
 import {NgClass, NgOptimizedImage} from "@angular/common";
 
 @Component({
@@ -25,6 +24,6 @@ import {NgClass, NgOptimizedImage} from "@angular/common";
 })
 export class ConversationViewComponent {
 
-  conversationMessages: Message[] = mockData.messages
+  conversationMessages: any[] = mockData.messages
 
 }

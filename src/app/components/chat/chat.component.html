@@ -3,14 +3,20 @@
     Wiadomości
   </ng-container>
 </app-view-header>
-<app-quick-filters [addButton]="false" [dateRange]="false" [favouritesButton]="false" [newConversationButton]="true"/>
+<app-quick-filters
+    [addButton]="false"
+    [dateRange]="false"
+    [favouritesButton]="false"
+    [newConversationButton]="true"
+    (alphabeticalSortChanged)="sortChats($event)"
+    (searchbarValueChanged)="searchForChat($event)"/>
 
-@if (data) {
+@if (chats) {
   <ng-scrollbar orientation="vertical" visibility="native"
                 [trackClass]="'my-4'"
                 [thumbClass]="'!rounded-lg !bg-primary'">
     <div class="p-4 grid md:grid-cols-2 gap-4">
-      @for (chat of data; track chat.id) {
+      @for (chat of filteredChats; track chat.id) {
         <app-chat-card [chat]="chat"/>
       }
     </div>

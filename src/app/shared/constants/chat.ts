@@ -1,12 +1,20 @@
+import {User} from "./user";
+
 export interface Chat {
   name: string,
-  photo?: string,
+  photoId?: string,
   id: string
-  lastMsg: string,
-  messages: Message[]
+  createdAt: string,
+  updatedAt: string,
+  messages: Message[],
+  users: User[]
 }
 
 export interface Message {
-  userID: string,
+  id: string,
+  chatId: string,
+  createdAt: string,
+  updatedAt: string,
+  userId: string,
   content: string
 }

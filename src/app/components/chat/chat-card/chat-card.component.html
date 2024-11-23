@@ -1,13 +1,20 @@
 <div class="flex items-center mb-1">
   <div class="flex items-center">
-    <img [src]="chat.photo ? chat.photo:'assets/icons/ellipse-avatar.svg'"
-         class="mr-2.5 rounded-3xl"
-         alt="project photo"
-         width="36"
-         height="36">
-    <p class="text-primary font-semibold text-2xl cursor-pointer" [routerLink]="'/chats/'+chat.id">{{ chat.name }}</p>
+    @if (chat.photoId) {
+      <app-photo [cssClasses]="'w-9 h-9 rounded-3xl'" [photoId]="chat.photoId" class="mr-2.5"/>
+    } @else {
+      <img ngSrc="assets/icons/ellipse-avatar.svg"
+           alt="chat photo"
+           class="w-9 h-9 rounded-3xl mr-2.5"
+           width="36"
+           height="36">
+    }
+    <p class="text-primary font-semibold text-2xl cursor-pointer" [routerLink]="'/chats/'+chat.id">{{ chatName }}</p>
   </div>
 </div>
 <div class="text-secondary text-sm h-full flex">
-  <p class="h-full line-clamp-2">{{ chat.lastMsg }}</p>
+  @let lastMsg = chat.messages.at(-1) ;
+  @if (lastMsg) {
+    <p class="h-full line-clamp-2">{{ getNameOfUser(lastMsg.userId) }}: {{ lastMsg.content }}</p>
+  }
 </div>
