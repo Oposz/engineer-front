@@ -1,32 +1,35 @@
-<app-view-header>
-  <ng-container header>
-    Janusz Kowalski
-  </ng-container>
-</app-view-header>
-<div class="relative border-b border-solid border-primary px-4">
-  <div class="breadcrumbs text-xs text-secondary absolute -top-7">
-    <ul>
-      <li><span [routerLink]="'/chats'" class="cursor-pointer">Czaty</span></li>
-      <li>Janusz Kowalski</li>
-    </ul>
-  </div>
-</div>
-<div class="conversation-container flex flex-col justify-end" #conversationContainer>
-  <ng-scrollbar orientation="vertical" visibility="native"
-                [trackClass]="'my-4'"
-                [thumbClass]="'!rounded-lg !bg-primary'">
-    <!--    TODO implement scroll to bottom after init-->
-    <div class="px-1 py-4">
-      @for (msg of conversationMessages; track msg.content) {
-        <div class="chat mb-1" [ngClass]="msg.userID==='1'? 'chat-end':'chat-start'">
-          <div class="chat-bubble">You underestimate my power!</div>
-        </div>
-      }
+@if (fetching) {
+  <app-loader/>
+} @else {
+  <app-view-header>
+    <ng-container header>
+      {{ chatName }}
+    </ng-container>
+  </app-view-header>
+  <div class="relative border-b border-solid border-primary px-4">
+    <div class="breadcrumbs text-xs text-secondary absolute -top-7">
+      <ul>
+        <li><span [routerLink]="'/chats'" class="cursor-pointer">Czaty</span></li>
+        <li>{{ chatName }}</li>
+      </ul>
     </div>
-  </ng-scrollbar>
-</div>
-<div class="border-t border-solid border-primary flex px-2.5 py-4 gap-4">
-  <input type="text" placeholder="Aa" class="input w-full"/>
-  <img class="cursor-pointer" ngSrc="assets/icons/send-icon.svg" height="25" width="24" alt="send-icon">
-</div>
-
+  </div>
+  <div class="conversation-container flex flex-col justify-end" #conversationContainer>
+    <ng-scrollbar orientation="vertical" visibility="native"
+                  [trackClass]="'my-4'"
+                  [thumbClass]="'!rounded-lg !bg-primary'">
+      <!--    TODO implement scroll to bottom after init-->
+      <div class="px-1 py-4">
+        @for (msg of chat.messages; track msg.content) {
+          <div class="chat mb-1" [ngClass]="msg.userId===loggedUserId? 'chat-end':'chat-start'">
+            <div class="chat-bubble">{{ msg.content }}</div>
+          </div>
+        }
+      </div>
+    </ng-scrollbar>
+  </div>
+  <div class="border-t border-solid border-primary flex px-2.5 py-4 gap-4">
+    <input type="text" placeholder="Aa" class="input w-full"/>
+    <img class="cursor-pointer" ngSrc="assets/icons/send-icon.svg" height="25" width="24" alt="send-icon">
+  </div>
+}
