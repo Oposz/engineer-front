@@ -4,6 +4,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {PhotoComponent} from "../../shared/photo/photo.component";
 import {LocalStorageService} from "../../../shared/service/local-storage.service";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-chat-card',
@@ -11,7 +12,8 @@ import {LocalStorageService} from "../../../shared/service/local-storage.service
   imports: [
     NgOptimizedImage,
     RouterLink,
-    PhotoComponent
+    PhotoComponent,
+    MatTooltip
   ],
   templateUrl: './chat-card.component.html',
   styleUrl: './chat-card.component.scss'

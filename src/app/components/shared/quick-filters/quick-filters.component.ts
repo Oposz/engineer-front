@@ -58,19 +58,22 @@ export class QuickFiltersComponent implements OnInit {
   newConversationButton = false;
 
   @Output()
-  favToggled: EventEmitter<boolean> = new EventEmitter()
+  favToggled: EventEmitter<boolean> = new EventEmitter();
 
   @Output()
-  alphabeticalSortChanged: EventEmitter<SortingMode> = new EventEmitter()
+  alphabeticalSortChanged: EventEmitter<SortingMode> = new EventEmitter();
 
   @Output()
-  searchbarValueChanged: EventEmitter<string> = new EventEmitter()
+  searchbarValueChanged: EventEmitter<string> = new EventEmitter();
 
   @Output()
-  startDatePicked: EventEmitter<string> = new EventEmitter()
+  startDatePicked: EventEmitter<string> = new EventEmitter();
 
   @Output()
-  endDatePicked: EventEmitter<string> = new EventEmitter()
+  endDatePicked: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  newConversationButtonClicked: EventEmitter<void> = new EventEmitter();
 
   favourites: boolean = false;
   alphabeticalSortState = SortingMode.ASCENDING
@@ -109,27 +112,24 @@ export class QuickFiltersComponent implements OnInit {
 
   filterStartDueToDate(event: MatDatepickerInputEvent<any>) {
     const date = new Date(event.value);
-    let formattedDate = date.toISOString().slice(0,23).replace('T', ' ');
-    if (formattedDate.includes('1970')){
-      formattedDate='';
+    let formattedDate = date.toISOString().slice(0, 23).replace('T', ' ');
+    if (formattedDate.includes('1970')) {
+      formattedDate = '';
     }
     this.startDatePicked.emit(formattedDate);
   }
 
   filterEndDueToDate(event: MatDatepickerInputEvent<any>) {
     const date = new Date(event.value);
-    let formattedDate = date.toISOString().slice(0,23).replace('T', ' ');
-    if (formattedDate.includes('1970')){
-      formattedDate='';
+    let formattedDate = date.toISOString().slice(0, 23).replace('T', ' ');
+    if (formattedDate.includes('1970')) {
+      formattedDate = '';
     }
     this.endDatePicked.emit(formattedDate);
   }
 
-  focusEnd(event: MouseEvent) {
-    const input = event.target as HTMLInputElement;
-    setTimeout(() => {
-      input.selectionStart = input.selectionEnd = input.value.length;
-    });
+  createConversationButtonClicked() {
+    this.newConversationButtonClicked.emit();
   }
 
   private observeSearchbarValue() {

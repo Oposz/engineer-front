@@ -36,3 +36,7 @@ div.mat-mdc-autocomplete-panel {
 .mat-mdc-tooltip-surface {
   @apply bg-primary text-neutral #{!important};
 }
+
+.cdk-overlay-pane.mat-mdc-dialog-panel {
+  @apply max-w-none #{!important};
+}

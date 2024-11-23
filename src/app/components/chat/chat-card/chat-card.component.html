@@ -9,7 +9,8 @@
            width="36"
            height="36">
     }
-    <p class="text-primary font-semibold text-2xl cursor-pointer" [routerLink]="'/chats/'+chat.id">{{ chatName }}</p>
+    <p class="text-primary font-semibold text-2xl cursor-pointer truncate" [matTooltip]="chatName"
+       [routerLink]="'/chats/'+chat.id">{{ chatName }}</p>
   </div>
 </div>
 <div class="text-secondary text-sm h-full flex">

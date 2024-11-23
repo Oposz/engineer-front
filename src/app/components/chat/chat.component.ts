@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
 import {QuickFiltersComponent, SortingMode} from "../shared/quick-filters/quick-filters.component";
 import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
 import {NgScrollbar} from "ngx-scrollbar";
@@ -7,6 +7,10 @@ import {ChatCardComponent} from "./chat-card/chat-card.component";
 import {Chat} from "../../shared/constants/chat";
 import {HttpService} from "../../shared/service/http.service";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  CreateNewConversationModalComponent
+} from "./create-new-conversation-modal/create-new-conversation-modal.component";
 
 
 @Component({
@@ -24,6 +28,7 @@ import {LocalStorageService} from "../../shared/service/local-storage.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
 
   chats: Chat[] = [];
   filteredChats: Chat[] = [];
@@ -36,11 +41,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpService.get('chats').subscribe((dat: Chat[]) => {
-      this.chats = dat;
-      this.filteredChats = this.chats;
-      this.changeDetectorRef.detectChanges();
-    })
+    this.fetchChats();
   }
 
   sortChats(sortingMode: SortingMode) {
@@ -94,4 +95,15 @@ export class ChatComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
+  openModalForNewConversation() {
+    this.dialog.open(CreateNewConversationModalComponent, {width: '500px'});
+  }
+
+  private fetchChats() {
+    this.httpService.get('chats').subscribe((chats: Chat[]) => {
+      this.chats = chats;
+      this.filteredChats = this.chats;
+      this.changeDetectorRef.detectChanges();
+    })
+  }
 }

@@ -9,7 +9,8 @@
     [favouritesButton]="false"
     [newConversationButton]="true"
     (alphabeticalSortChanged)="sortChats($event)"
-    (searchbarValueChanged)="searchForChat($event)"/>
+    (searchbarValueChanged)="searchForChat($event)"
+    (newConversationButtonClicked)="openModalForNewConversation()"/>
 
 @if (chats) {
   <ng-scrollbar orientation="vertical" visibility="native"
