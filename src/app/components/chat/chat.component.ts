@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {QuickFiltersComponent, SortingMode} from "../shared/quick-filters/quick-filters.component";
 import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
 import {NgScrollbar} from "ngx-scrollbar";
@@ -11,7 +11,19 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   CreateNewConversationModalComponent
 } from "./create-new-conversation-modal/create-new-conversation-modal.component";
+import {MessagesGatewayService} from "./conversation-view/messages-gateway.service";
+import {switchMap} from "rxjs";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
+interface ChatToUpdate {
+  id: string,
+  messages: [{
+    content: string,
+    userId: string,
+    new: boolean,
+    chatId: string,
+  }]
+}
 
 @Component({
   selector: 'app-chat',
@@ -29,27 +41,33 @@ import {
 })
 export class ChatComponent implements OnInit {
   readonly dialog = inject(MatDialog);
+  readonly destroyRef = inject(DestroyRef);
 
   chats: Chat[] = [];
   filteredChats: Chat[] = [];
+  loggedUserId = ''
+  searchValue = ''
 
   constructor(
     private readonly httpService: HttpService,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly localStorage: LocalStorageService
+    private readonly localStorage: LocalStorageService,
+    private readonly messagesGatewayService: MessagesGatewayService
   ) {
   }
 
   ngOnInit() {
     this.fetchChats();
+    this.loggedUserId = this.localStorage.getItem('uniteam-user-id') ?? '';
+    this.connectNewMessagesSocket();
+    this.observeNewLatestMessagesInChats();
   }
 
   sortChats(sortingMode: SortingMode) {
     this.chats.sort((a, b) => {
       const getUsersName = (chat: Chat) => {
-        const loggedUserId = this.localStorage.getItem('uniteam-user-id');
         return chat.users
-          .filter(user => user.id !== loggedUserId)
+          .filter(user => user.id !== this.loggedUserId)
           .map(user => `${user.name} ${user.lastName}`)
           .join(', ');
       };
@@ -73,6 +91,7 @@ export class ChatComponent implements OnInit {
       return;
     }
 
+    this.searchValue = searchValue;
     const searchLower = searchValue.toLowerCase();
 
     this.filteredChats = this.chats.filter(chat => {
@@ -81,9 +100,8 @@ export class ChatComponent implements OnInit {
       }
 
       const getUsersName = (chat: Chat) => {
-        const loggedUserId = this.localStorage.getItem('uniteam-user-id');
         return chat.users
-          .filter(user => user.id !== loggedUserId)
+          .filter(user => user.id !== this.loggedUserId)
           .map(user => `${user.name} ${user.lastName}`.toLowerCase())
           .join(', ');
       };
@@ -105,5 +123,31 @@ export class ChatComponent implements OnInit {
       this.filteredChats = this.chats;
       this.changeDetectorRef.detectChanges();
     })
+  }
+
+  private connectNewMessagesSocket() {
+    this.messagesGatewayService.connect(this.loggedUserId).then(
+      () => this.messagesGatewayService.setupNewMessagesInChatListener()
+    )
+  }
+
+  private observeNewLatestMessagesInChats() {
+    this.messagesGatewayService.updateLastMessagesInChats$.pipe(
+      switchMap((chatId) => this.httpService.get(`chats/new-messages/${chatId}`)),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe((chat: ChatToUpdate) => {
+      this.updateChat(chat)
+    })
+  }
+
+  private updateChat(chat: ChatToUpdate) {
+    const chatToUpdate = this.chats.find((_chat) => (_chat.id === chat.id))
+    if (!chatToUpdate) return;
+    const chatIndex = this.chats.findIndex((_chat) => _chat.id === chat.id)
+    chatToUpdate.messages.push(...chat.messages)
+    this.chats.splice(chatIndex, 1);
+    this.chats.unshift(chatToUpdate);
+    this.searchForChat(this.searchValue);
+    this.changeDetectorRef.detectChanges();
   }
 }

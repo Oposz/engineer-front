@@ -11,10 +11,11 @@ export interface Chat {
 }
 
 export interface Message {
-  id: string,
+  id?: string,
   chatId: string,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string,
+  updatedAt?: string,
   userId: string,
   content: string
+  new: boolean
 }
