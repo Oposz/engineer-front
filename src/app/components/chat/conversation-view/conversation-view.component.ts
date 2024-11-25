@@ -150,6 +150,7 @@ export class ConversationViewComponent implements OnInit, OnDestroy {
       switchMap((result: ModalOutcome) => this.disconnectChat$(result)),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((result) => {
+      if (result?.modalOutcome === ModalOutcome.ABANDON) return;
       if (result?.success !== true) {
         this.handleError()
         return;
@@ -157,7 +158,6 @@ export class ConversationViewComponent implements OnInit, OnDestroy {
       this.router.navigate(['/chats'])
     })
   }
-
 
   getUserName(userId: string) {
     const user = this.chat.users.find((user) => user.id === userId)
@@ -167,12 +167,12 @@ export class ConversationViewComponent implements OnInit, OnDestroy {
 
   private disconnectChat$(result: ModalOutcome) {
     if (result !== ModalOutcome.SUCCESS) {
-      return of(null);
+      return of({success: false, modalOutcome: result});
     }
     return this.httpService.patch(`chats/disconnect/${this.conversationId}`, {}).pipe(
-      map(() => ({success: true})),
+      map(() => ({success: true, modalOutcome: result})),
       catchError(error => {
-        return of({success: false});
+        return of({success: false, modalOutcome: result});
       })
     );
   }
