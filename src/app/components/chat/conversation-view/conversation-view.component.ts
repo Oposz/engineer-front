@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {ViewHeaderComponent} from "../../shared/view-header/view-header.component";
 import {BreadcrumbsComponent} from "../../shared/breadcrumbs/breadcrumbs.component";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {NgScrollbar} from "ngx-scrollbar";
 import {UniversityCardComponent} from "../../universities/university-card/university-card.component";
 import {NgClass, NgOptimizedImage} from "@angular/common";
@@ -29,6 +29,7 @@ import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {ChatNewNameModalComponent} from "./chat-new-name-modal/chat-new-name-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalOutcome} from "../../../shared/constants/modalOutcome";
+import {DeleteChatModalComponent} from "./delete-chat-modal/delete-chat-modal.component";
 
 
 type ModalOutComeWithData = {
@@ -77,6 +78,7 @@ export class ConversationViewComponent implements OnInit, OnDestroy {
   constructor(
     private readonly httpService: HttpService,
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly snackbarService: SnackbarService,
     private readonly localStorageService: LocalStorageService,
@@ -128,7 +130,8 @@ export class ConversationViewComponent implements OnInit, OnDestroy {
   changeChatName() {
     const dialog = this.dialog.open(ChatNewNameModalComponent, {width: '500px'})
     dialog.afterClosed().pipe(
-      switchMap((results: ModalOutComeWithData) => this.changeChatNameInDb$(results))
+      switchMap((results: ModalOutComeWithData) => this.changeChatNameInDb$(results)),
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (results) => {
         if (!results?.name) return;
@@ -139,6 +142,39 @@ export class ConversationViewComponent implements OnInit, OnDestroy {
         this.handleError(e);
       }
     })
+  }
+
+  disconnectChat() {
+    const dialog = this.dialog.open(DeleteChatModalComponent, {width: '500px', data: {users: this.chat.users}})
+    dialog.afterClosed().pipe(
+      switchMap((result: ModalOutcome) => this.disconnectChat$(result)),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((result) => {
+      if (result?.success !== true) {
+        this.handleError()
+        return;
+      }
+      this.router.navigate(['/chats'])
+    })
+  }
+
+
+  getUserName(userId: string) {
+    const user = this.chat.users.find((user) => user.id === userId)
+    if (!user) return '';
+    return `${user.name} ${user.lastName}`
+  }
+
+  private disconnectChat$(result: ModalOutcome) {
+    if (result !== ModalOutcome.SUCCESS) {
+      return of(null);
+    }
+    return this.httpService.patch(`chats/disconnect/${this.conversationId}`, {}).pipe(
+      map(() => ({success: true})),
+      catchError(error => {
+        return of({success: false});
+      })
+    );
   }
 
   private changeChatNameInDb$(results: ModalOutComeWithData) {
@@ -200,7 +236,7 @@ export class ConversationViewComponent implements OnInit, OnDestroy {
       .join(', ');
   }
 
-  private handleError(e: HttpErrorResponse) {
+  private handleError(e?: HttpErrorResponse) {
     let snackbarData: SnackbarData = {
       message: 'Ups! Coś poszło nie tak :(, odśwież stronę i spróbuj ponownie',
       variant: "error",

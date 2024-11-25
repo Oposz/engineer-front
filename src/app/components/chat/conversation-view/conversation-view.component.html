@@ -13,7 +13,7 @@
     <mat-menu #menu="matMenu"
               class="dropdown-content menu p-2 border-solid border-secondary border shadow text-primary">
       <li class="content-end"><a (click)="changeChatName()">Zmień nazwe chatu</a></li>
-      <li class="content-end"><a class="text-error">Usuń chat</a></li>
+      <li class="content-end"><a (click)="disconnectChat()" class="text-error">Usuń chat</a></li>
     </mat-menu>
   </div>
   <div class="relative border-b border-solid border-primary px-4">
@@ -31,7 +31,8 @@
                   [thumbClass]="'!rounded-lg !bg-primary'" #scroll>
       <div class="px-1 py-4">
         @for (msg of chat.messages; track msg.id) {
-          <div class="chat mb-1" [ngClass]="msg.userId===loggedUserId? 'chat-end':'chat-start'">
+          <div class="chat mb-1 flex flex-col" [ngClass]="msg.userId===loggedUserId? 'chat-end':'chat-start'">
+            <p class="text-xs text-secondary ml-1">{{getUserName(msg.userId)}}</p>
             <div class="chat-bubble">{{ msg.content }}</div>
           </div>
         }

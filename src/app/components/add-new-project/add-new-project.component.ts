@@ -5,6 +5,7 @@ import {
   DestroyRef,
   ElementRef,
   inject,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -77,7 +78,7 @@ type SponsorData = {
   styleUrl: './add-new-project.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddNewProjectComponent implements OnInit {
+export class AddNewProjectComponent implements OnInit, OnDestroy {
   @ViewChild('tooltip')
   tooltip!: MatTooltip;
 
@@ -291,6 +292,10 @@ export class AddNewProjectComponent implements OnInit {
     this.getFormGroupControls().leader.enable();
     this.universityLeaders = university.leaders;
     this.changeDetectorRef.detectChanges();
+  }
+
+  ngOnDestroy() {
+    this.positionsService.resetService();
   }
 
 }

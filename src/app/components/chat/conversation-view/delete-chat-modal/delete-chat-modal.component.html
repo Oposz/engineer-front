@@ -1,0 +1,18 @@
+<div class="p-4 flex flex-col justify-center items-center text-center">
+  <h2 class="font-medium text-xl text-primary mb-4 w-4/5">
+    Czy jesteś pewien, że chcesz {{ dialogData.users.length > 2 ? 'opuścić czat' : 'usunąć czat' }}?
+  </h2>
+  <div class="flex justify-center gap-2">
+    <button type="submit" class="btn btn-error text-neutral" [matDialogClose]="ModalOutcome.SUCCESS">
+      {{ dialogData.users.length > 2 ? 'Opuść czat' : 'Usuń czat' }}
+    </button>
+    <button class="btn btn-primary" [matDialogClose]="ModalOutcome.ABANDON">
+      Anuluj
+    </button>
+  </div>
+  <button class="btn btn-circle btn-sm absolute top-3.5 right-4" mat-dialog-close
+          [matDialogClose]="ModalOutcome.ABANDON">
+    <img ngSrc="assets/icons/x-mark.svg" alt="close"
+         height="13" width="13">
+  </button>
+</div>

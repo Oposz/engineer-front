@@ -46,4 +46,7 @@ export class PositionsService {
     position.quantity--
   }
 
+  resetService(){
+    this.positions = [];
+  }
 }
