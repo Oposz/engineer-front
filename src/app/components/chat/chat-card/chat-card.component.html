@@ -1,5 +1,5 @@
 <div class="flex items-center mb-1">
-  <div class="flex items-center">
+  <div class="flex items-center w-full">
     @if (chat.photoId) {
       <app-photo [cssClasses]="'w-9 h-9 rounded-3xl'" [photoId]="chat.photoId" class="mr-2.5"/>
     } @else {
@@ -9,13 +9,15 @@
            width="36"
            height="36">
     }
-    <p class="text-primary font-semibold text-2xl cursor-pointer truncate" [matTooltip]="chatName"
+    <p class="text-primary font-semibold text-2xl cursor-pointer truncate" [matTooltip]="chatName" matTooltipPosition="above"
        [routerLink]="'/chats/'+chat.id">{{ chatName }}</p>
   </div>
 </div>
 <div class="text-secondary text-sm h-full flex">
   @let lastMsg = chat.messages.at(-1) ;
   @if (lastMsg) {
-    <p class="h-full line-clamp-2">{{ getNameOfUser(lastMsg.userId) }}: {{ lastMsg.content }}</p>
+    <p class="h-full line-clamp-2"
+       [ngClass]="getLastMsgClasses(lastMsg)">
+      {{ getNameOfUser(lastMsg.userId) }}: {{ lastMsg.content }}</p>
   }
 </div>

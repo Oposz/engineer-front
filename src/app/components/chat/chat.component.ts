@@ -4,7 +4,7 @@ import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
 import {NgScrollbar} from "ngx-scrollbar";
 import {TeamCardComponent} from "../your-teams/team-card/team-card.component";
 import {ChatCardComponent} from "./chat-card/chat-card.component";
-import {Chat} from "../../shared/constants/chat";
+import {Chat, Message} from "../../shared/constants/chat";
 import {HttpService} from "../../shared/service/http.service";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -17,12 +17,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 interface ChatToUpdate {
   id: string,
-  messages: [{
-    content: string,
-    userId: string,
-    new: boolean,
-    chatId: string,
-  }]
+  messages: [Message]
 }
 
 @Component({

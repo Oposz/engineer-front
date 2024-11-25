@@ -71,6 +71,7 @@ export class ConversationViewComponent implements OnInit {
   ngOnInit() {
     this.getConversationId();
     this.fetchConversation();
+    this.markAllMessagesAsSeen();
     this.loggedUserId = this.localStorageService.getItem('uniteam-user-id') ?? '';
     this.observeNewMessages();
     this.connectMsgSocket();
@@ -166,5 +167,9 @@ export class ConversationViewComponent implements OnInit {
 
   private capitalizeWord(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }
+
+  private markAllMessagesAsSeen(){
+    this.httpService.patch(`chats/seen/${this.conversationId}`,{}).subscribe()
   }
 }

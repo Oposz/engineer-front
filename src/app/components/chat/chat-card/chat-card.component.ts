@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Chat} from "../../../shared/constants/chat";
-import {NgOptimizedImage} from "@angular/common";
+import {Chat, Message} from "../../../shared/constants/chat";
+import {NgClass, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {PhotoComponent} from "../../shared/photo/photo.component";
 import {LocalStorageService} from "../../../shared/service/local-storage.service";
@@ -13,7 +13,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     NgOptimizedImage,
     RouterLink,
     PhotoComponent,
-    MatTooltip
+    MatTooltip,
+    NgClass
   ],
   templateUrl: './chat-card.component.html',
   styleUrl: './chat-card.component.scss'
@@ -36,6 +37,24 @@ export class ChatCardComponent implements OnInit {
     const userName = this.chat.users.find((user) => user.id === userId)?.name
     if (!userName) return
     return this.capitalizeWord(userName);
+  }
+
+  getLastMsgClasses(lastMsg: Message) {
+    const isMsgMine = lastMsg.userId === this.currentlyLoggedUserId();
+    if (isMsgMine) {
+      return '';
+    }
+    const mineLastChatView = this.chat.views.find((view) => view.userId === this.currentlyLoggedUserId())
+    if (!mineLastChatView) {
+      return ''
+    }
+    ;
+    const isChatSeen = new Date(lastMsg.updatedAt) < new Date(mineLastChatView.lastSeen)
+    if (!isChatSeen) {
+      return 'font-bold text-primary'
+    } else {
+      return '';
+    }
   }
 
   private getChatName() {
