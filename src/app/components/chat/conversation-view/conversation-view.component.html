@@ -1,11 +1,21 @@
 @if (fetching) {
   <app-loader/>
 } @else {
-  <app-view-header>
-    <ng-container header>
-      {{ chatName }}
-    </ng-container>
-  </app-view-header>
+  <div class="relative">
+    <app-view-header>
+      <ng-container header>
+        {{ chatName }}
+      </ng-container>
+    </app-view-header>
+    <img class="absolute top-1/2 -translate-y-1/2 right-4" role="button" ngSrc="assets/icons/menu-vertical.svg"
+         alt="menu" height="16" width="4"
+         [matMenuTriggerFor]="menu">
+    <mat-menu #menu="matMenu"
+              class="dropdown-content menu p-2 border-solid border-secondary border shadow text-primary">
+      <li class="content-end"><a (click)="changeChatName()">Zmień nazwe chatu</a></li>
+      <li class="content-end"><a class="text-error">Usuń chat</a></li>
+    </mat-menu>
+  </div>
   <div class="relative border-b border-solid border-primary px-4">
     <div class="breadcrumbs text-xs text-secondary absolute -top-7">
       <ul>
@@ -30,6 +40,7 @@
   </div>
   <div class="border-t border-solid border-primary flex px-2.5 py-4 gap-4">
     <input type="text" placeholder="Aa" class="input w-full" [formControl]="chatInput" (keydown.enter)="sendMessage()"/>
-    <img class="cursor-pointer" ngSrc="assets/icons/send-icon.svg" height="25" width="24" alt="send-icon" (click)="sendMessage()">
+    <img class="cursor-pointer" ngSrc="assets/icons/send-icon.svg" height="25" width="24" alt="send-icon"
+         (click)="sendMessage()">
   </div>
 }

@@ -16,7 +16,7 @@
             <p class="text-xs text-secondary">{{ user.email }}</p>
           </div>
           <div class="flex pr-1.5">
-            <input type="checkbox" class="checkbox checkbox-primary bg-neutral"
+            <input type="checkbox" class="checkbox checkbox-primary bg-neutral" [checked]="isUserAlreadySelected(user.id)"
                    (change)="adjustUserToConversation(user.id,$event)"/>
           </div>
         </div>

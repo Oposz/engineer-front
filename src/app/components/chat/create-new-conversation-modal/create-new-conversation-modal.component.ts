@@ -66,6 +66,10 @@ export class CreateNewConversationModalComponent implements OnInit {
     this.newConversationUsers.splice(userIdIndex, 1)
   }
 
+  isUserAlreadySelected(userId: string) {
+    return this.newConversationUsers.some((_userId) => _userId === userId)
+  }
+
   startNewConversation() {
     this.httpService.post('chats/new', {users: this.newConversationUsers}).subscribe({
       next: (newlyCreatedChat: Chat) => {

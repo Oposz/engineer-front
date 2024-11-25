@@ -4,6 +4,7 @@ import {
   Component,
   DestroyRef,
   inject,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -15,7 +16,7 @@ import {UniversityCardComponent} from "../../universities/university-card/univer
 import {NgClass, NgOptimizedImage} from "@angular/common";
 import {LoaderComponent} from "../../shared/loader/loader.component";
 import {HttpService} from "../../../shared/service/http.service";
-import {switchMap, take} from "rxjs";
+import {catchError, map, of, switchMap, take} from "rxjs";
 import {Chat, Message} from "../../../shared/constants/chat";
 import {HttpErrorResponse} from "@angular/common/http";
 import {SnackbarComponent, SnackbarData} from "../../shared/snackbar/snackbar.component";
@@ -24,6 +25,18 @@ import {LocalStorageService} from "../../../shared/service/local-storage.service
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {MessagesGatewayService} from "./messages-gateway.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {ChatNewNameModalComponent} from "./chat-new-name-modal/chat-new-name-modal.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ModalOutcome} from "../../../shared/constants/modalOutcome";
+
+
+type ModalOutComeWithData = {
+  result: ModalOutcome,
+  data?: {
+    name: string
+  }
+}
 
 @Component({
   selector: 'app-conversation-view',
@@ -37,26 +50,29 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
     NgClass,
     NgOptimizedImage,
     LoaderComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenu,
+    MatMenuTrigger
   ],
   templateUrl: './conversation-view.component.html',
   styleUrl: './conversation-view.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConversationViewComponent implements OnInit {
+export class ConversationViewComponent implements OnInit, OnDestroy {
+
+  readonly dialog = inject(MatDialog);
+  destroyRef = inject(DestroyRef);
 
   @ViewChild('scroll')
   scrollContainer!: any
 
   fetching = true;
-  conversationId = ''
-  chat!: Chat
-  chatName: string = ''
-  loggedUserId = ''
+  conversationId = '';
+  chat!: Chat;
+  chatName: string = '';
+  loggedUserId = '';
 
-  chatInput = new FormControl<string>('')
-
-  destroyRef = inject(DestroyRef)
+  chatInput = new FormControl<string>('');
 
   constructor(
     private readonly httpService: HttpService,
@@ -107,6 +123,35 @@ export class ConversationViewComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
       this.scrollToBottomOfChat();
     })
+  }
+
+  changeChatName() {
+    const dialog = this.dialog.open(ChatNewNameModalComponent, {width: '500px'})
+    dialog.afterClosed().pipe(
+      switchMap((results: ModalOutComeWithData) => this.changeChatNameInDb$(results))
+    ).subscribe({
+      next: (results) => {
+        if (!results?.name) return;
+        this.chatName = results.name
+        this.changeDetectorRef.detectChanges();
+      },
+      error: (e: HttpErrorResponse) => {
+        this.handleError(e);
+      }
+    })
+  }
+
+  private changeChatNameInDb$(results: ModalOutComeWithData) {
+    if (results.result !== ModalOutcome.SUCCESS) {
+      return of(null);
+    }
+    const newName = results.data?.name;
+    return this.httpService.patch(`chats/name/${this.conversationId}`, {name: results.data?.name}).pipe(
+      map(() => ({success: true, name: newName})),
+      catchError(error => {
+        return of({success: false, error, name: newName});
+      })
+    )
   }
 
   private connectMsgSocket() {
@@ -169,7 +214,11 @@ export class ConversationViewComponent implements OnInit {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
   }
 
-  private markAllMessagesAsSeen(){
-    this.httpService.patch(`chats/seen/${this.conversationId}`,{}).subscribe()
+  private markAllMessagesAsSeen() {
+    this.httpService.patch(`chats/seen/${this.conversationId}`, {}).subscribe()
+  }
+
+  ngOnDestroy() {
+    this.markAllMessagesAsSeen();
   }
 }
