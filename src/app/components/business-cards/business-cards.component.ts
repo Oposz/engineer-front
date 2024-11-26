@@ -37,7 +37,7 @@ export class BusinessCardsComponent implements OnInit {
 
   filterFavourites(favouritesVisible: boolean) {
     if (favouritesVisible) {
-      this.renderedCards = this.allBusinessCards.filter((project) => project.favourite)
+      this.renderedCards = this.allBusinessCards.filter((card) => card.favourite)
     } else {
       this.renderedCards = this.allBusinessCards;
     }
@@ -50,6 +50,16 @@ export class BusinessCardsComponent implements OnInit {
     } else {
       this.renderedCards.sort((a, b) => b.name.localeCompare(a.name));
     }
+    this.changeDetectorRef.detectChanges();
+  }
+
+  filterCardsByName(searchValue: string) {
+    this.renderedCards = this.allBusinessCards.filter((card) => {
+        const cardName = `${card.name} ${card.lastName}`
+        return cardName.toLowerCase().includes(searchValue.toLowerCase())
+      }
+    )
+    ;
     this.changeDetectorRef.detectChanges();
   }
 

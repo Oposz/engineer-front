@@ -58,6 +58,11 @@ export class UniversitiesComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
+  filterUniversitiesByName(searchValue: string) {
+    this.renderedUniversities = this.allUniversities.filter((university) => university.name.toLowerCase().includes(searchValue.toLowerCase()));
+    this.changeDetectorRef.detectChanges();
+  }
+
   private getAllUniversities() {
     this.httpService.get('universities').pipe(
       take(1)

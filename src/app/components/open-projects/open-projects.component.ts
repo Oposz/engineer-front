@@ -59,13 +59,13 @@ export class OpenProjectsComponent implements OnInit {
   }
 
   filterProjectsByName(searchValue: string) {
-    this.renderedProjects = this.allProjects.filter((project) => project.name.includes(searchValue));
+    this.renderedProjects = this.allProjects.filter((project) => project.name.toLowerCase().includes(searchValue.toLowerCase()));
     this.projectsBeforeDateFiltering = this.renderedProjects;
     this.changeDetectorRef.detectChanges();
   }
 
   filterEndDueTo(date: string) {
-    if (!date){
+    if (!date) {
       this.renderedProjects = this.projectsBeforeDateFiltering;
       return;
     }
@@ -76,7 +76,7 @@ export class OpenProjectsComponent implements OnInit {
   }
 
   filterStartDueTo(date: string) {
-    if (date===''){
+    if (date === '') {
       this.renderedProjects = this.projectsBeforeDateFiltering;
       return;
     }
