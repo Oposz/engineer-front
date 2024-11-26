@@ -22,7 +22,7 @@
 </div>
 <p class="mt-1 text-sm text-secondary line-clamp-3">{{ project.description }}</p>
 <div class="flex justify-between items-center mt-auto">
-  <p class="text-xs text-secondary">Data zakończenia projektu:
+  <p class="text-xs text-secondary mr-2">Data zakończenia projektu:
     @if (project.dueTo) {
       @let remainingDays = getRemainingDays(project.dueTo) ;
       <span

@@ -7,13 +7,15 @@
     jakiejś pomocy czy porady, a nie wiesz jak do kogoś dotrzeć to miejsce dla Ciebie.
   </ng-container>
 </app-view-header>
-<app-quick-filters [addButton]="false" [dateRange]="false"/>
+<app-quick-filters [addButton]="false" [dateRange]="false"
+                   (favToggled)="filterFavourites($event)"
+                   (alphabeticalSortChanged)="sortCards($event)"/>
 
 <ng-scrollbar orientation="vertical" visibility="native"
               [trackClass]="'my-4'"
               [thumbClass]="'!rounded-lg !bg-primary'">
   <div class="p-4 grid grid-cols-1 gap-4">
-    @for (card of businessCards; track card.id) {
+    @for (card of renderedCards; track card.id) {
       <app-business-card [cardData]="card"/>
     }
   </div>

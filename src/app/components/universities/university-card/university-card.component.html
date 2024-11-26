@@ -1,15 +1,25 @@
 <div class="flex justify-between items-center mb-1">
   <div class="flex items-center">
-    <img [src]="university.photo ? university.photo:'assets/icons/ellipse-avatar.svg'"
-         class="mr-2.5 rounded-3xl"
-         alt="project photo"
-         width="36"
-         height="36">
+    @if (university.photoId) {
+      <app-photo [cssClasses]="'w-9 h-9 rounded-3xl'" [photoId]="university.photoId" class="mr-2.5"/>
+    } @else {
+      <img ngSrc="assets/icons/ellipse-avatar.svg"
+           alt="university photo"
+           class="w-9 h-9 rounded-3xl mr-2.5"
+           width="36"
+           height="36">
+    }
     <p class="text-primary font-semibold text-2xl cursor-pointer"
        [routerLink]="'/universities/'+university.id">{{ university.name }}</p>
   </div>
   @if (withFavouriteFeature) {
-    <img class="w-8 h-8" ngSrc="assets/icons/star-empty.svg" alt="favourite" height="24" width="24">
+    @if (university.favourite) {
+      <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-filled.svg"
+           alt="favourite" height="32" width="32">
+    } @else {
+      <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-empty.svg"
+           alt="favourite" height="24" width="24">
+    }
   }
 </div>
 <p class="text-sm text-secondary h-full">{{ university.description }}</p>

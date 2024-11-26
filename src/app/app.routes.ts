@@ -66,6 +66,11 @@ export const routes: Routes = [
         path: 'chats/:id',
         loadComponent: () => import('./components/chat/conversation-view/conversation-view.component')
           .then(m => m.ConversationViewComponent)
+      },
+      {
+        path: 'panel',
+        loadComponent: () => import('./components/admin-panel/admin-panel.component')
+          .then(m => m.AdminPanelComponent)
       }
     ]
   }

@@ -12,6 +12,7 @@ import {NgScrollbar} from "ngx-scrollbar";
 import {startWith, take} from "rxjs";
 import {University} from "../../shared/constants/university";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 interface LoginForm {
   email: FormControl<string>,
@@ -27,7 +28,6 @@ interface RegisterForm extends LoginForm {
 
 export type AuthData = {
   access_token: string;
-  userId: string;
 }
 
 @Component({
@@ -86,7 +86,8 @@ export class AuthorizationScreenComponent implements OnInit {
     private readonly httpService: HttpService,
     private readonly snackbarService: SnackbarService,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly jwtHelperService: JwtHelperService
   ) {
   }
 
@@ -170,11 +171,13 @@ export class AuthorizationScreenComponent implements OnInit {
   }
 
   private handleSuccessAuth(loginData: AuthData) {
-    this.localStorage.setItem('uniteam-token', loginData.access_token)
-    this.localStorage.setItem('uniteam-user-id', loginData.userId)
+    this.localStorage.setItem('uniteam-token', loginData.access_token);
+    const decodedToken = this.jwtHelperService.decodeToken(loginData.access_token);
+    this.localStorage.setItem('uniteam-user-id', decodedToken.sub);
+    this.localStorage.setItem('uniteam-user-role', decodedToken.role);
     this.loading = false;
     this.changeDetectorRef.detectChanges();
-    this.router.navigate([''])
+    this.router.navigate(['']);
   }
 
   private handleError(e: HttpErrorResponse) {

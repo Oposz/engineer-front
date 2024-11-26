@@ -9,6 +9,11 @@ import {LocalStorageService} from "../../shared/service/local-storage.service";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatButton} from "@angular/material/button";
 
+enum UserRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}
+
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -28,6 +33,9 @@ import {MatButton} from "@angular/material/button";
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
+
+  admin = this.localStorage.getItem('uniteam-user-role')
+
   userName$: Observable<string> = this.httpService.get('user').pipe(
     map((user: User) => {
       return `${user.name} ${user.lastName}`
@@ -47,4 +55,5 @@ export class MenuComponent {
     this.router.navigate(['/auth']);
   }
 
+  protected readonly UserRole = UserRole;
 }

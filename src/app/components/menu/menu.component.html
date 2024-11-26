@@ -26,6 +26,12 @@
     <img ngSrc="assets/icons/chat.svg" alt="icon" height="24" width="24">
     Wiadomości
   </app-nav-tab>
+  @if (admin === UserRole.ADMIN) {
+    <app-nav-tab [routerLink]="'/panel'" routerLinkActive="font-extrabold">
+      <img ngSrc="assets/icons/panel.svg" alt="icon" height="24" width="24">
+      Panel admina
+    </app-nav-tab>
+  }
 </div>
 <div class="px-4 py-5 flex justify-between">
   <p class="truncate mr-4">{{ userName$ | async }}</p>

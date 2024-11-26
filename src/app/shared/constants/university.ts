@@ -6,6 +6,7 @@ export interface University {
   name: string,
   description: string,
   projects: Project[],
-  photo?: string
+  favourite: boolean,
+  photoId?: string
   leaders: Leader[]
 }

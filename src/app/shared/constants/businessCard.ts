@@ -10,5 +10,6 @@ export interface BusinessCard {
   department: string,
   email: string,
   phoneNumber: string,
-  photo?: string
+  photoId?: string
+  favourite: boolean
 }
