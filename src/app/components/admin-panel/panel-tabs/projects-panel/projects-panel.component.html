@@ -1,0 +1,65 @@
+<table class="table text-primary">
+  <thead class="text-primary">
+  <tr>
+    <th>
+      <label>
+        <input type="checkbox" class="checkbox checkbox-primary" (change)="adjustAllProjectsInList($event)"/>
+      </label>
+    </th>
+    <th>Nazwa</th>
+    <th>Data zakończenia</th>
+    <th>Uczelnia</th>
+    <th>Liczba uczestników</th>
+    <th>Prowadzący</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (project of projects; track project.id) {
+      <tr>
+        <th>
+          <label>
+            <input [checked]="isProjectAlreadySelected(project.id)" type="checkbox" class="checkbox checkbox-primary" (change)="adjustProjectToModify(project.id,$event)"/>
+          </label>
+        </th>
+        <td>
+          {{ project.name }}
+        </td>
+        <td>
+          @if (project.dueTo) {
+            {{ getDate(project.dueTo) }}
+          } @else {
+            -
+          }
+        </td>
+        <td>{{ project.leadingUniversity.name }}</td>
+        <td>
+          {{ project.signedUsers.length }}
+        </td>
+        <td>
+          {{ project.leader.title }} {{ project.leader.name }} {{ project.leader.lastName }}
+        </td>
+        <td>
+          <img [matMenuTriggerFor]="projectMenu" [matMenuTriggerData]="{id:project.id}" class="cursor-pointer" ngSrc="assets/icons/menu-vertical.svg" alt="project menu" height="16" width="4">
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+<div class="absolute right-10 bottom-10" [matMenuTriggerFor]="menu">
+  <button class="btn btn-primary btn-circle text-neutral mt-1 cursor-pointer">
+    <img ngSrc="assets/icons/menu.svg" alt="menu" height="20" width="16">
+  </button>
+  <mat-menu #menu="matMenu" yPosition="above" xPosition="before"
+            class="dropdown-content menu p-2 border-solid border-secondary border shadow text-primary">
+    <li><a (click)="deleteAllMarkedProjects()" class="text-error">Usuń wybrane pozycje</a></li>
+  </mat-menu>
+</div>
+
+<mat-menu #projectMenu="matMenu" yPosition="above" xPosition="before"
+          class="dropdown-content menu border-solid border-secondary border shadow text-primary">
+  <ng-template matMenuContent let-projectId="id">
+    <li><a>Edytuj</a></li>
+    <li><a class="text-error" (click)="deleteProject(projectId)">Usuń</a></li>
+  </ng-template>
+</mat-menu>

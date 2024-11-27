@@ -1,0 +1,15 @@
+:host {
+  @apply w-full h-full flex flex-col px-4;
+}
+
+.tabs-lifted > .tab:is(.tab-active, [aria-selected=true]):not(.tab-disabled):not([disabled]), .tabs-lifted > .tab:is(input:checked) {
+  @apply border-primary;
+}
+
+.tab {
+  @apply border-primary;
+}
+
+.tabs-lifted > .tab:is(.tab-active, [aria-selected=true]):not(.tab-disabled):not([disabled]):before, .tabs-lifted > .tab:is(input:checked):before {
+  --tab-border-color: oklch(32.76% 0.0678 257.27); // border-primary
+}

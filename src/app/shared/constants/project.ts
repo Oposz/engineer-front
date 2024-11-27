@@ -1,4 +1,5 @@
 import {Leader} from "./leader";
+import {University} from "./university";
 
 export interface CreatedProject {
   id: string
@@ -60,4 +61,8 @@ export interface Sponsor {
 
 export interface DefinedPositionWithAvailability extends DefinedPosition {
   closedSlots: number
+}
+
+export interface ProjectWithUni extends Project{
+  leadingUniversity:University
 }

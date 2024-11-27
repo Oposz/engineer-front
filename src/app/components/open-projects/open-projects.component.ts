@@ -87,7 +87,7 @@ export class OpenProjectsComponent implements OnInit {
   }
 
   private fetchAllProjects() {
-    this.httpService.get('projects/all').subscribe((projects: Project[]) => {
+    this.httpService.get('projects/available').subscribe((projects: Project[]) => {
       this.allProjects = projects.sort((a, b) => a.name.localeCompare(b.name));
       this.renderedProjects = this.allProjects;
       this.projectsBeforeDateFiltering = this.renderedProjects;

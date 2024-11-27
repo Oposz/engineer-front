@@ -40,3 +40,31 @@ div.mat-mdc-autocomplete-panel {
 .cdk-overlay-pane.mat-mdc-dialog-panel {
   @apply max-w-none #{!important};
 }
+
+:where(.menu li:not(.menu-title, .disabled) > *:not(ul, details, .menu-title)):not(.active, .btn):hover {
+  @apply bg-secondary text-neutral
+}
+
+.hidden-menu {
+  @apply hidden opacity-0;
+}
+
+.visible-menu {
+  @apply visible opacity-100;
+}
+
+.mat-mdc-menu-panel {
+  @apply bg-neutral rounded-lg #{!important};
+}
+
+.mat-mdc-menu-content {
+  @apply p-0 #{!important};
+}
+
+.menu {
+  div.mat-mdc-menu-content {
+    li:not(:last-child) {
+      @apply mb-0.5;
+    }
+  }
+}

@@ -8,11 +8,7 @@ import {User} from "../../shared/constants/user";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatButton} from "@angular/material/button";
-
-enum UserRole {
-  ADMIN = 'ADMIN',
-  USER = 'USER'
-}
+import {UserRole} from "../../shared/constants/userRole";
 
 @Component({
   selector: 'app-menu',

@@ -24,6 +24,10 @@ export class HttpService {
     return this.httpClient.patch(`http://localhost:3000/${url}`, body)
   }
 
+  delete(url:string){
+    return this.httpClient.delete(`http://localhost:3000/${url}`)
+  }
+
 }
 
 
