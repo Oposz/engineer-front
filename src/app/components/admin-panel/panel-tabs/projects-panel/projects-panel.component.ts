@@ -11,6 +11,7 @@ import {MatMenu, MatMenuContent, MatMenuTrigger} from "@angular/material/menu";
 import {HttpErrorResponse} from "@angular/common/http";
 import {SnackbarComponent, SnackbarData} from "../../../shared/snackbar/snackbar.component";
 import {SnackbarService} from "../../../../shared/service/snackbar.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-projects-panel',
@@ -25,7 +26,8 @@ import {SnackbarService} from "../../../../shared/service/snackbar.service";
     NgOptimizedImage,
     MatMenu,
     MatMenuTrigger,
-    MatMenuContent
+    MatMenuContent,
+    RouterLink
   ],
   templateUrl: './projects-panel.component.html',
   styleUrl: './projects-panel.component.scss',

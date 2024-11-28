@@ -59,7 +59,7 @@
 <mat-menu #projectMenu="matMenu" yPosition="above" xPosition="before"
           class="dropdown-content menu border-solid border-secondary border shadow text-primary">
   <ng-template matMenuContent let-projectId="id">
-    <li><a>Edytuj</a></li>
+    <li><a [routerLink]="['/projects/edit-project',projectId]">Edytuj</a></li>
     <li><a class="text-error" (click)="deleteProject(projectId)">Usuń</a></li>
   </ng-template>
 </mat-menu>

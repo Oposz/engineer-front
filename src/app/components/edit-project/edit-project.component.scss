@@ -1,0 +1,65 @@
+:host {
+  @apply w-full p-4;
+}
+
+.input {
+  &::placeholder {
+    @apply text-secondary font-semibold text-xl opacity-50;
+  }
+}
+
+.add-button {
+  @apply min-h-10 h-10
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.textarea {
+  &::placeholder {
+    @apply text-secondary font-semibold text-base opacity-50;
+  }
+}
+
+.datepicker {
+  &::placeholder {
+    @apply text-base font-medium;
+  }
+}
+
+::ng-deep {
+  mat-datepicker-content {
+    @apply bg-secondary #{!important};
+    & span, td {
+      @apply text-neutral #{!important};
+    }
+
+    & .mat-calendar-body-selected {
+      @apply bg-primary #{!important};
+    }
+
+    & .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+      @apply border-primary #{!important};
+    }
+
+    & button {
+      @apply text-neutral #{!important};
+      & svg {
+        @apply fill-neutral #{!important};
+      }
+    }
+  }
+}
+
+mat-datepicker-toggle::ng-deep {
+  & button {
+    @apply text-secondary;
+  }
+}

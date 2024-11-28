@@ -21,7 +21,7 @@ export interface Project {
   favourite: boolean
   availableSlots: number
   dueTo?: string
-  universityId: string
+  leadingUniversityId: string
   leaderId: string
   signedUsers: SignedUser[]
   definedPositions: DefinedPosition[]

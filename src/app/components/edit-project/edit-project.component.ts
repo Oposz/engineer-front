@@ -9,8 +9,8 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import {AsyncPipe, NgOptimizedImage} from "@angular/common";
-import {NewPositionComponent} from "./new-position/new-position.component";
+import {DateMaskDirective} from "../shared/quick-filters/date-mask.directive";
+import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {
   MatDatepicker,
   MatDatepickerInput,
@@ -18,69 +18,54 @@ import {
   MatDatepickerToggle
 } from "@angular/material/datepicker";
 import {MatInput, MatSuffix} from "@angular/material/input";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {debounceTime, forkJoin, of, switchMap, take} from "rxjs";
-import {HttpService} from "../../shared/service/http.service";
-import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
+import {NewPositionComponent} from "../add-new-project/new-position/new-position.component";
+import {NgOptimizedImage} from "@angular/common";
 import {NgScrollbar} from "ngx-scrollbar";
-import {University} from "../../shared/constants/university";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {Leader} from "../../shared/constants/leader";
-import {DateMaskDirective} from "../shared/quick-filters/date-mask.directive";
-import {MatDialog} from "@angular/material/dialog";
-import {AddSponsorModalComponent} from "./add-sponsor-modal/add-sponsor-modal.component";
-import {ModalOutcome} from "../../shared/constants/modalOutcome";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {PhotoComponent} from "../shared/photo/photo.component";
 import {MatTooltip} from "@angular/material/tooltip";
-import {DefinedPosition, PositionsService} from "./positions.service";
+import {MatDialog} from "@angular/material/dialog";
 import {UploadService} from "../../shared/service/upload.service";
-import {CreatedProject} from "../../shared/constants/project";
-import {HttpErrorResponse} from "@angular/common/http";
-import {SnackbarComponent, SnackbarData} from "../shared/snackbar/snackbar.component";
+import {University} from "../../shared/constants/university";
+import {Leader} from "../../shared/constants/leader";
+import {newProjectGroup, SponsorData} from "../add-new-project/add-new-project.component";
+import {DefinedPosition, PositionsService} from "../add-new-project/positions.service";
+import {HttpService} from "../../shared/service/http.service";
 import {SnackbarService} from "../../shared/service/snackbar.service";
-import {Router} from "@angular/router";
-
-export interface newProjectGroup {
-  projectName: FormControl<string>,
-  description: FormControl<string>,
-  university: FormControl<string>,
-  leader: FormControl<Leader | null>,
-  dueTo: FormControl<string>
-}
-
-export type SponsorData = {
-  id?: string,
-  name: string,
-  description: string | null,
-  photoId?: string,
-  photo?: File
-}
+import {ActivatedRoute, Router} from "@angular/router";
+import {debounceTime, forkJoin, map, of, switchMap, take} from "rxjs";
+import {CreatedProject, Project} from "../../shared/constants/project";
+import {HttpErrorResponse} from "@angular/common/http";
+import {AddSponsorModalComponent} from "../add-new-project/add-sponsor-modal/add-sponsor-modal.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ModalOutcome} from "../../shared/constants/modalOutcome";
+import {SnackbarComponent, SnackbarData} from "../shared/snackbar/snackbar.component";
 
 @Component({
-  selector: 'app-add-new-project',
+  selector: 'app-edit-project',
   standalone: true,
   imports: [
-    NgOptimizedImage,
-    NewPositionComponent,
+    DateMaskDirective,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
     MatDatepicker,
     MatDatepickerInput,
     MatDatepickerToggle,
     MatInput,
-    MatSuffix,
-    FormsModule,
-    MatAutocomplete,
-    MatAutocompleteTrigger,
     MatOption,
+    MatSuffix,
+    NewPositionComponent,
+    NgOptimizedImage,
     NgScrollbar,
     ReactiveFormsModule,
-    AsyncPipe,
-    DateMaskDirective,
+    PhotoComponent,
     MatTooltip
   ],
-  templateUrl: './add-new-project.component.html',
-  styleUrl: './add-new-project.component.scss',
+  templateUrl: './edit-project.component.html',
+  styleUrl: './edit-project.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddNewProjectComponent implements OnInit, OnDestroy {
+export class EditProjectComponent implements OnInit, OnDestroy {
   @ViewChild('tooltip')
   tooltip!: MatTooltip;
 
@@ -98,9 +83,11 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
 
   universityLeaders: Leader[] = [];
 
+  project!: Project;
+
   loading = false;
 
-  newProjectFormGroup: FormGroup<newProjectGroup> = new FormGroup({
+  editProjectFormGroup: FormGroup<newProjectGroup> = new FormGroup({
     projectName: new FormControl<string>('', {nonNullable: true, validators: [Validators.minLength(3)]}),
     description: new FormControl<string>('', {nonNullable: true}),
     university: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
@@ -122,13 +109,13 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly positionsService: PositionsService,
     private readonly snackbarService: SnackbarService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
-    this.getFormGroupControls().leader.disable();
-    this.fetchUserUniversities();
+    this.fetchProject();
     this.observeUniversityInputChanged();
     this.positions = this.positionsService.getProjectPositions()
     this.observeNewPositions();
@@ -160,16 +147,36 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  saveNewProject() {
+  fetchProject() {
+    this.projectId$().pipe(
+      switchMap((projectId) => forkJoin({
+        project: this.httpService.get(`projects/${projectId}`),
+        universities: this.httpService.get('user/universities')
+      }))
+    ).subscribe(({project, universities}: { project: Project, universities: University[] }) => {
+      this.project = structuredClone(project);
+      this.userUniversities = universities;
+      this.filteredUniversities = this.userUniversities;
+      this.setFormFields(project, universities);
+      this.positionsService.setAlreadyDefinedPositions(project.definedPositions);
+      this.sponsors = structuredClone(project.sponsors);
+      this.changeDetectorRef.detectChanges();
+    })
+  }
+
+  editProject() {
     this.loading = true;
 
-    if (!this.newProjectFormGroup.valid) {
+    if (!this.editProjectFormGroup.valid) {
       this.validate = true;
       this.tooltip.toggle()
       return;
     }
     const sponsorPhotos = this.sponsors.map((sponsor) => {
-      return this.uploadService.uploadFile$(sponsor.photo!)
+      if (!sponsor.photo) {
+        return of(null);
+      }
+      return this.uploadService.uploadFile$(sponsor.photo!);
     })
 
     const uploadFiles = [
@@ -177,14 +184,23 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
       this.uploadedPhoto ? this.uploadService.uploadFile$(this.uploadedPhoto.file) : of(null)
     ]
 
+    const positions = this.positionsService.getProjectPositions()
+    const positionsToDelete = this.project.definedPositions.filter(definedPosition =>
+      !positions.some(position => position.id === definedPosition.id)
+    );
+    const sponsorsToDelete = this.project.sponsors.filter(sponsor => !this.sponsors.some(_sponsor => _sponsor.id === sponsor.id));
+
     const requestData = {
-      ...this.newProjectFormGroup.value,
-      leader: this.newProjectFormGroup.value.leader?.id,
-      university: this.userUniversities.find((_university) => _university.name === this.newProjectFormGroup.value.university)?.id,
-      positions: this.positionsService.getProjectPositions(),
+      ...this.editProjectFormGroup.value,
+      leader: this.editProjectFormGroup.value.leader?.id,
+      university: this.userUniversities.find((_university) => _university.name === this.editProjectFormGroup.value.university)?.id,
+      positions: positions,
+      positionsToDelete: positionsToDelete,
       sponsors: this.sponsors,
+      deletedSponsors: sponsorsToDelete,
       photo: null
     }
+
 
     forkJoin(uploadFiles).pipe(
       switchMap((uploadIds: { id: string }[]) => {
@@ -192,16 +208,17 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
           uploadIds.slice(0, -1),
           uploadIds[uploadIds.length - 1]
         ];
+
         const sponsorsWithPhotos = requestData.sponsors.map((sponsor, index) => ({
           ...sponsor,
-          photo: sponsorUploadIds[index].id
+          photo: sponsorUploadIds[index] ? sponsorUploadIds[index].id : ''
         }));
         const updatedRequestData = {
           ...requestData,
           sponsors: sponsorsWithPhotos,
-          photo: projectPhotoId.id
+          photo: projectPhotoId ? projectPhotoId.id : ''
         };
-        return this.httpService.post('projects/add', updatedRequestData)
+        return this.httpService.patch(`projects/edit/${this.project.id}`, updatedRequestData)
       })
     ).subscribe({
       next: (project: CreatedProject) => {
@@ -214,7 +231,7 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
   }
 
   getFormGroupControls() {
-    return this.newProjectFormGroup.controls;
+    return this.editProjectFormGroup.controls;
   }
 
   getPhotoUrl(file: File) {
@@ -247,16 +264,28 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
     })
   }
 
+  private setFormFields(project: Project, universities: University[]) {
+    this.getFormGroupControls().projectName.setValue(project.name);
+    this.getFormGroupControls().description.setValue(project.description);
+    const university = universities.find((university) => university.id === project.leadingUniversityId)?.name
+    this.getFormGroupControls().university.setValue(university!);
+    this.getFormGroupControls().leader.setValue(project.leader);
+    if (project.dueTo) {
+      const date = new Date(project.dueTo);
+      this.getFormGroupControls().dueTo.setValue(date.toISOString());
+    }
+  }
+
   private handleSuccess(project: CreatedProject) {
     this.loading = false;
     let data: SnackbarData = {
-      message: 'Utworzono projekt!',
+      message: 'Edytowano projekt!',
       variant: "info",
       closeButton: true
     }
     this.snackbarService.snackbarFromComponent(SnackbarComponent, data)
     this.changeDetectorRef.detectChanges()
-    this.router.navigate(['/projects', project.id]);
+    this.router.navigate(['/panel']);
   }
 
   private handleError(e: HttpErrorResponse) {
@@ -268,15 +297,6 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
     this.snackbarService.snackbarFromComponent(SnackbarComponent, data)
     this.loading = false;
     this.changeDetectorRef.detectChanges()
-  }
-
-  private fetchUserUniversities() {
-    this.httpService.get('user/universities').pipe(
-      take(1),
-    ).subscribe((data: University[]) => {
-      this.userUniversities = data;
-      this.filteredUniversities = this.userUniversities;
-    })
   }
 
   private observeUniversityInputChanged() {
@@ -303,8 +323,14 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
+  private projectId$() {
+    return this.route.params.pipe(
+      map((params) => params['id']),
+      take(1)
+    )
+  }
+
   ngOnDestroy() {
     this.positionsService.resetService();
   }
-
 }

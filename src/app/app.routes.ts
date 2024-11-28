@@ -41,6 +41,12 @@ export const routes: Routes = [
           .then(m => m.AddNewProjectComponent),
       },
       {
+        path: 'projects/edit-project/:id',
+        canActivate: [adminGuard],
+        loadComponent: () => import('./components/edit-project/edit-project.component')
+          .then(m => m.EditProjectComponent),
+      },
+      {
         path: 'projects/:id', loadComponent: () => import('./components/project-details/project-details.component')
           .then(m => m.ProjectDetailsComponent),
       },

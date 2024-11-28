@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 
 export interface DefinedPosition {
+  id?: string
   name: string
   quantity: number
 }
@@ -19,6 +20,11 @@ export class PositionsService {
 
   getProjectPositions() {
     return this.positions;
+  }
+
+  setAlreadyDefinedPositions(positions: DefinedPosition[]) {
+    this.positions = positions.map((position) => ({id: position.id, name: position.name, quantity: position.quantity}))
+    this.renewData$.next()
   }
 
   addNewPosition(name: string) {
@@ -46,7 +52,7 @@ export class PositionsService {
     position.quantity--
   }
 
-  resetService(){
+  resetService() {
     this.positions = [];
   }
 }

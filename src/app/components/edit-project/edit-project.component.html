@@ -1,13 +1,25 @@
-<form class="flex flex-col h-full" (ngSubmit)="saveNewProject()" [formGroup]="newProjectFormGroup">
+<form class="flex flex-col h-full" (ngSubmit)="editProject()" [formGroup]="editProjectFormGroup">
   <div class="flex justify-between">
     <div class="flex items-center mb-8">
       <div class="relative mr-2.5">
         <input type="file" hidden accept="image/*" #imageInput (change)="uploadImage($event)">
-        <img [ngSrc]="uploadedPhoto ? uploadedPhoto.src : 'assets/icons/ellipse-avatar.svg'"
-             class="w-12 h-12 rounded-3xl"
-             alt="project photo"
-             width="48"
-             height="48">
+        @if (uploadedPhoto) {
+          <img [ngSrc]="uploadedPhoto ? uploadedPhoto.src : 'assets/icons/ellipse-avatar.svg'"
+               class="w-12 h-12 rounded-3xl"
+               alt="project photo"
+               width="48"
+               height="48">
+        } @else {
+          @if (project && project.photoId) {
+            <app-photo [cssClasses]="'w-12 h-12 rounded-3xl'" [photoId]="project.photoId"/>
+          } @else {
+            <img ngSrc="assets/icons/ellipse-avatar.svg"
+                 alt="project photo"
+                 class="w-12 h-12 rounded-3xl"
+                 width="48"
+                 height="48">
+          }
+        }
         <img class="w-6 h-6 absolute top-0 bottom-0 right-0 left-0 m-auto cursor-pointer hover:scale-110"
              ngSrc="assets/icons/edit-pencil.svg"
              alt="edit-icon"
@@ -106,9 +118,11 @@
       <div class="flex gap-1">
         @for (sponsor of sponsors; track sponsor.name) {
           <div class="relative" [matTooltip]="sponsor.name">
-            @if (sponsor.photo) {
+            @if(sponsor.photo){
               <img [src]="getPhotoUrl(sponsor.photo)" alt="sponsor photo"
                    class="w-16 h-16 object-contain">
+            } @else if (sponsor.photoId){
+              <app-photo [cssClasses]="'w-16 h-16 object-contain'" [photoId]="sponsor.photoId"/>
             }
             <img
                 class="absolute top-0 bottom-0 right-0 left-0 m-auto cursor-pointer hover:scale-110 text-error"

@@ -3,7 +3,7 @@ import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {provideNativeDateAdapter} from "@angular/material/core";
+import {MAT_DATE_LOCALE, provideNativeDateAdapter} from "@angular/material/core";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {authenticationInterceptor} from "./interceptors/authentication.interceptor";
 import {JwtModule} from "@auth0/angular-jwt";
@@ -25,6 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     provideHttpClient(
       withInterceptors([authenticationInterceptor])
     )
