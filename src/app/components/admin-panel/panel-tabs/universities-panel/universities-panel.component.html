@@ -1,1 +1,60 @@
-<p>universities-panel works!</p>
+<table class="table text-primary">
+  <thead class="text-primary">
+  <tr>
+    <th>
+      <label>
+        <input type="checkbox" class="checkbox checkbox-primary" (change)="adjustAllUniversitiesInList($event)"/>
+      </label>
+    </th>
+    <th>Nazwa</th>
+    <th>Liczba opiekunów</th>
+    <th>Liczba przypisanych studentów</th>
+    <th>Liczba prowadzonych projektów</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (university of universities; track university.id) {
+      <tr>
+        <th>
+          <label>
+            <input [checked]="isUniversityAlreadySelected(university.id)" type="checkbox"
+                   class="checkbox checkbox-primary" (change)="adjustUniversityToModify(university.id,$event)"/>
+          </label>
+        </th>
+        <td>
+          {{ university.name }}
+        </td>
+        <td>
+          {{ university.leaders.length }}
+        </td>
+        <td>{{ university.users.length }}</td>
+        <td>
+          {{ university.projects.length }}
+        </td>
+        <td>
+          <img [matMenuTriggerFor]="universityMenu" [matMenuTriggerData]="{id:university.id}" class="cursor-pointer"
+               ngSrc="assets/icons/menu-vertical.svg" alt="university menu icon" height="16" width="4">
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+<div class="absolute right-10 bottom-10" [matMenuTriggerFor]="menu">
+  <button class="btn btn-primary btn-circle text-neutral mt-1 cursor-pointer">
+    <img ngSrc="assets/icons/menu.svg" alt="menu" height="20" width="16">
+  </button>
+  <mat-menu #menu="matMenu" yPosition="above" xPosition="before"
+            class="dropdown-content menu p-2 border-solid border-secondary border shadow text-primary">
+    <li><a (click)="deleteAllMarkedUniversities()" class="text-error">Usuń wybrane pozycje</a></li>
+    <li><a (click)="addUniversity()">Dodaj uczelnie</a></li>
+  </mat-menu>
+</div>
+
+<mat-menu #universityMenu="matMenu" yPosition="above" xPosition="before"
+          class="dropdown-content menu border-solid border-secondary border shadow text-primary">
+  <ng-template matMenuContent let-universityId="id">
+    <li><a (click)="editUniversity(universityId)">Edytuj</a></li>
+    <li><a class="text-error" (click)="deleteUniversity(universityId)">Usuń</a></li>
+  </ng-template>
+</mat-menu>

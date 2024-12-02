@@ -8,7 +8,7 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import {LoaderComponent} from "../shared/loader/loader.component";
 import {HttpService} from "../../shared/service/http.service";
 import {take} from "rxjs";
-import {University} from "../../shared/constants/university";
+import {UniversityWithProjects} from "../../shared/constants/university";
 
 @Component({
   selector: 'app-university-view',
@@ -30,7 +30,7 @@ import {University} from "../../shared/constants/university";
 export class UniversityViewComponent implements OnInit {
 
   fetching = true
-  university!: University;
+  university!: UniversityWithProjects;
   private universityId: string = ''
 
   constructor(private readonly httpService: HttpService,
@@ -52,7 +52,7 @@ export class UniversityViewComponent implements OnInit {
   }
 
   private fetchUniversityProjects() {
-    this.httpService.get(`universities/${this.universityId}`).subscribe((university: University) => {
+    this.httpService.get(`universities/${this.universityId}`).subscribe((university: UniversityWithProjects) => {
       this.university = university
       this.fetching = false;
       this.changeDetectorRef.detectChanges()

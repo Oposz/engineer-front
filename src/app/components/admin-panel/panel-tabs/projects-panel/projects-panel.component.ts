@@ -12,6 +12,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {SnackbarComponent, SnackbarData} from "../../../shared/snackbar/snackbar.component";
 import {SnackbarService} from "../../../../shared/service/snackbar.service";
 import {RouterLink} from "@angular/router";
+import {LoaderComponent} from "../../../shared/loader/loader.component";
 
 @Component({
   selector: 'app-projects-panel',
@@ -27,14 +28,15 @@ import {RouterLink} from "@angular/router";
     MatMenu,
     MatMenuTrigger,
     MatMenuContent,
-    RouterLink
+    RouterLink,
+    LoaderComponent
   ],
   templateUrl: './projects-panel.component.html',
   styleUrl: './projects-panel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsPanelComponent implements OnInit {
-
+  fetching = true;
   projects: ProjectWithUni[] = []
   projectsToModify: string[] = []
 
@@ -48,6 +50,7 @@ export class ProjectsPanelComponent implements OnInit {
   ngOnInit() {
     this.httpService.get('projects/all').subscribe((projects: ProjectWithUni[]) => {
       this.projects = projects;
+      this.fetching = false;
       this.changeDetectorRef.detectChanges();
     })
   }
@@ -94,7 +97,7 @@ export class ProjectsPanelComponent implements OnInit {
   }
 
   deleteAllMarkedProjects() {
-    this.httpService.patch(`projects/delete-all`, {projectIds: this.projectsToModify}).subscribe({
+    this.httpService.patch(`projects/delete-many`, {projectIds: this.projectsToModify}).subscribe({
       next: () => {
         this.projects = this.projects.filter(project =>
           !this.projectsToModify.includes(project.id)

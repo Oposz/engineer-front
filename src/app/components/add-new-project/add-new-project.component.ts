@@ -23,7 +23,7 @@ import {debounceTime, forkJoin, of, switchMap, take} from "rxjs";
 import {HttpService} from "../../shared/service/http.service";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {NgScrollbar} from "ngx-scrollbar";
-import {University} from "../../shared/constants/university";
+import {UniversityWithLeaders} from "../../shared/constants/university";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {Leader} from "../../shared/constants/leader";
 import {DateMaskDirective} from "../shared/quick-filters/date-mask.directive";
@@ -93,8 +93,8 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
 
   uploadedPhoto!: { file: File, src: string }
 
-  userUniversities: University[] = []
-  filteredUniversities: University[] = [];
+  userUniversities: UniversityWithLeaders[] = []
+  filteredUniversities: UniversityWithLeaders[] = [];
 
   universityLeaders: Leader[] = [];
 
@@ -273,7 +273,7 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
   private fetchUserUniversities() {
     this.httpService.get('user/universities').pipe(
       take(1),
-    ).subscribe((data: University[]) => {
+    ).subscribe((data: UniversityWithLeaders[]) => {
       this.userUniversities = data;
       this.filteredUniversities = this.userUniversities;
     })

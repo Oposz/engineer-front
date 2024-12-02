@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
-import {University} from "../../../shared/constants/university";
+import {UniversityWithProjects} from "../../../shared/constants/university";
 import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {PhotoComponent} from "../../shared/photo/photo.component";
@@ -21,7 +21,7 @@ import {HttpService} from "../../../shared/service/http.service";
 export class UniversityCardComponent {
 
   @Input({required: true})
-  university!: University
+  university!: UniversityWithProjects
 
   @Input()
   withFavouriteFeature: boolean = true;

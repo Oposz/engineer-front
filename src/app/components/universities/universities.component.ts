@@ -4,7 +4,7 @@ import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
 import {NgScrollbar} from "ngx-scrollbar";
 import {ProjectCardComponent} from "../open-projects/project-card/project-card.component";
 import {UniversityCardComponent} from "./university-card/university-card.component";
-import {University} from "../../shared/constants/university";
+import {UniversityWithProjects} from "../../shared/constants/university";
 import {take} from "rxjs";
 import {HttpService} from "../../shared/service/http.service";
 import {LoaderComponent} from "../shared/loader/loader.component";
@@ -27,8 +27,8 @@ import {LoaderComponent} from "../shared/loader/loader.component";
 export class UniversitiesComponent implements OnInit {
   fetching = true;
 
-  renderedUniversities: University[] = [];
-  allUniversities: University[] = [];
+  renderedUniversities: UniversityWithProjects[] = [];
+  allUniversities: UniversityWithProjects[] = [];
 
   constructor(
     private readonly httpService: HttpService,
@@ -66,7 +66,7 @@ export class UniversitiesComponent implements OnInit {
   private getAllUniversities() {
     this.httpService.get('universities').pipe(
       take(1)
-    ).subscribe((universities: University[]) => {
+    ).subscribe((universities: UniversityWithProjects[]) => {
       this.allUniversities = universities.sort((a, b) => a.name.localeCompare(b.name));
       this.renderedUniversities = this.allUniversities;
       this.fetching = false;

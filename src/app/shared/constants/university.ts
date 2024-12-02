@@ -5,8 +5,20 @@ export interface University {
   id: string,
   name: string,
   description: string,
-  projects: Project[],
   favourite: boolean,
-  photoId?: string
+  photoId?: string,
+}
+
+export interface UniversityWithLeaders extends University {
   leaders: Leader[]
+}
+
+export interface UniversityWithProjects extends University {
+  projects: Project[]
+}
+
+export interface DetailedUniversity extends University {
+  projects: Project[],
+  leaders: Leader[],
+  users: string[],
 }

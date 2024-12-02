@@ -26,7 +26,7 @@ import {PhotoComponent} from "../shared/photo/photo.component";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatDialog} from "@angular/material/dialog";
 import {UploadService} from "../../shared/service/upload.service";
-import {University} from "../../shared/constants/university";
+import {University, UniversityWithLeaders} from "../../shared/constants/university";
 import {Leader} from "../../shared/constants/leader";
 import {newProjectGroup, SponsorData} from "../add-new-project/add-new-project.component";
 import {DefinedPosition, PositionsService} from "../add-new-project/positions.service";
@@ -78,8 +78,8 @@ export class EditProjectComponent implements OnInit, OnDestroy {
 
   uploadedPhoto!: { file: File, src: string }
 
-  userUniversities: University[] = []
-  filteredUniversities: University[] = [];
+  userUniversities: UniversityWithLeaders[] = []
+  filteredUniversities: UniversityWithLeaders[] = [];
 
   universityLeaders: Leader[] = [];
 
@@ -153,7 +153,7 @@ export class EditProjectComponent implements OnInit, OnDestroy {
         project: this.httpService.get(`projects/${projectId}`),
         universities: this.httpService.get('user/universities')
       }))
-    ).subscribe(({project, universities}: { project: Project, universities: University[] }) => {
+    ).subscribe(({project, universities}: { project: Project, universities: UniversityWithLeaders[] }) => {
       this.project = structuredClone(project);
       this.userUniversities = universities;
       this.filteredUniversities = this.userUniversities;

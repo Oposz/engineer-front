@@ -1,0 +1,49 @@
+<div class="p-4 flex flex-col justify-center items-center text-center">
+  <h2 class="font-medium text-xl text-primary">{{ templateVariant === 'edit' ? 'Edytuj' : 'Dodaj' }} uczelnie</h2>
+  <form class="w-full" (ngSubmit)="submitForm()" [formGroup]="newUniFormGroup">
+    <label class="w-full">
+      <div class="label">
+        <span class="label-text text-primary font-normal text-xs">Nazwa uczelni</span>
+      </div>
+      <input type="text" placeholder="Nazwa uczelni" formControlName="name"
+             class="input input-bordered input-secondary w-full mb-2"
+             [class.input-error]="getFormGroupControls().name.errors && validate"/>
+    </label>
+    <label class="w-full">
+      <div class="label">
+        <span class="label-text text-primary font-normal text-xs">Opis uczelni (opcjonalny)</span>
+      </div>
+      <textarea formControlName="description"
+                class="textarea textarea-secondary w-full h-20 resize-none text-md"
+                placeholder="Opis..."></textarea>
+    </label>
+    <label class="w-full">
+      <div class="label">
+        <span class="label-text text-primary font-normal text-xs">Zdjęcie uczelni</span>
+      </div>
+      <div class="flex items-center gap-2 mb-4">
+        @if (templateVariant === 'edit' && dialogData.university.photoId && !uploadedPhoto) {
+          <app-photo [cssClasses]="'w-9 h-9 rounded-3xl'" [photoId]="dialogData.university.photoId"/>
+        }
+        <input type="file" accept="image/*" (change)="uploadImage($event)"
+               class="file-input file-input-bordered file-input-primary w-full"/>
+      </div>
+    </label>
+    <button type="submit" class="btn btn-primary">
+      @if (loading) {
+        <span class="loading loading-spinner"></span>
+      } @else {
+        @if (templateVariant === 'edit') {
+          Zapisz
+        } @else {
+          Dodaj
+        }
+      }
+    </button>
+  </form>
+  <button class="btn btn-circle btn-sm absolute top-3.5 right-4" mat-dialog-close
+          [matDialogClose]="{result:ModalOutcome.ABANDON}">
+    <img ngSrc="assets/icons/x-mark.svg" alt="close"
+         height="13" width="13">
+  </button>
+</div>
