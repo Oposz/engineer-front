@@ -28,11 +28,11 @@
     }
   </div>
 
-  <input [value]="Tabs.CARDS"
-         type="radio" name="my_tabs_2" role="tab" class="tab text-primary font-semibold" aria-label="Wizytówki"/>
+  <input [value]="Tabs.LEADERS" [(ngModel)]="tabControl"
+         type="radio" name="my_tabs_2" role="tab" class="tab text-primary font-semibold" aria-label="Liderzy"/>
   <div role="tabpanel" class="tab-content border-primary rounded-box p-6">
-    @if (tabControl === Tabs.CARDS) {
-      dupa
+    @if (tabControl === Tabs.LEADERS) {
+      <app-leaders-panel/>
     }
   </div>
 </div>

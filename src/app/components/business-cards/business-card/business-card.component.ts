@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input} from '@angular/core';
-import {BusinessCard} from "../../../shared/constants/businessCard";
+import {LeaderCard} from "../../../shared/constants/leaderCard";
 import {NgOptimizedImage} from "@angular/common";
 import {PhotoComponent} from "../../shared/photo/photo.component";
 import {take} from "rxjs";
@@ -17,7 +17,7 @@ import {HttpService} from "../../../shared/service/http.service";
 })
 export class BusinessCardComponent {
   @Input({required: true})
-  cardData!: BusinessCard
+  cardData!: LeaderCard
 
   constructor(
     private readonly httpService: HttpService,

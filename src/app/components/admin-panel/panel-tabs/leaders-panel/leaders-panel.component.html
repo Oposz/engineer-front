@@ -1,0 +1,64 @@
+<table class="table text-primary">
+  <thead class="text-primary">
+  <tr>
+    <th>
+      <label>
+        <input type="checkbox" class="checkbox checkbox-primary" (change)="adjustAllLeadersInList($event)"/>
+      </label>
+    </th>
+    <th>Nazwa</th>
+    <th>Uczelnia</th>
+    <th>Liczba prowadzonych projektów</th>
+    <th>Liczba przypisanych studentów</th>
+    <th>Katedra</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (leader of leaders; track leader.id) {
+      <tr>
+        <th>
+          <label>
+            <input [checked]="isLeaderAlreadySelected(leader.id)" type="checkbox"
+                   class="checkbox checkbox-primary" (change)="adjustLeaderToModify(leader.id,$event)"/>
+          </label>
+        </th>
+        <td>
+          {{ leader.name }} {{ leader.lastName }}
+        </td>
+        <td>
+          {{ leader.university.name }}
+        </td>
+        <td>
+          {{ leader.projects.length }}
+        </td>
+        <td>{{ getAllUsersAssigned(leader.projects) }}</td>
+        <td>
+          {{ leader.department }}
+        </td>
+        <td>
+          <img [matMenuTriggerFor]="leaderMenu" [matMenuTriggerData]="{id:leader.id}" class="cursor-pointer"
+               ngSrc="assets/icons/menu-vertical.svg" alt="leader menu icon" height="16" width="4">
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+<div class="absolute right-10 bottom-10" [matMenuTriggerFor]="menu">
+  <button class="btn btn-primary btn-circle text-neutral mt-1 cursor-pointer">
+    <img ngSrc="assets/icons/menu.svg" alt="menu" height="20" width="16">
+  </button>
+  <mat-menu #menu="matMenu" yPosition="above" xPosition="before"
+            class="dropdown-content menu p-2 border-solid border-secondary border shadow text-primary">
+    <li><a (click)="deleteAllMarkedLeaders()" class="text-error">Usuń wybrane pozycje</a></li>
+    <li><a (click)="addLeader()">Dodaj lidera</a></li>
+  </mat-menu>
+</div>
+
+<mat-menu #leaderMenu="matMenu" yPosition="above" xPosition="before"
+          class="dropdown-content menu border-solid border-secondary border shadow text-primary">
+  <ng-template matMenuContent let-leaderId="id">
+    <li><a (click)="editLeader(leaderId)">Edytuj</a></li>
+    <li><a class="text-error" (click)="deleteLeader(leaderId)">Usuń</a></li>
+  </ng-template>
+</mat-menu>

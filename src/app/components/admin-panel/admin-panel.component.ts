@@ -5,11 +5,12 @@ import {ProjectsPanelComponent} from "./panel-tabs/projects-panel/projects-panel
 import {PanelActionsComponent} from "./shared/panel-actions/panel-actions.component";
 import {UniversitiesPanelComponent} from "./panel-tabs/universities-panel/universities-panel.component";
 import {FormsModule} from "@angular/forms";
+import {LeadersPanelComponent} from "./panel-tabs/leaders-panel/leaders-panel.component";
 
 enum Tabs {
   PROJECTS,
   UNIVERSITIES,
-  CARDS
+  LEADERS
 }
 
 @Component({
@@ -21,7 +22,8 @@ enum Tabs {
     ProjectsPanelComponent,
     PanelActionsComponent,
     UniversitiesPanelComponent,
-    FormsModule
+    FormsModule,
+    LeadersPanelComponent
   ],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.scss'

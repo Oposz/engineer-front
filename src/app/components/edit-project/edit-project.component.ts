@@ -268,7 +268,9 @@ export class EditProjectComponent implements OnInit, OnDestroy {
     this.getFormGroupControls().projectName.setValue(project.name);
     this.getFormGroupControls().description.setValue(project.description);
     const university = universities.find((university) => university.id === project.leadingUniversityId)?.name
-    this.getFormGroupControls().university.setValue(university!);
+    if (university){
+      this.getFormGroupControls().university.setValue(university);
+    }
     this.getFormGroupControls().leader.setValue(project.leader);
     if (project.dueTo) {
       const date = new Date(project.dueTo);
