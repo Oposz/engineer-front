@@ -28,4 +28,8 @@ export class UserFavouritesService {
   setUserFavs(favs: string[]) {
     this.userFavs = favs;
   }
+
+  reset() {
+    this.userFavs = [];
+  }
 }

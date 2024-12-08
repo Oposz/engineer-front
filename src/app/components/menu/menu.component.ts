@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
-import {AsyncPipe, JsonPipe, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgOptimizedImage} from "@angular/common";
 import {NavTabComponent} from "./nav-tab/nav-tab.component";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {HttpService} from "../../shared/service/http.service";
 import {map, Observable} from "rxjs";
 import {User} from "../../shared/constants/user";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {MatButton} from "@angular/material/button";
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {UserRole} from "../../shared/constants/userRole";
 
 @Component({
@@ -19,11 +18,8 @@ import {UserRole} from "../../shared/constants/userRole";
     RouterLink,
     RouterLinkActive,
     AsyncPipe,
-    JsonPipe,
     MatMenuTrigger,
-    MatButton,
-    MatMenu,
-    MatMenuItem
+    MatMenu
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
