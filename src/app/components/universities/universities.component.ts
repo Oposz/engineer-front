@@ -2,12 +2,12 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {QuickFiltersComponent, SortingMode} from "../shared/quick-filters/quick-filters.component";
 import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
 import {NgScrollbar} from "ngx-scrollbar";
-import {ProjectCardComponent} from "../open-projects/project-card/project-card.component";
 import {UniversityCardComponent} from "./university-card/university-card.component";
 import {UniversityWithProjects} from "../../shared/constants/university";
 import {take} from "rxjs";
 import {HttpService} from "../../shared/service/http.service";
 import {LoaderComponent} from "../shared/loader/loader.component";
+import {UserFavouritesService} from "../../shared/service/user-favourites.service";
 
 @Component({
   selector: 'app-universities',
@@ -16,7 +16,6 @@ import {LoaderComponent} from "../shared/loader/loader.component";
     QuickFiltersComponent,
     ViewHeaderComponent,
     NgScrollbar,
-    ProjectCardComponent,
     UniversityCardComponent,
     LoaderComponent
   ],
@@ -32,7 +31,8 @@ export class UniversitiesComponent implements OnInit {
 
   constructor(
     private readonly httpService: HttpService,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly userFavouritesService: UserFavouritesService
   ) {
   }
 
@@ -41,8 +41,11 @@ export class UniversitiesComponent implements OnInit {
   }
 
   filterFavourites(favouritesVisible: boolean) {
-    if (favouritesVisible) {
-      this.renderedUniversities = this.allUniversities.filter((university) => university.favourite)
+    const userFavs = this.userFavouritesService.getUserFavs();
+    if (favouritesVisible && userFavs) {
+      this.renderedUniversities = this.allUniversities.filter((university) =>
+        userFavs.includes(university.id)
+      );
     } else {
       this.renderedUniversities = this.allUniversities;
     }

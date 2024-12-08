@@ -1,19 +1,18 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NgScrollbar} from "ngx-scrollbar";
-import {ProjectCardComponent} from "../open-projects/project-card/project-card.component";
 import {QuickFiltersComponent, SortingMode} from "../shared/quick-filters/quick-filters.component";
 import {ViewHeaderComponent} from "../shared/view-header/view-header.component";
 import {LeaderCard} from "../../shared/constants/leaderCard";
 import {BusinessCardComponent} from "./business-card/business-card.component";
 import {take} from "rxjs";
 import {HttpService} from "../../shared/service/http.service";
+import {UserFavouritesService} from "../../shared/service/user-favourites.service";
 
 @Component({
   selector: 'app-business-cards',
   standalone: true,
   imports: [
     NgScrollbar,
-    ProjectCardComponent,
     QuickFiltersComponent,
     ViewHeaderComponent,
     BusinessCardComponent
@@ -28,7 +27,9 @@ export class BusinessCardsComponent implements OnInit {
   allBusinessCards: LeaderCard[] = [];
 
   constructor(private readonly httpService: HttpService,
-              private readonly changeDetectorRef: ChangeDetectorRef) {
+              private readonly changeDetectorRef: ChangeDetectorRef,
+              private readonly userFavouritesService: UserFavouritesService
+  ) {
   }
 
   ngOnInit() {
@@ -36,8 +37,11 @@ export class BusinessCardsComponent implements OnInit {
   }
 
   filterFavourites(favouritesVisible: boolean) {
-    if (favouritesVisible) {
-      this.renderedCards = this.allBusinessCards.filter((card) => card.favourite)
+    const userFavs = this.userFavouritesService.getUserFavs();
+    if (favouritesVisible && userFavs) {
+      this.renderedCards = this.allBusinessCards.filter((leaderCard) =>
+        userFavs.includes(leaderCard.id)
+      );
     } else {
       this.renderedCards = this.allBusinessCards;
     }

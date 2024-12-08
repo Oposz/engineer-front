@@ -4,9 +4,9 @@ import {QuickFiltersComponent, SortingMode} from "../shared/quick-filters/quick-
 import {ProjectCardComponent} from "./project-card/project-card.component";
 import {Project} from "../../shared/constants/project";
 import {NgScrollbar} from "ngx-scrollbar";
-import {RouterLink} from "@angular/router";
 import {HttpService} from "../../shared/service/http.service";
 import {LoaderComponent} from "../shared/loader/loader.component";
+import {UserFavouritesService} from "../../shared/service/user-favourites.service";
 
 @Component({
   selector: 'app-open-projects',
@@ -16,7 +16,6 @@ import {LoaderComponent} from "../shared/loader/loader.component";
     QuickFiltersComponent,
     ProjectCardComponent,
     NgScrollbar,
-    RouterLink,
     LoaderComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +31,8 @@ export class OpenProjectsComponent implements OnInit {
 
   constructor(
     private readonly httpService: HttpService,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly userFavouritesService: UserFavouritesService
   ) {
   }
 
@@ -41,8 +41,11 @@ export class OpenProjectsComponent implements OnInit {
   }
 
   filterFavourites(favouritesVisible: boolean) {
-    if (favouritesVisible) {
-      this.renderedProjects = this.allProjects.filter((project) => project.favourite)
+    const userFavs = this.userFavouritesService.getUserFavs();
+    if (favouritesVisible && userFavs) {
+      this.renderedProjects = this.allProjects.filter((project) =>
+        userFavs.includes(project.id)
+      );
     } else {
       this.renderedProjects = this.allProjects;
     }

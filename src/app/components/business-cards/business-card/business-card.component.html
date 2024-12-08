@@ -11,7 +11,7 @@
     }
     <p class="text-primary font-semibold text-2xl">{{ cardData.title }} {{ cardData.name }} {{ cardData.lastName }}</p>
   </div>
-  @if (cardData.favourite) {
+  @if (isFavourite) {
     <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-filled.svg"
          alt="favourite" height="32" width="32">
   } @else {

@@ -18,7 +18,6 @@ export interface Project {
   name: string
   description: string
   photoId: string
-  favourite: boolean
   availableSlots: number
   dueTo?: string
   leadingUniversityId: string

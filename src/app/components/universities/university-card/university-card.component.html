@@ -13,7 +13,7 @@
        [routerLink]="'/universities/'+university.id">{{ university.name }}</p>
   </div>
   @if (withFavouriteFeature) {
-    @if (university.favourite) {
+    @if (isFavourite) {
       <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-filled.svg"
            alt="favourite" height="32" width="32">
     } @else {

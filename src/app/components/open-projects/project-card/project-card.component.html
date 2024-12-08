@@ -5,14 +5,14 @@
     } @else {
       <img ngSrc="assets/icons/ellipse-avatar.svg"
            alt="project photo"
-           class="w-9 h-9 rounded-3xl"
+           class="w-9 h-9 rounded-3xl mr-2.5"
            width="36"
            height="36">
     }
     <p class="text-primary font-semibold text-2xl cursor-pointer"
        [routerLink]="'/projects/'+project.id">{{ project.name }}</p>
   </div>
-  @if (project.favourite) {
+  @if (isFavourite) {
     <img class="w-8 h-8 cursor-pointer" (click)="toggleFavProperty()" ngSrc="assets/icons/star-filled.svg"
          alt="favourite" height="32" width="32">
   } @else {

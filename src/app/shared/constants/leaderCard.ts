@@ -11,7 +11,6 @@ export interface LeaderCard {
   email: string,
   phoneNumber: string,
   photoId?: string
-  favourite: boolean
 }
 
 export interface DetailedLeaderCard extends LeaderCard {

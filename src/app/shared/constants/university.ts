@@ -5,7 +5,6 @@ export interface University {
   id: string,
   name: string,
   description: string,
-  favourite: boolean,
   photoId?: string,
 }
 

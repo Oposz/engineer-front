@@ -20,7 +20,7 @@
                 [thumbClass]="'!rounded-lg !bg-primary'">
     <div class="p-4 grid grid-cols-1 gap-4">
       @for (uni of renderedUniversities; track uni.id) {
-        <app-university-card [university]="uni"/>
+        <app-university-card [university]="uni" />
       }
     </div>
   </ng-scrollbar>
