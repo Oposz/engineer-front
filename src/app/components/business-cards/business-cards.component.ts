@@ -7,6 +7,7 @@ import {BusinessCardComponent} from "./business-card/business-card.component";
 import {take} from "rxjs";
 import {HttpService} from "../../shared/service/http.service";
 import {UserFavouritesService} from "../../shared/service/user-favourites.service";
+import {LoaderComponent} from "../shared/loader/loader.component";
 
 @Component({
   selector: 'app-business-cards',
@@ -15,14 +16,15 @@ import {UserFavouritesService} from "../../shared/service/user-favourites.servic
     NgScrollbar,
     QuickFiltersComponent,
     ViewHeaderComponent,
-    BusinessCardComponent
+    BusinessCardComponent,
+    LoaderComponent
   ],
   templateUrl: './business-cards.component.html',
   styleUrl: './business-cards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BusinessCardsComponent implements OnInit {
-
+  fetching = true;
   renderedCards: LeaderCard[] = []
   allBusinessCards: LeaderCard[] = [];
 
@@ -73,6 +75,7 @@ export class BusinessCardsComponent implements OnInit {
     ).subscribe((businessCards: LeaderCard[]) => {
       this.allBusinessCards = businessCards.sort((a, b) => a.name.localeCompare(b.name));
       this.renderedCards = this.allBusinessCards;
+      this.fetching = false;
       this.changeDetectorRef.detectChanges();
     })
   }

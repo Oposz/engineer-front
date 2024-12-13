@@ -13,13 +13,20 @@
                    (searchbarValueChanged)="filterCardsByName($event)"
 />
 
-<ng-scrollbar orientation="vertical" visibility="native"
-              [trackClass]="'my-4'"
-              [thumbClass]="'!rounded-lg !bg-primary'">
-  <div class="p-4 grid grid-cols-1 gap-4">
-    @for (card of renderedCards; track card.id) {
-      <app-business-card [cardData]="card"/>
-    }
+@if (fetching) {
+  <app-loader></app-loader>
+} @else if (!allBusinessCards.length) {
+  <div class="flex justify-center items-center h-full">
+    <h2 class="font-semibold text-primary text-2xl">Nie utworzono jeszcze żadnych wizytówek</h2>
   </div>
-</ng-scrollbar>
-
+} @else {
+  <ng-scrollbar orientation="vertical" visibility="native"
+                [trackClass]="'my-4'"
+                [thumbClass]="'!rounded-lg !bg-primary'">
+    <div class="p-4 grid grid-cols-1 gap-4">
+      @for (card of renderedCards; track card.id) {
+        <app-business-card [cardData]="card"/>
+      }
+    </div>
+  </ng-scrollbar>
+}

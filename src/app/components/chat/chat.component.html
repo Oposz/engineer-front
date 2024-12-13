@@ -12,7 +12,7 @@
     (searchbarValueChanged)="searchForChat($event)"
     (newConversationButtonClicked)="openModalForNewConversation()"/>
 
-@if (chats) {
+@if (chats.length) {
   <ng-scrollbar orientation="vertical" visibility="native"
                 [trackClass]="'my-4'"
                 [thumbClass]="'!rounded-lg !bg-primary'">

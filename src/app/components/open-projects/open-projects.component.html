@@ -15,6 +15,10 @@
 
 @if (fetching) {
   <app-loader></app-loader>
+} @else if (!allProjects.length) {
+  <div class="flex justify-center items-center h-full">
+    <h2 class="font-semibold text-primary text-2xl">Nie utworzono jeszcze żadnych projektów</h2>
+  </div>
 } @else {
   <ng-scrollbar orientation="vertical" visibility="native"
                 [trackClass]="'my-4'"

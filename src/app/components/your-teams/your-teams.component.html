@@ -16,7 +16,12 @@
 
 @if (fetching) {
   <app-loader/>
-} @else {
+} @else if (!allTeams.length) {
+  <div class="flex justify-center items-center h-full">
+    <h2 class="font-semibold text-primary text-2xl">Nie jesteś aktualnie w żadnym z zespołów</h2>
+  </div>
+}
+@else {
   <ng-scrollbar orientation="vertical" visibility="native"
                 [trackClass]="'my-4'"
                 [thumbClass]="'!rounded-lg !bg-primary'">
