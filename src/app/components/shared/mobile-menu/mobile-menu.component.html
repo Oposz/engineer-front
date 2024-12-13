@@ -9,7 +9,38 @@
   <div class="drawer-side">
     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 min-h-full bg-primary text-neutral">
-      <!-- Sidebar content here -->
+      <div class="h-full px-4 py-5 flex flex-col gap-3 text-2xl">
+        <app-nav-tab [routerLink]="'/teams'" routerLinkActive="font-extrabold">
+          <img ngSrc="assets/icons/your-teams.svg" alt="icon" height="24" width="24">
+          Twoje zespoły
+        </app-nav-tab>
+        <app-nav-tab [routerLink]="'/projects'" routerLinkActive="font-extrabold">
+          <img ngSrc="assets/icons/folder-open.svg" alt="icon" height="24" width="24">
+          Otwarte projekty
+        </app-nav-tab>
+        <app-nav-tab [routerLink]="'/universities'" routerLinkActive="font-extrabold">
+          <img ngSrc="assets/icons/university.svg" alt="icon" height="24" width="24">
+          Uczelnie
+        </app-nav-tab>
+        <!--  <app-nav-tab [routerLink]="'/calendar'" routerLinkActive="font-extrabold">-->
+        <!--    <img ngSrc="assets/icons/calendar.svg" alt="icon" height="24" width="24">-->
+        <!--    Kalendarz-->
+        <!--  </app-nav-tab>-->
+        <app-nav-tab [routerLink]="'/cards'" routerLinkActive="font-extrabold">
+          <img ngSrc="assets/icons/badge.svg" alt="icon" height="24" width="24">
+          Wizytówki
+        </app-nav-tab>
+        <app-nav-tab [routerLink]="'/chats'" routerLinkActive="font-extrabold">
+          <img ngSrc="assets/icons/chat.svg" alt="icon" height="24" width="24">
+          Wiadomości
+        </app-nav-tab>
+        @if (admin === UserRole.ADMIN) {
+          <app-nav-tab [routerLink]="'/panel'" routerLinkActive="font-extrabold">
+            <img ngSrc="assets/icons/panel.svg" alt="icon" height="24" width="24">
+            Panel admina
+          </app-nav-tab>
+        }
+      </div>
     </ul>
   </div>
 </div>

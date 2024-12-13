@@ -1,11 +1,12 @@
-<div class="relative w-5/12 max-w-md form-control">
-  <img class="absolute m-auto top-0 bottom-0 right-3" ngSrc="assets/icons/search.svg" alt="search" height="24"
-       width="24">
-  <input [formControl]="searchbarControl" type="text" placeholder="Search..."
-         class="input input-bordered input-secondary w-full"/>
-</div>
 
-<div class="flex justify-end gap-3 w-full items-center">
+
+<div class="flex justify-end gap-3 w-full items-center flex-wrap">
+  <div class="relative w-full lg:w-5/12 max-w-md form-control lg:mr-auto">
+    <img class="absolute m-auto top-0 bottom-0 right-3" ngSrc="assets/icons/search.svg" alt="search" height="24"
+         width="24">
+    <input [formControl]="searchbarControl" type="text" placeholder="Search..."
+           class="input input-bordered input-secondary w-full"/>
+  </div>
 
   <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle" (click)="toggleAlphabeticalSort()">
     <span class="text-base">A-Z</span>

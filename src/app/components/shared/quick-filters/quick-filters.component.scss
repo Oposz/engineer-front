@@ -1,5 +1,5 @@
 :host {
-  @apply px-4 py-2.5 border-b border-solid border-secondary w-full flex justify-between;
+  @apply px-4 py-2.5 border-b border-solid border-secondary w-full flex justify-between -z-10;
 }
 
 .input {

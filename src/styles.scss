@@ -68,3 +68,7 @@ div.mat-mdc-autocomplete-panel {
     }
   }
 }
+
+ng-scrollbar {
+  @apply -z-10;
+}
