@@ -18,7 +18,11 @@ export class UserFavouritesService {
       return;
     }
     this.httpService.get('user/favourites')
-      .subscribe((data: { favourites: string[] }) => this.userFavs = data.favourites)
+      .subscribe((data: { favourites: string[] }) => {
+        if (data){
+          this.userFavs = data.favourites
+        }
+      })
   }
 
   getUserFavs() {
