@@ -9,7 +9,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import {AsyncPipe, NgOptimizedImage} from "@angular/common";
+import {NgOptimizedImage} from "@angular/common";
 import {NewPositionComponent} from "./new-position/new-position.component";
 import {
   MatDatepicker,
@@ -72,7 +72,6 @@ export type SponsorData = {
     MatOption,
     NgScrollbar,
     ReactiveFormsModule,
-    AsyncPipe,
     DateMaskDirective,
     MatTooltip
   ],
@@ -168,12 +167,12 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
       this.tooltip.toggle()
       return;
     }
-    const sponsorPhotos = this.sponsors.map((sponsor) => {
+    const sponsorPhotos$ = this.sponsors.map((sponsor) => {
       return this.uploadService.uploadFile$(sponsor.photo!)
     })
 
     const uploadFiles = [
-      ...sponsorPhotos,
+      ...sponsorPhotos$,
       this.uploadedPhoto ? this.uploadService.uploadFile$(this.uploadedPhoto.file) : of(null)
     ]
 
