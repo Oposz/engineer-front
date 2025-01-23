@@ -165,6 +165,7 @@ export class AddNewProjectComponent implements OnInit, OnDestroy {
     if (!this.newProjectFormGroup.valid) {
       this.validate = true;
       this.tooltip.toggle()
+      this.loading = false;
       return;
     }
     const sponsorPhotos$ = this.sponsors.map((sponsor) => {

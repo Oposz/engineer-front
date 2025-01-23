@@ -6,7 +6,7 @@
   <input type="text" placeholder="Nazwa użytkownika" [formControl]="search"
          class="input input-bordered input-secondary w-full mb-4"/>
 
-  <div class="w-full max-h-48 mb-4">
+  <div class="w-full h-48 mb-4">
     <ng-scrollbar orientation="vertical" visibility="native"
                   [thumbClass]="'!rounded-lg !bg-primary'">
       @for (user of filteredUsers; track user.id) {

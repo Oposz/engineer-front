@@ -29,10 +29,10 @@
                   [position]="'invertX'"
                   [trackClass]="'my-4'"
                   [thumbClass]="'!rounded-lg !bg-primary'" #scroll>
-      <div class="px-1 py-4">
+      <div class="px-2 py-4">
         @for (msg of chat.messages; track msg.id) {
           <div class="chat mb-1 flex flex-col" [ngClass]="msg.userId===loggedUserId? 'chat-end':'chat-start'">
-            <p class="text-xs text-secondary ml-1">{{getUserName(msg.userId)}}</p>
+            <p class="text-xs text-secondary mr-1">{{getUserName(msg.userId)}}</p>
             <div class="chat-bubble">{{ msg.content }}</div>
           </div>
         }

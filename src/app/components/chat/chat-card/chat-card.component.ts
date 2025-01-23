@@ -46,9 +46,8 @@ export class ChatCardComponent implements OnInit {
     }
     const mineLastChatView = this.chat.views.find((view) => view.userId === this.currentlyLoggedUserId())
     if (!mineLastChatView) {
-      return ''
+      return 'font-bold text-primary';
     }
-    ;
     const isChatSeen = new Date(lastMsg.updatedAt) < new Date(mineLastChatView.lastSeen)
     if (!isChatSeen) {
       return 'font-bold text-primary'
