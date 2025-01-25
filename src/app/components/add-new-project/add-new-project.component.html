@@ -1,4 +1,4 @@
-<form class="flex flex-col h-full" (ngSubmit)="saveNewProject()" [formGroup]="newProjectFormGroup">
+<form class="flex flex-col h-full w-full" (ngSubmit)="saveNewProject()" [formGroup]="newProjectFormGroup">
   <div class="flex justify-between">
     <div class="flex items-center mb-8">
       <div class="relative mr-2.5">
@@ -13,13 +13,13 @@
              alt="edit-icon"
              height="24" width="24" (click)="onImageClick()">
       </div>
-      <input type="text" placeholder="Project Name..." formControlName="projectName"
+      <input type="text" placeholder="Nazwa projektu..." formControlName="projectName"
 						 #tooltip="matTooltip"
              [matTooltipDisabled]="!getFormGroupControls().projectName.hasError('minlength')"
              [matTooltip]="'Zbyt krótka nazwa (min 3)'"
              [matTooltipClass]="'error'"
              [class.input-error]="getFormGroupControls().projectName.errors  && validate"
-             class="input input-bordered input-secondary px-3 text-secondary font-semibold text-2xl"/>
+             class="input input-bordered input-secondary px-3 text-secondary font-semibold text-2xl w-3/4 lg:w-auto"/>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="loading">Zapisz</button>
   </div>
@@ -31,7 +31,7 @@
   </div>
   <div class="px-2.5 flex flex-col">
     <p class="text-primary text-base font-semibold mb-2.5">Potrzebne role oraz liczba uczestników:</p>
-    <div class="flex flex-col gap-4 border border-solid border-secondary px-6 py-4 rounded-lg w-2/5">
+    <div class="flex flex-col gap-4 border border-solid border-secondary px-6 py-4 rounded-lg w-full xl:w-2/5">
       <div class="pl-1 max-h-32">
         <ng-scrollbar orientation="vertical" visibility="native"
                       [thumbClass]="'!rounded-lg !bg-primary'">
@@ -54,10 +54,10 @@
 
   <div class="flex flex-col gap-2.5 mt-auto font-semibold text-xl text-primary px-2.5">
     <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
-      <p>Uczelnia:</p>
+      <p class="hidden md:block">Uczelnia:</p>
       <input type="text"
              formControlName="university"
-             class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-2/5"
+             class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-full md:w-2/5"
              placeholder="Uczelnia"
              [class.input-error]="getFormGroupControls().university.errors && validate"
              [matAutocomplete]="uniAuto"/>
@@ -72,10 +72,10 @@
       </mat-autocomplete>
     </div>
     <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
-      <p>Kierownik projektu:</p>
+      <p class="hidden md:block">Kierownik projektu:</p>
       <input type="text"
              formControlName="leader"
-             class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-2/5 disabled"
+             class="input input-bordered input-secondary px-3 text-secondary font-medium text-xl h-10 w-full md:w-2/5 disabled"
              placeholder="Kierownik projektu"
              [class.input-error]="getFormGroupControls().leader.errors && validate"
              [matAutocomplete]="leaderAuto"/>
@@ -91,7 +91,7 @@
     </div>
     <div class="flex border border-solid border-secondary p-2.5 rounded-lg w-full gap-2.5 items-center">
       <p>Terminy oddania projektu:</p>
-      <div class="flex text-primary relative w-44">
+      <div class="flex text-primary relative w-60 md:w-44">
         <input matInput [matDatepicker]="startPicker" placeholder="dd/mm/yyyy" appDateMask formControlName="dueTo"
                class="input input-bordered input-secondary text-secondary h-10 datepicker w-full" [min]="minDate"
                [class.input-error]="getFormGroupControls().dueTo.errors && validate"

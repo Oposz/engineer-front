@@ -1,12 +1,34 @@
 
 
-<div class="flex justify-end gap-3 w-full items-center flex-wrap lg:flex-nowrap">
-  <div class="relative w-full lg:w-5/12 max-w-md form-control lg:mr-auto">
+<div class="flex justify-end gap-3 w-full items-center flex-wrap xl:flex-nowrap">
+  <div class="relative w-full lg:w-5/12 max-w-md form-control xl:mr-auto">
     <img class="absolute m-auto top-0 bottom-0 right-3" ngSrc="assets/icons/search.svg" alt="search" height="24"
          width="24">
     <input [formControl]="searchbarControl" type="text" placeholder="Wyszukaj..."
            class="input input-bordered input-secondary w-full"/>
   </div>
+
+  @if (dateRange) {
+    <div class="flex items-center gap-1">
+      <div class="flex text-primary relative w-44">
+        <input matInput [matDatepicker]="startPicker" placeholder="Startowa data" appDateMask
+               maxlength="10" class="input input-bordered input-secondary text-secondary w-full" (dateChange)="filterStartDueToDate($event)">
+        <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-1 text-secondary" matIconSuffix
+                               [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </div>
+      <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.01 3H0V5H12.01V8L16 4L12.01 0V3Z" fill="#457B9D"/>
+      </svg>
+      <div class="flex text-primary relative w-44">
+        <input matInput [matDatepicker]="endPicker" placeholder="Końcowa data" appDateMask
+               maxlength="10" class="input input-bordered input-secondary text-secondary w-full" (dateChange)="filterEndDueToDate($event)">
+        <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-1 text-secondary" matIconSuffix
+                               [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </div>
+    </div>
+  }
 
   <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle" (click)="toggleAlphabeticalSort()">
     <span class="text-base">A-Z</span>
@@ -39,29 +61,6 @@
       </svg>
     </button>
   }
-
-  @if (dateRange) {
-    <div class="flex items-center gap-1">
-      <div class="flex text-primary relative w-44">
-        <input matInput [matDatepicker]="startPicker" placeholder="Startowa data" appDateMask
-               maxlength="10" class="input input-bordered input-secondary text-secondary w-full" (dateChange)="filterStartDueToDate($event)">
-        <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-1 text-secondary" matIconSuffix
-                               [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker></mat-datepicker>
-      </div>
-      <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12.01 3H0V5H12.01V8L16 4L12.01 0V3Z" fill="#457B9D"/>
-      </svg>
-      <div class="flex text-primary relative w-44">
-        <input matInput [matDatepicker]="endPicker" placeholder="Końcowa data" appDateMask
-               maxlength="10" class="input input-bordered input-secondary text-secondary w-full" (dateChange)="filterEndDueToDate($event)">
-        <mat-datepicker-toggle class="absolute m-auto top-0 bottom-0 right-1 text-secondary" matIconSuffix
-                               [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker></mat-datepicker>
-      </div>
-    </div>
-  }
-
 
   @if (addButton) {
     <button class="btn btn-outline btn-secondary flex items-center btn-svg-toggle"

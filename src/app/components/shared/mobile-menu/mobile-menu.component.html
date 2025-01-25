@@ -9,7 +9,7 @@
   <div class="drawer-side z-10">
     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 min-h-full bg-primary text-neutral">
-      <div class="h-full px-4 py-5 flex flex-col gap-3 text-2xl">
+      <div class="h-full px-4 py-5 flex flex-col gap-3 text-2xl flex-1">
         <app-nav-tab [routerLink]="'/teams'" routerLinkActive="font-extrabold">
           <img ngSrc="assets/icons/your-teams.svg" alt="icon" height="24" width="24">
           Twoje zespoły
@@ -22,10 +22,6 @@
           <img ngSrc="assets/icons/university.svg" alt="icon" height="24" width="24">
           Uczelnie
         </app-nav-tab>
-        <!--  <app-nav-tab [routerLink]="'/calendar'" routerLinkActive="font-extrabold">-->
-        <!--    <img ngSrc="assets/icons/calendar.svg" alt="icon" height="24" width="24">-->
-        <!--    Kalendarz-->
-        <!--  </app-nav-tab>-->
         <app-nav-tab [routerLink]="'/cards'" routerLinkActive="font-extrabold">
           <img ngSrc="assets/icons/badge.svg" alt="icon" height="24" width="24">
           Wizytówki
@@ -40,6 +36,15 @@
             Panel admina
           </app-nav-tab>
         }
+      </div>
+      <div class="px-4 py-5 flex justify-between">
+        <p class="truncate mr-4">{{ userName$ | async }}</p>
+        <img role="button" ngSrc="assets/icons/menu.svg" alt="menu" height="5" width="16" [matMenuTriggerFor]="menu">
+        <mat-menu #menu="matMenu"
+                  class="dropdown-content menu w-40 p-2 border-solid border-secondary border shadow text-primary">
+          <li [routerLink]="'/profile'"><a>Twój profil</a></li>
+          <li (click)="logout()"><a class="text-error logout">Wyloguj</a></li>
+        </mat-menu>
       </div>
     </ul>
   </div>
